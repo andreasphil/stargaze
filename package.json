@@ -12,6 +12,7 @@
     "core-js": "^3.6.4",
     "tailwindcss": "^1.4.6",
     "vue": "^2.6.11",
+    "vue-apollo": "^3.0.0-beta.11",
     "vue-router": "^3.1.6"
   },
   "devDependencies": {
@@ -31,6 +32,8 @@
     "eslint-plugin-promise": "^4.2.1",
     "eslint-plugin-standard": "^4.0.0",
     "eslint-plugin-vue": "^6.2.2",
+    "graphql-tag": "^2.9.0",
+    "vue-cli-plugin-apollo": "~0.21.3",
     "vue-template-compiler": "^2.6.11"
   }
 }

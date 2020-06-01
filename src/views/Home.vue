@@ -1,18 +1,18 @@
 <template>
-  <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png" />
-    <HelloWorld msg="Welcome to Your Vue.js App" />
+  <div>
+    <b-nav />
+    <main class="container px-1 py-8">
+      Landing page will be here
+    </main>
   </div>
 </template>
 
 <script>
-// @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue'
+import BNav from '@/blocks/BNav.vue'
 
 export default {
-  name: 'Home',
   components: {
-    HelloWorld
+    BNav
   }
 }
 </script>

@@ -1,10 +1,7 @@
 <template>
   <nav class="container flex px-4 my-4">
-    <div class="flex-1 flex items-center">
-      ⭐️
-      <span v-if="viewer" class="font-semibold ml-3"
-        >Repositories starred by {{ viewer.name }}</span
-      >
+    <div class="flex-1 flex items-center font-semibold">
+      <span v-if="viewer">Repositories starred by {{ viewer.name }}</span>
     </div>
     <div class="flex-1 flex items-center justify-end">
       <app-button label="Sign out" />

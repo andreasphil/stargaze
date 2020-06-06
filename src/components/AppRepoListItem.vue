@@ -9,7 +9,7 @@
         bg-white
         border
         border-transparent
-        hover:border-yellow-400
+        hover:border-yellow-500
         text-sm
         text-gray-700
         transition-colors

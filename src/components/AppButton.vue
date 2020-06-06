@@ -1,7 +1,7 @@
 <template>
   <button
     class="rounded-lg px-4 py-3 hover:bg-gray-200 focus:outline-none focus:shadow-outline"
-    :class="{ primary }"
+    :class="{ primary, block }"
     @click="$emit('click')"
   >
     {{ label }}
@@ -15,7 +15,8 @@ export default {
       type: String,
       required: true
     },
-    primary: Boolean
+    primary: Boolean,
+    block: Boolean
   }
 }
 </script>
@@ -23,5 +24,9 @@ export default {
 <style scoped>
 .primary {
   @apply bg-gray-800 text-gray-100 font-medium;
+}
+
+.block {
+  @apply w-full;
 }
 </style>

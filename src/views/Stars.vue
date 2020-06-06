@@ -2,13 +2,10 @@
   <div>
     <app-nav />
     <main class="container px-4 my-24">
-      <input
-        class="block text-4xl w-full bg-transparent rounded px-4 py-3 my-24 outline-none placeholder-platinum"
-        :placeholder="searchPlaceholder"
-      />
-
       <app-repo-list v-if="stars" :repositories="stars.edges" />
-      <app-button v-if="hasNext" label="Load next" @click="loadNext" />
+      <div class="mt-6">
+        <app-button v-if="hasNext" label="Load next" block @click="loadNext" />
+      </div>
     </main>
   </div>
 </template>

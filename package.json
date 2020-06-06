@@ -33,6 +33,7 @@
     "eslint-plugin-standard": "^4.0.0",
     "eslint-plugin-vue": "^6.2.2",
     "graphql-tag": "^2.9.0",
+    "netlify-cli": "^2.53.0",
     "vue-cli-plugin-apollo": "~0.21.3",
     "vue-template-compiler": "^2.6.11"
   }

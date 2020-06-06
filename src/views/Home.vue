@@ -14,6 +14,7 @@
 
 <script>
 import AppButton from '@/components/AppButton.vue'
+import { getState, getSignInUrl } from '@/utils/auth.js'
 
 export default {
   components: {
@@ -21,8 +22,13 @@ export default {
   },
 
   methods: {
+    /**
+     * Initiates the OAuth flow by generating the auth page URL and redirecting the user there.
+     */
     signIn() {
-      this.$router.push({ name: 'Stars' })
+      const randomState = getState()
+      const url = getSignInUrl(randomState)
+      window.location.href = url
     }
   }
 }

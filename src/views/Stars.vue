@@ -16,8 +16,6 @@ import AppButton from '@/components/AppButton.vue'
 import AppNav from '@/components/AppNav.vue'
 import gql from 'graphql-tag'
 
-const PAGE_SIZE = 50
-
 export default {
   components: {
     AppRepoList,
@@ -28,9 +26,9 @@ export default {
   apollo: {
     stars: {
       query: gql`
-        query stars($cursor: String, $pageSize: Int) {
+        query stars($cursor: String) {
           viewer {
-            starredRepositories(after: $cursor, first: $pageSize) {
+            starredRepositories(after: $cursor) {
               totalCount
               pageInfo {
                 hasNextPage
@@ -59,7 +57,6 @@ export default {
       `,
       update: data => data.viewer.starredRepositories,
       variables: {
-        pageSize: PAGE_SIZE,
         cursor: undefined
       }
     }
@@ -79,7 +76,6 @@ export default {
     loadNext() {
       this.$apollo.queries.stars.fetchMore({
         variables: {
-          pageSize: PAGE_SIZE,
           cursor: this.stars.pageInfo.endCursor
         },
         updateQuery: (before, { fetchMoreResult }) => {

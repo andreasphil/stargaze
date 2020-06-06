@@ -4,7 +4,7 @@
       <span v-if="viewer">Repositories starred by {{ viewer.name }}</span>
     </div>
     <div class="flex-1 flex items-center justify-end">
-      <app-button label="Sign out" />
+      <app-button label="Sign out" @click="signOut" />
     </div>
   </nav>
 </template>
@@ -12,6 +12,7 @@
 <script>
 import AppButton from '@/components/AppButton.vue'
 import gql from 'graphql-tag'
+import { onLogout } from '@/vue-apollo'
 
 export default {
   components: { AppButton },
@@ -24,6 +25,13 @@ export default {
         }
       }
     `
+  },
+
+  methods: {
+    async signOut() {
+      await onLogout(this.$apollo.getClient())
+      this.$router.push({ name: 'Home' })
+    }
   }
 }
 </script>

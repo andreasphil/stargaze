@@ -3,7 +3,7 @@
     <main class="container p-4 h-screen flex items-center">
       <div class="w-full text-center">
         <h1 class="font-semibold text-2xl mb-8">
-          GitHub Stars Explorer
+          Stargaze
           <span class="text-yellow-500 font-medium">Alpha</span>
         </h1>
         <c-button label="Sign in with GitHub" primary @click="signIn" />

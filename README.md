@@ -1,4 +1,4 @@
-# starry
+# stargaze
 
 ## Project setup
 ```

@@ -4,7 +4,7 @@
       :href="url"
       class="
         block
-        rounded
+        rounded-lg
         h-full
         bg-white
         border
@@ -20,7 +20,7 @@
       <div class="flex items-center m-4">
         <div class="w-16 h-16 mr-4">
           <!-- Icon -->
-          <img :src="icon" class="rounded w-full h-full bg-gray-100" />
+          <img :src="icon" class="rounded-lg w-full h-full bg-gray-100" />
         </div>
 
         <!-- Author and name -->

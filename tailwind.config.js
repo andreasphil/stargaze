@@ -2,9 +2,6 @@ module.exports = {
   purge: [],
   theme: {
     extend: {
-      borderRadius: {
-        default: '1rem'
-      },
       borderWidth: {
         default: '0.125rem'
       },

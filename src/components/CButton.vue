@@ -1,6 +1,7 @@
 <template>
   <button
-    class="rounded-full px-4 py-3 hover:bg-gray-200"
+    class="rounded-lg px-4 py-3 hover:bg-gray-200 focus:outline-none focus:shadow-outline"
+    :class="{ primary }"
     @click="$emit('click')"
   >
     {{ label }}
@@ -13,7 +14,14 @@ export default {
     label: {
       type: String,
       required: true
-    }
+    },
+    primary: Boolean
   }
 }
 </script>
+
+<style scoped>
+.primary {
+  @apply bg-gray-800 text-gray-100 font-medium;
+}
+</style>

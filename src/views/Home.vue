@@ -6,18 +6,18 @@
           Stargaze
           <span class="text-yellow-500 font-medium">Alpha</span>
         </h1>
-        <c-button label="Sign in with GitHub" primary @click="signIn" />
+        <app-button label="Sign in with GitHub" primary @click="signIn" />
       </div>
     </main>
   </div>
 </template>
 
 <script>
-import CButton from '@/components/CButton.vue'
+import AppButton from '@/components/AppButton.vue'
 
 export default {
   components: {
-    CButton
+    AppButton
   },
 
   methods: {

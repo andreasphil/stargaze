@@ -1,31 +1,31 @@
 <template>
   <div>
-    <b-nav />
+    <app-nav />
     <main class="container px-4 my-24">
       <input
         class="block text-4xl w-full bg-transparent rounded px-4 py-3 my-24 outline-none placeholder-platinum"
         :placeholder="searchPlaceholder"
       />
 
-      <c-tile-list v-if="stars" :repositories="stars.edges" />
-      <c-button v-if="hasNext" label="Load next" @click="loadNext" />
+      <app-repo-list v-if="stars" :repositories="stars.edges" />
+      <app-button v-if="hasNext" label="Load next" @click="loadNext" />
     </main>
   </div>
 </template>
 
 <script>
-import CTileList from '@/components/CTileList.vue'
-import CButton from '@/components/CButton.vue'
-import BNav from '@/blocks/BNav.vue'
+import AppRepoList from '@/components/AppRepoList.vue'
+import AppButton from '@/components/AppButton.vue'
+import AppNav from '@/components/AppNav.vue'
 import gql from 'graphql-tag'
 
 const PAGE_SIZE = 50
 
 export default {
   components: {
-    CTileList,
-    BNav,
-    CButton
+    AppRepoList,
+    AppNav,
+    AppButton
   },
 
   apollo: {

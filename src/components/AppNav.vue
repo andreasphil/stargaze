@@ -1,24 +1,23 @@
 <template>
-  <c-nav>
-    <template v-slot:left>
+  <nav class="container flex px-4 my-4">
+    <div class="flex-1 flex items-center">
       ⭐️
       <span v-if="viewer" class="font-semibold ml-3"
         >Repositories starred by {{ viewer.name }}</span
       >
-    </template>
-    <template v-slot:right>
-      <c-button label="Sign out" />
-    </template>
-  </c-nav>
+    </div>
+    <div class="flex-1 flex items-center justify-end">
+      <app-button label="Sign out" />
+    </div>
+  </nav>
 </template>
 
 <script>
-import CNav from '@/components/CNav.vue'
-import CButton from '@/components/CButton.vue'
+import AppButton from '@/components/AppButton.vue'
 import gql from 'graphql-tag'
 
 export default {
-  components: { CNav, CButton },
+  components: { AppButton },
 
   apollo: {
     viewer: gql`

@@ -1,9 +1,9 @@
 <template>
   <div>
     <b-nav />
-    <main class="container px-1 my-6">
+    <main class="container px-4 my-24">
       <input
-        class="block text-h1 w-full bg-transparent rounded px-1 py-3/4 my-6 outline-none"
+        class="block text-4xl w-full bg-transparent rounded px-4 py-3 my-24 outline-none placeholder-platinum"
         :placeholder="searchPlaceholder"
       />
 

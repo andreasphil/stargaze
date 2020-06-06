@@ -1,5 +1,5 @@
 <template>
-  <div id="app" class="font-sans antialiased bg-powder">
+  <div id="app" class="font-sans antialiased text-gray-800">
     <router-view />
   </div>
 </template>
@@ -9,20 +9,23 @@
 @tailwind components;
 
 :root {
-  --color-white: #fff;
+  --white: rgba(255, 255, 255, 1);
+  --transparent: rgba(255, 255, 255, 0);
 
-  /* https://coolors.co/f7f7f8-f5cb5c-232324-323334-7d8082 */
-  --color-crayola: rgb(245, 203, 92);
-  --color-crayola-10: rgba(245, 203, 92, 0.3);
-  --color-powder: hsl(240, 20%, 99%);
-  --color-cultured: hsl(240, 7%, 97%);
-  --color-eerie-black: hsl(240, 1%, 14%);
-  --color-jet: hsl(210, 2%, 20%);
-  --color-web: hsl(204, 2%, 50%);
+  /* https://coolors.co/1e1f1f-323434-787d7d-dedee3-e9e9ed-f4f4f6-fbe7b2-f8db8c-f5cb5c */
+  --eerie-black: rgba(30, 31, 31, 1);
+  --jet: rgba(50, 52, 52, 1);
+  --gray-web: rgba(120, 125, 125, 1);
+  --gainsboro: rgba(222, 222, 227, 1);
+  --platinum: rgba(233, 233, 237, 1);
+  --cultured: rgba(244, 244, 246, 1);
+  --cornsilk: rgba(253, 243, 216, 1);
+  --banana-mania: rgba(251, 231, 178, 1);
+  --maize-crayola: rgba(245, 203, 92, 1);
 }
 
 body {
-  @apply bg-powder;
+  @apply bg-gray-100;
 }
 
 @tailwind utilities;

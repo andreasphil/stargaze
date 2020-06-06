@@ -1,5 +1,8 @@
 <template>
-  <button class="rounded px-1 py-3/4 hover:bg-cultured" @click="$emit('click')">
+  <button
+    class="rounded-full px-4 py-3 hover:bg-gray-200"
+    @click="$emit('click')"
+  >
     {{ label }}
   </button>
 </template>

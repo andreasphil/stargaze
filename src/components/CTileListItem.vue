@@ -9,19 +9,18 @@
         bg-white
         border
         border-transparent
-        hover:border-crayola
-        shadow-sm
-        text-small
-        text-web
+        hover:border-yellow-400
+        text-sm
+        text-gray-700
         transition-colors
         duration-150
       "
     >
       <!-- Header -->
-      <div class="flex items-center m-1">
-        <div class="w-4 h-4 mr-1">
+      <div class="flex items-center m-4">
+        <div class="w-16 h-16 mr-4">
           <!-- Icon -->
-          <img :src="icon" class="rounded w-full h-full bg-cultured" />
+          <img :src="icon" class="rounded w-full h-full bg-gray-100" />
         </div>
 
         <!-- Author and name -->
@@ -31,27 +30,27 @@
           </a>
 
           <!-- Name -->
-          <h2 class="text-base text-jet font-emphasized truncate">
+          <h2 class="text-base text-gray-800 font-semibold truncate">
             {{ name }}
           </h2>
         </div>
       </div>
 
       <!-- Content -->
-      <div class="mx-1 my-1-1/2 h-4 overflow-hidden" v-html="description"></div>
+      <div class="mx-4 my-6 h-16 overflow-hidden" v-html="description"></div>
 
       <!-- Footer -->
-      <div class="m-1 space-x-1/2">
+      <div class="m-4 space-x-2">
         <span
           v-if="language"
-          class="inline-block text-small px-1/2 py-1/4 bg-cultured rounded"
+          class="inline-block text-small px-3 py-1 bg-gray-200 rounded-full"
         >
           {{ language }}
         </span>
 
         <span
           v-if="homepage"
-          class="inline-block text-small px-1/2 py-1/4 bg-crayola-10 text-crayola rounded"
+          class="inline-block text-small px-3 py-1 bg-yellow-200 text-yellow-700 rounded-full"
         >
           <a :href="homepage">Website</a>
         </span>

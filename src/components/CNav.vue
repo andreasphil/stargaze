@@ -1,5 +1,5 @@
 <template>
-  <nav class="container flex px-1 my-2">
+  <nav class="container flex px-4 my-4">
     <div v-if="$slots.left" class="flex-1 flex items-center">
       <slot name="left" />
     </div>

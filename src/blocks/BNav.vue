@@ -1,11 +1,8 @@
 <template>
   <c-nav>
     <template v-slot:left>
-      <span
-        class="w-2 h-2 bg-crayola-10 rounded-full leading-none py-1/2 text-center mr-3/4"
-        >⭐️</span
-      >
-      <span v-if="viewer" class="font-emphasized"
+      ⭐️
+      <span v-if="viewer" class="font-semibold ml-3"
         >Repositories starred by {{ viewer.name }}</span
       >
     </template>

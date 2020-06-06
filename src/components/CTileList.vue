@@ -5,16 +5,18 @@
   >
     <c-tile-list-item
       v-for="repository in repositories"
-      :key="repository.id"
-      :name="repository.name"
-      :url="repository.url"
-      :author="repository.owner.login"
-      :authorUrl="repository.owner.url"
-      :icon="repository.owner.avatarUrl"
-      :description="repository.descriptionHTML"
-      :homepage="repository.homepageUrl"
+      :key="repository.node.id"
+      :name="repository.node.name"
+      :url="repository.node.url"
+      :author="repository.node.owner.login"
+      :authorUrl="repository.node.owner.url"
+      :icon="repository.node.owner.avatarUrl"
+      :description="repository.node.descriptionHTML"
+      :homepage="repository.node.homepageUrl"
       :language="
-        repository.primaryLanguage ? repository.primaryLanguage.name : undefined
+        repository.node.primaryLanguage
+          ? repository.node.primaryLanguage.name
+          : undefined
       "
     />
   </ul>

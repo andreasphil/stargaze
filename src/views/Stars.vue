@@ -7,28 +7,33 @@
         :placeholder="searchPlaceholder"
       />
 
-      <c-tile-list v-if="stars" :repositories="stars" />
+      <c-tile-list v-if="stars" :repositories="stars.edges" />
+      <c-button v-if="hasNext" label="Load next" @click="loadNext" />
     </main>
   </div>
 </template>
 
 <script>
 import CTileList from '@/components/CTileList.vue'
+import CButton from '@/components/CButton.vue'
 import BNav from '@/blocks/BNav.vue'
 import gql from 'graphql-tag'
+
+const PAGE_SIZE = 50
 
 export default {
   components: {
     CTileList,
-    BNav
+    BNav,
+    CButton
   },
 
   apollo: {
     stars: {
       query: gql`
-        query stars($after: String) {
+        query stars($cursor: String, $pageSize: Int) {
           viewer {
-            starredRepositories(after: $after) {
+            starredRepositories(after: $cursor, first: $pageSize) {
               totalCount
               pageInfo {
                 hasNextPage
@@ -55,26 +60,43 @@ export default {
           }
         }
       `,
-      update: data =>
-        data.viewer.starredRepositories.edges.map(edge => edge.node)
-    },
-    starsCount: {
-      query: gql`
-        query viewer {
-          viewer {
-            starredRepositories {
-              totalCount
-            }
-          }
-        }
-      `,
-      update: data => data.viewer.starredRepositories.totalCount
+      update: data => data.viewer.starredRepositories,
+      variables: {
+        pageSize: PAGE_SIZE,
+        cursor: undefined
+      }
     }
   },
 
   computed: {
     searchPlaceholder() {
-      return `Search ${this.starsCount ? this.starsCount : 0} repositories ...`
+      return `Search ${this.stars ? this.stars.totalCount : 0} repositories ...`
+    },
+
+    hasNext() {
+      return this.stars && this.stars.pageInfo.hasNextPage
+    }
+  },
+
+  methods: {
+    loadNext() {
+      this.$apollo.queries.stars.fetchMore({
+        variables: {
+          pageSize: PAGE_SIZE,
+          cursor: this.stars.pageInfo.endCursor
+        },
+        updateQuery: (before, { fetchMoreResult }) => {
+          const updatedStars = [
+            ...before.viewer.starredRepositories.edges,
+            ...fetchMoreResult.viewer.starredRepositories.edges
+          ]
+
+          const after = Object.assign({}, before, fetchMoreResult)
+          after.viewer.starredRepositories.edges = updatedStars
+
+          return after
+        }
+      })
     }
   }
 }

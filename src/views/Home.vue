@@ -4,7 +4,7 @@
       <div class="w-full text-center">
         <h1 class="font-semibold text-2xl mb-8">
           Stargaze
-          <span class="text-yellow-500 font-medium">Alpha</span>
+          <span class="text-gray-500">Alpha</span>
         </h1>
         <app-button label="Sign in with GitHub" primary @click="signIn" />
       </div>

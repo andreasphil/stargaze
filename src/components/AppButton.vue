@@ -23,7 +23,7 @@ export default {
 
 <style scoped>
 .primary {
-  @apply bg-gray-800 text-gray-100 font-medium;
+  @apply bg-yellow text-gray-800 text-opacity-75 font-medium;
 }
 
 .block {

@@ -9,9 +9,9 @@
         bg-white
         border
         border-transparent
-        hover:border-yellow-500
+        hover:border-yellow
         text-sm
-        text-gray-700
+        text-gray-600
         transition-colors
         duration-150
       "
@@ -43,14 +43,14 @@
       <div class="m-4 space-x-2">
         <span
           v-if="language"
-          class="inline-block text-small px-3 py-1 bg-gray-200 rounded-full"
+          class="inline-block text-sm font-medium leading-none px-3 py-2 bg-gray-200 rounded-full"
         >
           {{ language }}
         </span>
 
         <span
           v-if="homepage"
-          class="inline-block text-small px-3 py-1 bg-yellow-200 text-yellow-700 rounded-full"
+          class="inline-block text-sm font-medium leading-none px-3 py-2 bg-yellow text-gray-800 text-opacity-75 rounded-full"
         >
           <a :href="homepage">Website</a>
         </span>

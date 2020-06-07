@@ -1,11 +1,14 @@
 <template>
   <div class="pt-16">
     <c-toolbar :busy="$apollo.loading">
-      <template v-slot:left v-if="viewer">
-        <img class="rounded-full w-12 h-12 mr-4" :src="viewer.avatarUrl" />
-        <h2>
-          Starred by <span class="font-semibold">{{ viewer.name }}</span>
-        </h2>
+      <template v-slot:left>
+        <template v-if="viewer">
+          <img class="rounded-full w-12 h-12 mr-4" :src="viewer.avatarUrl" />
+          <h2>
+            Starred by <span class="font-semibold">{{ viewer.name }}</span>
+          </h2>
+        </template>
+        <div v-else class="rounded-full w-12 h-12 bg-gray-200"></div>
       </template>
 
       <template v-slot:center>
@@ -22,7 +25,7 @@
     </c-toolbar>
 
     <main class="container px-4 my-24">
-      <b-repo-list v-if="stars" :repositories="stars.edges" />
+      <b-repo-list v-if="stars" :repositories="filteredStars" />
       <div class="mt-16">
         <c-button
           v-if="hasNext"
@@ -81,6 +84,7 @@ export default {
                     login
                     url
                   }
+                  description
                   descriptionHTML
                   url
                   homepageUrl
@@ -120,8 +124,44 @@ export default {
         : 'Filter...'
     },
 
+    /**
+     * True if there's more data that can be fetched from the API.
+     */
     hasNext() {
       return this.stars && this.stars.pageInfo.hasNextPage
+    },
+
+    /**
+     * Filters the list of starred repository using the current search string. The filter returns
+     * all items where the name, description, owner name or language name contain the current
+     * search string (not case sensitive).
+     *
+     * TODO: This is kinda brute force, maybe there's a better way to do this
+     *
+     * @returns {Array} Filtered stars
+     */
+    filteredStars() {
+      if (!this.stars || !this.stars.edges) {
+        return []
+      }
+
+      if (this.searchString.trim() === '' || this.searchString.length < 3) {
+        return this.stars.edges
+      }
+
+      const s = this.searchString.toLowerCase()
+
+      const filteredStars = this.stars.edges.filter(star => {
+        const { name, description, owner, primaryLanguage: lang } = star.node
+        return (
+          name.toLowerCase().indexOf(s) >= 0 ||
+          (!!description && description.toLowerCase().indexOf(s) >= 0) ||
+          owner.login.toLowerCase().indexOf(s) >= 0 ||
+          (!!lang && !!lang.name && lang.name.toLowerCase().indexOf(s) >= 0)
+        )
+      })
+
+      return filteredStars
     }
   },
 

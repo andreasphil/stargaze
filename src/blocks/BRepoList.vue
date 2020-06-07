@@ -3,7 +3,7 @@
     v-if="repositories && repositories.length > 0"
     class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
   >
-    <app-repo-list-item
+    <b-repo-list-item
       v-for="repository in repositories"
       :key="repository.node.id"
       :name="repository.node.name"
@@ -23,10 +23,10 @@
 </template>
 
 <script>
-import AppRepoListItem from '@/components/AppRepoListItem.vue'
+import BRepoListItem from '@/blocks/BRepoListItem.vue'
 
 export default {
-  components: { AppRepoListItem },
+  components: { BRepoListItem },
 
   props: {
     repositories: {

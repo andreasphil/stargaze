@@ -4,21 +4,21 @@
       <div class="w-full text-center">
         <h1 class="font-semibold text-2xl mb-8">
           Stargaze
-          <span class="text-gray-500">Alpha</span>
+          <span class="text-yellow">Alpha</span>
         </h1>
-        <app-button label="Sign in with GitHub" primary @click="signIn" />
+        <c-button label="Sign in with GitHub" primary large @click="signIn" />
       </div>
     </main>
   </div>
 </template>
 
 <script>
-import AppButton from '@/components/AppButton.vue'
 import { getState, getSignInUrl } from '@/utils/auth.js'
+import CButton from '@/components/CButton.vue'
 
 export default {
   components: {
-    AppButton
+    CButton
   },
 
   methods: {

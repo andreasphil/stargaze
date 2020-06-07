@@ -4,7 +4,7 @@ module.exports = {
     extend: {
       colors: {
         gray: {
-          100: '#F4F4F6',
+          100: '#F9F9FA',
           200: '#E9E9ED',
           300: '#DEDEE3',
           400: '#AFAFB6',
@@ -30,6 +30,11 @@ module.exports = {
           'Arial',
           'sans-serif'
         ]
+      },
+      boxShadow: {
+        sm: '0 .125rem .25rem 0 rgba(0, 0, 0, 0.05)',
+        'outline-yellow':
+          '0 0 0 .0625rem rgba(255, 214, 92, 1), 0 0 0 0.25rem rgba(255, 214, 92, 0.3)'
       }
     }
   },

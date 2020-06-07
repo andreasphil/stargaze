@@ -2,34 +2,40 @@
   <li>
     <a
       :href="url"
+      :title="`Visit ${name} on GitHub`"
       class="
         block
-        rounded-lg
         h-full
         bg-white
+        rounded-lg
         border
         border-transparent
-        hover:border-yellow
         text-sm
         text-gray-600
-        transition-colors
+        shadow-sm
+        hover:shadow-outline-yellow
+        transition-shadow
         duration-150
       "
     >
       <!-- Header -->
       <div class="flex items-center m-4">
+        <!-- Icon -->
         <div class="w-16 h-16 mr-4">
-          <!-- Icon -->
           <img :src="icon" class="rounded-lg w-full h-full bg-gray-100" />
         </div>
 
         <!-- Author and name -->
         <div class="flex-grow">
-          <a v-if="author" :href="authorUrl" class="block truncate">
+          <a
+            v-if="author"
+            :href="authorUrl"
+            :title="`Visit ${author} on GitHub`"
+            class="block truncate"
+          >
             @{{ author }}
           </a>
 
-          <!-- Name -->
           <h2 class="text-base text-gray-800 font-semibold truncate">
             {{ name }}
           </h2>
@@ -41,26 +47,24 @@
 
       <!-- Footer -->
       <div class="m-4 space-x-2">
-        <span
-          v-if="language"
-          class="inline-block text-sm font-medium leading-none px-3 py-2 bg-gray-200 rounded-full"
-        >
-          {{ language }}
-        </span>
-
-        <span
+        <c-tag v-if="language" :label="language" />
+        <c-tag
           v-if="homepage"
-          class="inline-block text-sm font-medium leading-none px-3 py-2 bg-yellow text-gray-800 text-opacity-75 rounded-full"
-        >
-          <a :href="homepage">Website</a>
-        </span>
+          label="Website"
+          :href="homepage"
+          :title="`Visit ${name}'s website`"
+        />
       </div>
     </a>
   </li>
 </template>
 
 <script>
+import CTag from '@/components/CTag.vue'
+
 export default {
+  components: { CTag },
+
   props: {
     name: {
       type: String,

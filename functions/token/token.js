@@ -2,7 +2,9 @@ const fetch = require('node-fetch')
 
 /**
  * Generates a URL from which an access token for the current user can be requested.
- * @param {*} code The access code obtained during the OAuth flow
+ *
+ * @param {string} code The access code obtained during the OAuth flow
+ * @returns {string} Request URL for the access token
  */
 const getAccessTokenUrl = code => {
   const {

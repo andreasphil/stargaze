@@ -1,29 +1,67 @@
 <template>
-  <div>
-    <app-nav />
+  <div class="pt-16">
+    <c-toolbar :busy="$apollo.loading">
+      <template v-slot:left v-if="viewer">
+        <img class="rounded-full w-12 h-12 mr-4" :src="viewer.avatarUrl" />
+        <h2>
+          Starred by <span class="font-semibold">{{ viewer.name }}</span>
+        </h2>
+      </template>
+
+      <template v-slot:center>
+        <c-input
+          block
+          v-model="searchString"
+          :placeholder="searchPlaceholder"
+        />
+      </template>
+
+      <template v-slot:right>
+        <c-button label="Sign out" @click="signOut" />
+      </template>
+    </c-toolbar>
+
     <main class="container px-4 my-24">
-      <app-repo-list v-if="stars" :repositories="stars.edges" />
-      <div class="mt-6">
-        <app-button v-if="hasNext" label="Load next" block @click="loadNext" />
+      <b-repo-list v-if="stars" :repositories="stars.edges" />
+      <div class="mt-16">
+        <c-button
+          v-if="hasNext"
+          label="Load more..."
+          large
+          block
+          @click="loadNext"
+        />
       </div>
     </main>
   </div>
 </template>
 
 <script>
-import AppRepoList from '@/components/AppRepoList.vue'
-import AppButton from '@/components/AppButton.vue'
-import AppNav from '@/components/AppNav.vue'
+import { onLogout } from '@/vue-apollo'
+import BRepoList from '@/blocks/BRepoList.vue'
+import CButton from '@/components/CButton.vue'
+import CInput from '@/components/CInput.vue'
+import CToolbar from '@/components/CToolbar.vue'
 import gql from 'graphql-tag'
 
 export default {
   components: {
-    AppRepoList,
-    AppNav,
-    AppButton
+    BRepoList,
+    CButton,
+    CInput,
+    CToolbar
+  },
+
+  data() {
+    return {
+      searchString: ''
+    }
   },
 
   apollo: {
+    /**
+     * Query for starred repositories by the current user.
+     */
     stars: {
       query: gql`
         query stars($cursor: String) {
@@ -59,12 +97,26 @@ export default {
       variables: {
         cursor: undefined
       }
-    }
+    },
+
+    /**
+     * Query for profile data of the current user.
+     */
+    viewer: gql`
+      query viewer {
+        viewer {
+          name
+          avatarUrl
+        }
+      }
+    `
   },
 
   computed: {
     searchPlaceholder() {
-      return `Search ${this.stars ? this.stars.totalCount : 0} repositories ...`
+      return this.stars
+        ? `Filter ${this.stars.edges.length} of ${this.stars.totalCount} repositories...`
+        : 'Filter...'
     },
 
     hasNext() {
@@ -73,23 +125,33 @@ export default {
   },
 
   methods: {
+    /**
+     * Query the next batch of starred repositories from the API.
+     */
     loadNext() {
       this.$apollo.queries.stars.fetchMore({
         variables: {
           cursor: this.stars.pageInfo.endCursor
         },
         updateQuery: (before, { fetchMoreResult }) => {
-          const updatedStars = [
+          // Merge meta data and the previous + new result set
+          const after = Object.assign({}, before, fetchMoreResult)
+          after.viewer.starredRepositories.edges = [
             ...before.viewer.starredRepositories.edges,
             ...fetchMoreResult.viewer.starredRepositories.edges
           ]
 
-          const after = Object.assign({}, before, fetchMoreResult)
-          after.viewer.starredRepositories.edges = updatedStars
-
           return after
         }
       })
+    },
+
+    /**
+     * Clean up local user data and redirect back to the home page.
+     */
+    async signOut() {
+      onLogout(this.$apollo.getClient())
+      this.$router.push({ name: 'Home' })
     }
   }
 }

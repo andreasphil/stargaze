@@ -1,5 +1,10 @@
 /**
- * Generates a random string of numbers.
+ * Generates a somewhat random string of numbers that can be used for validating OAuth
+ * authorizations.
+ *
+ * See https://developer.github.com/apps/building-oauth-apps/authorizing-oauth-apps/
+ *
+ * @returns {string} A random state identifier
  */
 export const getState = () => {
   return Math.round(Math.random() * 10 ** 16).toString()
@@ -7,7 +12,9 @@ export const getState = () => {
 
 /**
  * Returns the URL of a page where the user can authorize the application.
- * @param {*} state Unique session identifier
+ *
+ * @param {string} state Unique session identifier
+ * @returns {string} Authorization page URL
  */
 export const getSignInUrl = state => {
   const url = new URL(process.env.VUE_APP_AUTH_URL)
@@ -21,7 +28,9 @@ export const getSignInUrl = state => {
 
 /**
  * Returns an access token that can be used for authenticating API requests.
- * @param {*} code The code obtained during the OAuth flow
+ *
+ * @param {string} code The code obtained during the OAuth flow
+ * @returns {string} A promise of a string token
  */
 export const getAccessToken = async code => {
   const url = new URL(process.env.VUE_APP_AUTH_TOKEN_URL)

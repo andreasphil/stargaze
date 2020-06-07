@@ -1,7 +1,7 @@
-import Vue from 'vue'
+import { createProvider } from './vue-apollo'
 import App from './App.vue'
 import router from './router'
-import { createProvider } from './vue-apollo'
+import Vue from 'vue'
 
 Vue.config.productionTip = false
 

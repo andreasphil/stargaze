@@ -55,7 +55,11 @@ const defaultOptions = {
   // clientState: { resolvers: { ... }, defaults: { ... } }
 }
 
-// Call this in the Vue app file
+/**
+ * Initializes apollo. Call this in the vue app file.
+ *
+ * @param {*} options
+ */
 export function createProvider(options = {}) {
   // Create apollo client
   const { apolloClient, wsClient } = createApolloClient({
@@ -68,47 +72,62 @@ export function createProvider(options = {}) {
   const apolloProvider = new VueApollo({
     defaultClient: apolloClient,
     defaultOptions: {
-      $query: {
-        // fetchPolicy: 'cache-and-network',
-      }
+      $query: {}
     },
     errorHandler(error) {
-      // eslint-disable-next-line no-console
-      console.log(
-        '%cError',
-        'background: red; color: white; padding: 2px 4px; border-radius: 3px; font-weight: bold;',
-        error.message
-      )
+      console.error('Apollo error', error.message)
     }
   })
 
   return apolloProvider
 }
 
-// Manually call this when user log in
+/**
+ * Save login token and re-initialize apollo after logging in.
+ *
+ * @param {*} apolloClient
+ * @param {*} token The new login token
+ */
 export async function onLogin(apolloClient, token) {
-  if (typeof localStorage !== 'undefined' && token) {
-    localStorage.setItem(AUTH_TOKEN, token)
+  localStorage.setItem(AUTH_TOKEN, token)
+
+  if (apolloClient.wsClient) {
+    restartWebsockets(apolloClient.wsClient)
   }
-  if (apolloClient.wsClient) restartWebsockets(apolloClient.wsClient)
+
   try {
     await apolloClient.resetStore()
-  } catch (e) {
-    // eslint-disable-next-line no-console
-    console.log('%cError on cache reset (login)', 'color: orange;', e.message)
+  } catch (err) {
+    console.error('Error on cache reset (login)', err.message)
   }
 }
 
-// Manually call this when user log out
+/**
+ * Clean up stored data and reset apollo after logging out.
+ *
+ * @param {*} apolloClient
+ */
 export async function onLogout(apolloClient) {
-  if (typeof localStorage !== 'undefined') {
-    localStorage.removeItem(AUTH_TOKEN)
+  localStorage.removeItem(AUTH_TOKEN)
+
+  if (apolloClient.wsClient) {
+    restartWebsockets(apolloClient.wsClient)
   }
-  if (apolloClient.wsClient) restartWebsockets(apolloClient.wsClient)
+
   try {
     await apolloClient.resetStore()
-  } catch (e) {
-    // eslint-disable-next-line no-console
-    console.log('%cError on cache reset (logout)', 'color: orange;', e.message)
+  } catch (err) {
+    console.error('Error on cache reset (logout)', err.message)
   }
+}
+
+/**
+ * Checks if a login token from apollo exists in local storage. Note that this says nothing about
+ * the validity of the token.
+ *
+ * @returns True if a login token exists
+ */
+export function loginTokenExists() {
+  const token = localStorage.getItem(AUTH_TOKEN)
+  return !!token && token.trim() !== ''
 }

@@ -93,7 +93,8 @@ export default {
           }
         }
       `,
-      update: data => data.viewer.starredRepositories,
+      update: data =>
+        data.viewer ? data.viewer.starredRepositories : undefined,
       variables: {
         cursor: undefined
       }

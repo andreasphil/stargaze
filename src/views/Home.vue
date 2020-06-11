@@ -31,9 +31,7 @@ import { getState, getSignInUrl } from '@/utils/auth.js'
 import CButton from '@/components/CButton.vue'
 
 export default {
-  components: {
-    CButton
-  },
+  components: { CButton },
 
   methods: {
     /**

@@ -25,7 +25,7 @@
     </c-toolbar>
 
     <main class="container px-4 my-24">
-      <b-repo-list v-if="stars" :repositories="filteredStars" />
+      <b-repo-list :repositories="filteredStars" :busy="$apollo.loading" />
     </main>
   </div>
 </template>

@@ -20,9 +20,9 @@
       "
     >
       <!-- Header -->
-      <div class="flex items-center m-4">
+      <div class="flex items-center m-4 space-x-4">
         <!-- Icon -->
-        <div class="w-16 h-16 mr-4">
+        <div class="w-16 h-16">
           <img
             :src="icon"
             loading="lazy"

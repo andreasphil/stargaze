@@ -16,9 +16,6 @@ module.exports = {
         },
         yellow: '#FFD65C'
       },
-      borderWidth: {
-        default: '0.125rem'
-      },
       container: {
         center: true
       },

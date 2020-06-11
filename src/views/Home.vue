@@ -6,7 +6,13 @@
           Stargaze
           <span class="text-yellow">Alpha</span>
         </h1>
-        <c-button label="Sign in with GitHub" primary large @click="signIn" />
+        <c-button
+          label="Sign in with GitHub"
+          primary
+          large
+          icon="github"
+          @click="signIn"
+        />
       </div>
     </main>
   </div>

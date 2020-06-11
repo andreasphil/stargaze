@@ -39,9 +39,8 @@
             :href="authorUrl"
             :title="`Visit ${author} on GitHub`"
             class="block truncate"
+            >@{{ author }}</a
           >
-            @{{ author }}
-          </a>
 
           <h2 class="text-base text-gray-800 font-semibold truncate">
             {{ name }}
@@ -54,17 +53,15 @@
 
       <!-- Footer -->
       <div class="border-t border-gray-100 divide-x divide-gray-100">
-        <span v-if="language" class="p-4 inline-block">
-          {{ language }}
-        </span>
-        <span v-if="homepage" class="p-4 inline-block">
+        <span v-if="language" class="p-4 inline-block">{{ language }}</span>
+        <span v-if="homepage" class="p-4 inline-block space-x-1">
+          <c-icon name="link" size="0.875rem" middle />
           <a
             class="underline hover:text-gray-900 transition-colors duration-150"
             :href="homepage"
             :title="`Visit ${name}'s website`"
+            >Website</a
           >
-            Website
-          </a>
         </span>
       </div>
     </a>
@@ -72,7 +69,11 @@
 </template>
 
 <script>
+import CIcon from '@/components/CIcon.vue'
+
 export default {
+  components: { CIcon },
+
   props: {
     name: {
       type: String,

@@ -14,13 +14,14 @@
       <template v-slot:center>
         <c-input
           block
+          icon="search"
           v-model="searchString"
           :placeholder="searchPlaceholder"
         />
       </template>
 
       <template v-slot:right>
-        <c-button label="Sign out" @click="signOut" />
+        <c-button label="Sign out" icon="log-out" @click="signOut" />
       </template>
     </c-toolbar>
 

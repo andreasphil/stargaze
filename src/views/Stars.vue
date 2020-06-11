@@ -26,15 +26,6 @@
 
     <main class="container px-4 my-24">
       <b-repo-list v-if="stars" :repositories="filteredStars" />
-      <div class="mt-16">
-        <c-button
-          v-if="hasNext"
-          label="Load more..."
-          large
-          block
-          @click="loadNext"
-        />
-      </div>
     </main>
   </div>
 </template>
@@ -97,10 +88,19 @@ export default {
           }
         }
       `,
+
       update: data =>
         data.viewer ? data.viewer.starredRepositories : undefined,
-      variables: {
-        cursor: undefined
+
+      variables() {
+        return { cursor: undefined }
+      },
+
+      result(response) {
+        // If there's more data, load it automatically
+        if (this.hasNext) {
+          this.loadNext()
+        }
       }
     },
 
@@ -122,9 +122,13 @@ export default {
      * @returns Placeholder for the search field depending on the current number of stars.
      */
     searchPlaceholder() {
-      return this.stars
+      if (!this.stars) {
+        return 'Filter ...'
+      }
+
+      return this.stars.edges.length !== this.stars.totalCount
         ? `Filter ${this.stars.edges.length} of ${this.stars.totalCount} repositories...`
-        : 'Filter...'
+        : `Filter ${this.stars.totalCount} repositories...`
     },
 
     /**

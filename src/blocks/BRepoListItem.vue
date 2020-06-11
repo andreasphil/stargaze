@@ -23,7 +23,13 @@
       <div class="flex items-center m-4">
         <!-- Icon -->
         <div class="w-16 h-16 mr-4">
-          <img :src="icon" class="rounded-lg w-full h-full bg-gray-100" />
+          <img
+            :src="icon"
+            loading="lazy"
+            width="64px"
+            height="64px"
+            class="rounded-lg w-full h-full bg-gray-100"
+          />
         </div>
 
         <!-- Author and name -->

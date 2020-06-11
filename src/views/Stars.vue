@@ -60,7 +60,10 @@ export default {
       query: gql`
         query stars($cursor: String) {
           viewer {
-            starredRepositories(after: $cursor) {
+            starredRepositories(
+              after: $cursor
+              orderBy: { direction: DESC, field: STARRED_AT }
+            ) {
               totalCount
               pageInfo {
                 hasNextPage

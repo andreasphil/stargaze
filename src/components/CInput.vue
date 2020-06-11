@@ -4,6 +4,7 @@
       <c-icon :name="icon" />
     </span>
     <input
+      ref="input"
       class="
         rounded-lg
         w-full
@@ -43,6 +44,9 @@ export default {
   },
 
   computed: {
+    /**
+     * Value bindings for v-model.
+     */
     localValue: {
       get() {
         return this.value
@@ -50,6 +54,15 @@ export default {
       set(value) {
         this.$emit('input', value)
       }
+    }
+  },
+
+  methods: {
+    /**
+     * Put the focus on the HTML input element inside the component.
+     */
+    focus() {
+      this.$refs.input.focus()
     }
   }
 }

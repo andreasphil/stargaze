@@ -13,6 +13,7 @@
 
       <template v-slot:center>
         <c-input
+          ref="search"
           block
           icon="search"
           v-model="searchString"
@@ -199,12 +200,31 @@ export default {
     },
 
     /**
+     * Event handler for focusing the search input when a specific hotkey is pressed.
+     */
+    focusSearchHotkey(event) {
+      if (event.key === '/') {
+        this.$refs.search.focus()
+      }
+    },
+
+    /**
      * Clean up local user data and redirect back to the home page.
      */
     async signOut() {
       onLogout(this.$apollo.getClient())
       this.$router.push({ name: 'Home' })
     }
+  },
+
+  mounted() {
+    // Set up search hotkey
+    document.addEventListener('keyup', this.focusSearchHotkey)
+  },
+
+  destroyed() {
+    // Remove search hotkey
+    document.removeEventListener('keyup', this.focusSearchHotkey)
   }
 }
 </script>

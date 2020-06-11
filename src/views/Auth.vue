@@ -1,12 +1,26 @@
 <template>
-  <div class="p-4 text-center">You're being authenticated</div>
+  <div class="pt-16">
+    <c-toolbar :busy="true">
+      <template v-slot:left>
+        <div class="rounded-full w-12 h-12 bg-gray-100"></div>
+      </template>
+    </c-toolbar>
+
+    <main class="container px-4 my-24">
+      <b-repo-list :busy="true" />
+    </main>
+  </div>
 </template>
 
 <script>
 import { getAccessToken } from '@/utils/auth'
 import { onLogin } from '@/vue-apollo'
+import BRepoList from '@/blocks/BRepoList.vue'
+import CToolbar from '@/components/CToolbar.vue'
 
 export default {
+  components: { BRepoList, CToolbar },
+
   async mounted() {
     const { code } = this.$route.query
 

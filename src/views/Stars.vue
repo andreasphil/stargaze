@@ -8,7 +8,7 @@
             Starred by <span class="font-semibold">{{ viewer.name }}</span>
           </h2>
         </template>
-        <div v-else class="rounded-full w-12 h-12 bg-gray-200"></div>
+        <div v-else class="rounded-full w-12 h-12 bg-gray-100"></div>
       </template>
 
       <template v-slot:center>

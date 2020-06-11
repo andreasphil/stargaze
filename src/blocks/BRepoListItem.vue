@@ -8,6 +8,7 @@
         h-full
         bg-white
         rounded-lg
+        overflow-hidden
         border
         border-transparent
         text-sm
@@ -43,28 +44,29 @@
       </div>
 
       <!-- Content -->
-      <div class="mx-4 my-6 h-16 overflow-hidden" v-html="description"></div>
+      <div class="m-4 mt-6 h-16 overflow-hidden" v-html="description"></div>
 
       <!-- Footer -->
-      <div class="m-4 space-x-2">
-        <c-tag v-if="language" :label="language" />
-        <c-tag
-          v-if="homepage"
-          label="Website"
-          :href="homepage"
-          :title="`Visit ${name}'s website`"
-        />
+      <div class="border-t border-gray-100 divide-x divide-gray-100">
+        <span v-if="language" class="p-4 inline-block">
+          {{ language }}
+        </span>
+        <span v-if="homepage" class="p-4 inline-block">
+          <a
+            class="underline hover:text-gray-900 transition-colors duration-150"
+            :href="homepage"
+            :title="`Visit ${name}'s website`"
+          >
+            Website
+          </a>
+        </span>
       </div>
     </a>
   </li>
 </template>
 
 <script>
-import CTag from '@/components/CTag.vue'
-
 export default {
-  components: { CTag },
-
   props: {
     name: {
       type: String,

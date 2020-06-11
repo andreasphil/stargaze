@@ -118,6 +118,9 @@ export default {
   },
 
   computed: {
+    /**
+     * @returns Placeholder for the search field depending on the current number of stars.
+     */
     searchPlaceholder() {
       return this.stars
         ? `Filter ${this.stars.edges.length} of ${this.stars.totalCount} repositories...`
@@ -125,7 +128,7 @@ export default {
     },
 
     /**
-     * True if there's more data that can be fetched from the API.
+     * @returns True if there's more data that can be fetched from the API.
      */
     hasNext() {
       return this.stars && this.stars.pageInfo.hasNextPage

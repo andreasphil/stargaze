@@ -55,7 +55,7 @@
       <div class="border-t border-gray-100 divide-x divide-gray-100">
         <span v-if="language" class="p-4 inline-block">{{ language }}</span>
         <span v-if="homepage" class="p-4 inline-block space-x-1">
-          <c-icon name="link" size="0.875rem" middle />
+          <c-icon name="link" middle />
           <a
             class="underline hover:text-gray-900 transition-colors duration-150"
             :href="homepage"

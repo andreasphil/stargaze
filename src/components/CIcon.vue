@@ -1,7 +1,7 @@
 <template>
   <span
     class="inline-block"
-    :class="{ middle: 'icon-middle' }"
+    :class="{ 'icon-middle': middle }"
     :style="{ width: size, height: size }"
     v-html="svg"
   ></span>
@@ -18,7 +18,7 @@ export default {
     },
     size: {
       type: [String, Number],
-      default: '1rem'
+      default: '1em'
     },
     middle: Boolean
   },

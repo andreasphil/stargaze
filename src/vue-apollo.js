@@ -71,11 +71,16 @@ export function createProvider(options = {}) {
   // Create vue apollo provider
   const apolloProvider = new VueApollo({
     defaultClient: apolloClient,
-    defaultOptions: {
-      $query: {}
-    },
+    defaultOptions: { $query: {} },
+
     errorHandler(error) {
       console.error('Apollo error', error.message)
+
+      if (error.networkError && error.networkError.statusCode === 401) {
+        // Unauthorized, redirect to home page so the user can log in again
+        onLogout(apolloClient)
+        this.$router.push({ name: 'Home' })
+      }
     }
   })
 

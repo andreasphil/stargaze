@@ -44,6 +44,10 @@ export default {
   @apply bg-gray-800 text-gray-100 font-medium shadow-sm;
 }
 
+.primary:hover {
+  @apply bg-gray-900;
+}
+
 .large {
   @apply px-5 py-4;
 }

@@ -2,7 +2,7 @@
   <div class="pt-16">
     <c-toolbar :busy="true">
       <template v-slot:left>
-        <div class="rounded-full w-12 h-12 bg-gray-100"></div>
+        <div class="rounded-full w-8 h-8 bg-gray-100"></div>
       </template>
     </c-toolbar>
 

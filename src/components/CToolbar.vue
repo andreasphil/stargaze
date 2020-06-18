@@ -12,12 +12,12 @@
     "
     :class="{ busy }"
   >
-    <nav class="container flex px-4 py-2">
+    <nav class="container flex px-4 py-3">
       <div v-if="$slots.left" class="nav-section">
         <slot name="left" />
       </div>
 
-      <div v-if="$slots.right" class="nav-section justify-center">
+      <div v-if="$slots.center" class="nav-section justify-center">
         <slot name="center" />
       </div>
 

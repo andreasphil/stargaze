@@ -29,8 +29,9 @@ module.exports = {
         ]
       },
       boxShadow: {
-        sm: '0 .125rem .25rem 0 rgba(0, 0, 0, 0.05)',
-        md: '0 .25rem .5rem 0 rgba(0, 0, 0, 0.1)',
+        sm: '0 .125rem .3rem 0 rgba(0, 0, 0, 0.04)',
+        md:
+          '0 .125rem .3rem 0 rgba(0, 0, 0, 0.05), 0 .2rem .4rem 0 rgba(0, 0, 0, 0.03)',
         'outline-yellow':
           '0 0 0 .0625rem rgba(255, 214, 92, 1), 0 0 0 0.25rem rgba(255, 214, 92, 0.3)'
       },

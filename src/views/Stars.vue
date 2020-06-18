@@ -2,20 +2,21 @@
   <div class="pt-16">
     <c-toolbar :busy="$apollo.loading">
       <template v-slot:left>
-        <template v-if="viewer">
-          <img class="rounded-full w-12 h-12 mr-4" :src="viewer.avatarUrl" />
-          <h2>
-            Starred by <span class="font-semibold">{{ viewer.name }}</span>
-          </h2>
-        </template>
-        <div v-else class="rounded-full w-12 h-12 bg-gray-100"></div>
-      </template>
+        <img
+          v-if="viewer"
+          class="flex-shrink-0 rounded-full w-8 h-8"
+          :src="viewer.avatarUrl"
+        />
+        <div
+          v-else
+          class="flex-shrink-0 rounded-full w-8 h-8 bg-gray-100"
+        ></div>
 
-      <template v-slot:center>
         <c-input
           ref="search"
           block
           icon="search"
+          class="ml-4"
           v-model="searchString"
           :placeholder="searchPlaceholder"
         />

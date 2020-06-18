@@ -80,6 +80,9 @@ export function createProvider(options = {}) {
         // Unauthorized, redirect to home page so the user can log in again
         onLogout(apolloClient)
         this.$router.push({ name: 'Home' })
+        this.$toast('Looks like your session expired. Please sign in again.', {
+          icon: 'alert-triangle'
+        })
       }
     }
   })

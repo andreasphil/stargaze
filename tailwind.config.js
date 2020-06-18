@@ -30,8 +30,12 @@ module.exports = {
       },
       boxShadow: {
         sm: '0 .125rem .25rem 0 rgba(0, 0, 0, 0.05)',
+        md: '0 .25rem .5rem 0 rgba(0, 0, 0, 0.1)',
         'outline-yellow':
           '0 0 0 .0625rem rgba(255, 214, 92, 1), 0 0 0 0.25rem rgba(255, 214, 92, 0.3)'
+      },
+      inset: {
+        '1/2': '50%'
       }
     }
   },

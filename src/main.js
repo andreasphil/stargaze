@@ -1,9 +1,13 @@
-import { createProvider } from './vue-apollo'
+import VueToaster from '@/plugins/VueToaster'
+import Vue from 'vue'
 import App from './App.vue'
 import router from './router'
-import Vue from 'vue'
+import { createProvider } from './vue-apollo'
 
 Vue.config.productionTip = false
+
+// Plugins
+Vue.use(VueToaster)
 
 new Vue({
   router,

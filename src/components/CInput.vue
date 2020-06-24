@@ -6,22 +6,26 @@
     <input
       ref="input"
       class="
-        rounded-lg
+        rounded
         w-full
         px-4
         py-2
         leading-normal
         bg-gray-300
         bg-opacity-25
+        border-2
+        border-transparent
         placeholder-gray-400
         focus:bg-white
         focus:outline-none
-        focus:shadow-outline-yellow
+        focus:border-yellow
+        disabled:opacity-50
         transition-all
         duration-150
       "
       :class="{ 'pl-10': !!icon }"
       :placeholder="placeholder"
+      :disabled="disabled"
       v-model="localValue"
     />
   </div>
@@ -40,7 +44,8 @@ export default {
     },
     placeholder: String,
     block: Boolean,
-    icon: String
+    icon: String,
+    disabled: Boolean
   },
 
   computed: {

@@ -1,8 +1,13 @@
 <template>
-  <div class="pt-16">
+  <div class="pt-20">
     <c-toolbar :busy="true">
       <template v-slot:left>
-        <div class="rounded-full w-8 h-8 bg-gray-100"></div>
+        <div class="flex-shrink-0 rounded-full w-8 h-8 bg-gray-100"></div>
+        <c-input block disabled class="ml-4" />
+      </template>
+
+      <template v-slot:right>
+        <div></div>
       </template>
     </c-toolbar>
 
@@ -16,10 +21,11 @@
 import { getAccessToken } from '@/utils/auth'
 import { onLogin } from '@/vue-apollo'
 import BRepoList from '@/blocks/BRepoList.vue'
+import CInput from '@/components/CInput.vue'
 import CToolbar from '@/components/CToolbar.vue'
 
 export default {
-  components: { BRepoList, CToolbar },
+  components: { BRepoList, CInput, CToolbar },
 
   async mounted() {
     const { code } = this.$route.query

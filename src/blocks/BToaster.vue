@@ -4,7 +4,15 @@
       <div
         v-for="toast in toasts"
         :key="toast.id"
-        class="flex bg-gray-800 text-gray-100 rounded-lg shadow-md overflow-hidden mx-4"
+        class="
+          flex
+          bg-gray-800
+          text-gray-100
+          rounded
+          shadow-md
+          overflow-hidden
+          mx-4
+        "
       >
         <span class="flex items-center p-4 bg-gray-900" v-if="toast.icon">
           <c-icon v-if="toast.icon" :name="toast.icon" class="mb-1" />

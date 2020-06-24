@@ -8,7 +8,6 @@
         border
         border-transparent
         text-sm
-        shadow-sm
       "
     >
       <!-- Header -->
@@ -45,7 +44,7 @@
 
 <style lang="postcss" scoped>
 .skeleton {
-  @apply rounded-lg bg-gray-100;
+  @apply rounded bg-gray-100;
   animation: 0.75s ease-in infinite alternate pulse;
 }
 

@@ -9,13 +9,14 @@
         bg-white
         rounded-lg
         overflow-hidden
-        border
+        border-2
         border-transparent
         text-sm
         text-gray-600
-        shadow-sm
-        hover:shadow-outline-yellow
-        transition-shadow
+        no-underline
+        hover:text-gray-600
+        hover:border-yellow
+        transition-border
         duration-150
       "
     >
@@ -28,7 +29,7 @@
             loading="lazy"
             width="64px"
             height="64px"
-            class="rounded-lg w-full h-full bg-gray-100"
+            class="rounded w-full h-full bg-gray-100"
           />
         </div>
 
@@ -38,7 +39,7 @@
             v-if="author"
             :href="authorUrl"
             :title="`Visit ${author} on GitHub`"
-            class="block truncate"
+            class="block truncate no-underline"
             >@{{ author }}</a
           >
 
@@ -56,12 +57,7 @@
         <span v-if="language" class="p-4 inline-block">{{ language }}</span>
         <span v-if="homepage" class="p-4 inline-block space-x-1">
           <c-icon name="link" middle />
-          <a
-            class="underline hover:text-gray-900 transition-colors duration-150"
-            :href="homepage"
-            :title="`Visit ${name}'s website`"
-            >Website</a
-          >
+          <a :href="homepage" :title="`Visit ${name}'s website`">Website</a>
         </span>
       </div>
     </a>

@@ -1,7 +1,7 @@
 <template>
   <button
     class="
-      rounded-lg
+      rounded
       inline-flex
       space-x-2
       px-4

@@ -13,12 +13,20 @@ export default {
 }
 </script>
 
-<style>
+<style lang="postcss">
 @tailwind base;
 @tailwind components;
 
 body {
   @apply bg-gray-100;
+}
+
+a {
+  @apply text-gray-600 underline transition-colors duration-150;
+}
+
+a:hover {
+  @apply text-gray-900;
 }
 
 @tailwind utilities;

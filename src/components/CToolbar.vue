@@ -3,16 +3,17 @@
     class="
       fixed
       top-0
-      left-0
-      w-full
+      inset-x-0
       bg-white
       border-t-4
       border-yellow
-      shadow-sm
+      transition-shadow
+      duration-500
+      translucent
     "
-    :class="{ busy }"
+    :class="{ busy, 'shadow-sm': floating }"
   >
-    <nav class="container flex px-4 py-3">
+    <nav class="container flex p-4">
       <div v-if="$slots.left" class="nav-section">
         <slot name="left" />
       </div>
@@ -32,6 +33,26 @@
 export default {
   props: {
     busy: Boolean
+  },
+
+  data() {
+    return {
+      floating: this.updateFloatingState()
+    }
+  },
+
+  methods: {
+    updateFloatingState() {
+      this.floating = window.scrollY > 48
+    }
+  },
+
+  mounted() {
+    document.addEventListener('scroll', this.updateFloatingState)
+  },
+
+  beforeDestroy() {
+    document.removeEventListener('scroll', this.updateFloatingState)
   }
 }
 </script>
@@ -43,6 +64,14 @@ export default {
 
 .busy {
   animation: 0.75s ease-in infinite alternate border-pulse;
+}
+
+@supports ((backdrop-filter: blur()) or (-webkit-backdrop-filter: blur())) {
+  .translucent {
+    @apply bg-opacity-75;
+    -webkit-backdrop-filter: blur(1rem) brightness(1.1);
+    backdrop-filter: blur(1rem) brightness(1.1);
+  }
 }
 
 @keyframes border-pulse {

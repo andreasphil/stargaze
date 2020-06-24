@@ -1,5 +1,5 @@
 <template>
-  <div class="pt-16">
+  <div class="pt-20">
     <c-toolbar :busy="$apollo.loading">
       <template v-slot:left>
         <img

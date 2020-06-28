@@ -19,7 +19,7 @@
 
     <!-- Skeleton items while the list is loading -->
     <template v-if="busy">
-      <b-repo-list-skeleton v-for="n in 5" :key="n" />
+      <b-repo-list-skeleton v-for="n in 3" :key="n" />
     </template>
   </ol>
 </template>

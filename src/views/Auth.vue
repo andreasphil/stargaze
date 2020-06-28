@@ -3,7 +3,7 @@
     <c-toolbar :busy="true">
       <template v-slot:left>
         <div class="flex-shrink-0 rounded-full w-8 h-8 bg-gray-100"></div>
-        <c-input block disabled class="ml-4" />
+        <c-input block disabled class="ml-4" placeholder="Filter..." />
       </template>
 
       <template v-slot:right>
@@ -11,7 +11,7 @@
       </template>
     </c-toolbar>
 
-    <main class="container px-4 my-24">
+    <main class="max-w-screen-xl w-full mx-auto pt-4 px-4 pb-24 md:pt-24">
       <b-repo-list :busy="true" />
     </main>
   </div>

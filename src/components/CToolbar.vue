@@ -13,13 +13,9 @@
     "
     :class="{ busy, 'shadow-sm': floating }"
   >
-    <nav class="container flex p-4">
+    <nav class="max-w-screen-xl mx-auto flex p-4">
       <div v-if="$slots.left" class="nav-section">
         <slot name="left" />
-      </div>
-
-      <div v-if="$slots.center" class="nav-section justify-center">
-        <slot name="center" />
       </div>
 
       <div v-if="$slots.right" class="nav-section justify-end">

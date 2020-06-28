@@ -1,5 +1,5 @@
 <template>
-  <div class="min-h-screen flex flex-col pt-20">
+  <div class="min-h-screen flex flex-col items-stretch pt-20">
     <c-toolbar :busy="$apollo.loading">
       <template v-slot:left>
         <img
@@ -18,7 +18,8 @@
           icon="search"
           class="ml-4"
           v-model="searchString"
-          :placeholder="searchPlaceholder"
+          placeholder="Filter..."
+          :disabled="$apollo.loading"
         />
       </template>
 
@@ -27,7 +28,9 @@
       </template>
     </c-toolbar>
 
-    <main class="container flex-1 px-4 my-24">
+    <main
+      class="flex-1 w-full max-w-screen-xl mx-auto pt-4 px-4 pb-24 md:pt-24"
+    >
       <b-repo-list :repositories="filteredStars" :busy="$apollo.loading" />
     </main>
 
@@ -71,7 +74,6 @@ export default {
               after: $cursor
               orderBy: { direction: DESC, field: STARRED_AT }
             ) {
-              totalCount
               pageInfo {
                 hasNextPage
                 endCursor
@@ -128,19 +130,6 @@ export default {
   },
 
   computed: {
-    /**
-     * @returns Placeholder for the search field depending on the current number of stars.
-     */
-    searchPlaceholder() {
-      if (!this.stars) {
-        return 'Filter ...'
-      }
-
-      return this.stars.edges.length !== this.stars.totalCount
-        ? `Filter ${this.stars.edges.length} of ${this.stars.totalCount} repositories...`
-        : `Filter ${this.stars.totalCount} repositories...`
-    },
-
     /**
      * @returns True if there's more data that can be fetched from the API.
      */

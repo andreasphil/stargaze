@@ -1,5 +1,5 @@
 <template>
-  <div class="pt-20">
+  <div class="min-h-screen flex flex-col pt-20">
     <c-toolbar :busy="$apollo.loading">
       <template v-slot:left>
         <img
@@ -27,14 +27,17 @@
       </template>
     </c-toolbar>
 
-    <main class="container px-4 my-24">
+    <main class="container flex-1 px-4 my-24">
       <b-repo-list :repositories="filteredStars" :busy="$apollo.loading" />
     </main>
+
+    <b-footer inverted />
   </div>
 </template>
 
 <script>
 import { onLogout } from '@/vue-apollo'
+import BFooter from '@/blocks/BFooter.vue'
 import BRepoList from '@/blocks/BRepoList.vue'
 import CButton from '@/components/CButton.vue'
 import CInput from '@/components/CInput.vue'
@@ -43,6 +46,7 @@ import gql from 'graphql-tag'
 
 export default {
   components: {
+    BFooter,
     BRepoList,
     CButton,
     CInput,

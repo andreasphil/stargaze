@@ -41,11 +41,11 @@ export default {
 
 <style lang="postcss" scoped>
 .primary {
-  @apply bg-gray-800 text-gray-100 font-medium shadow-sm;
+  @apply bg-yellow text-gray-900 text-opacity-75 font-medium shadow-sm;
 }
 
 .primary:hover {
-  @apply bg-gray-900;
+  @apply bg-yellow bg-opacity-75;
 }
 
 .large {

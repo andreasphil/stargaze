@@ -12,15 +12,16 @@
         bg-gray-200
       "
     >
-      <h1 class="font-semibold text-4xl">
+      <h1 class="text-sm uppercase font-semibold text-gray-600">
         Stargaze
-        <span class="text-yellow">Alpha</span>
+        <span class="rounded ml-1 py-1 px-2 bg-gray-600 text-gray-100"
+          >Beta</span
+        >
       </h1>
-
-      <p class="mt-4 mb-12 text-xl">
+      <h2 class="font-semibold text-4xl max-w-3xl mt-4 mb-16">
         A beautiful and fast interface for browsing your starred repositories on
-        GitHub.
-      </p>
+        GitHub
+      </h2>
 
       <c-button
         label="Sign in with GitHub"
@@ -31,32 +32,17 @@
       />
     </main>
 
-    <footer class="pb-12">
-      <div class="p-4 pb-12 bg-wave">
-        <img class="w-64 mx-auto" src="@/assets/outer-space.svg" />
-      </div>
-      <p class="text-sm px-4">
-        A thing made by <a :href="authorWebsite">Andreas Philippi.</a> Check out
-        the <a :href="repository">source on GitHub!</a>
-      </p>
-    </footer>
+    <b-footer />
   </div>
 </template>
 
 <script>
 import { getState, getSignInUrl } from '@/utils/auth.js'
+import BFooter from '@/blocks/BFooter.vue'
 import CButton from '@/components/CButton.vue'
-import Meta from '@/utils/metadata.js'
 
 export default {
-  components: { CButton },
-
-  data() {
-    return {
-      repository: Meta.repository,
-      authorWebsite: Meta.authorWebsite
-    }
-  },
+  components: { BFooter, CButton },
 
   methods: {
     /**
@@ -70,11 +56,3 @@ export default {
   }
 }
 </script>
-
-<style lang="postcss" scoped>
-.bg-wave {
-  background: url(~@/assets/wave.svg);
-  background-size: 100% 100%;
-  @apply bg-no-repeat;
-}
-</style>

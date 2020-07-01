@@ -53,7 +53,10 @@
       <div class="m-4 mt-6 h-16 overflow-hidden" v-html="description"></div>
 
       <!-- Footer -->
-      <div class="border-t border-gray-100 divide-x divide-gray-100">
+      <div
+        v-if="language || footer"
+        class="border-t border-gray-100 divide-x divide-gray-100"
+      >
         <span v-if="language" class="p-4 inline-block">{{ language }}</span>
         <span v-if="homepage" class="p-4 inline-block space-x-1">
           <c-icon name="link" middle />

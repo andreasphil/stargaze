@@ -34,7 +34,7 @@
         </div>
 
         <!-- Author and name -->
-        <div class="flex-grow">
+        <div class="flex-grow title-width">
           <a
             v-if="author"
             :href="authorUrl"
@@ -54,7 +54,7 @@
 
       <!-- Footer -->
       <div
-        v-if="language || footer"
+        v-if="language || homepage"
         class="border-t border-gray-100 divide-x divide-gray-100"
       >
         <span v-if="language" class="p-4 inline-block">{{ language }}</span>
@@ -97,3 +97,9 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+.title-width {
+  max-width: calc(100% - 5rem);
+}
+</style>

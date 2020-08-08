@@ -1,4 +1,3 @@
-import Auth from '@/views/Auth.vue'
 import Home from '@/views/Home.vue'
 import metadata from '@/utils/metadata'
 import requireLogin from '@/router/require-login'
@@ -21,7 +20,7 @@ const routes = [
   {
     path: '/auth',
     name: 'Auth',
-    component: Auth,
+    component: () => import(/* webpackChunkName: "auth" */ '../views/Auth.vue'),
     meta: {
       redirectWhenLoggedIn: 'Stars',
       title: metadata.title('Your being logged in ...')

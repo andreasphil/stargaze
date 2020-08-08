@@ -32,7 +32,39 @@
     <main
       class="flex-1 w-full max-w-screen-xl mx-auto pt-4 px-4 pb-24 md:pt-24"
     >
-      <b-repo-list :repositories="filteredStars" :busy="$apollo.loading" />
+      <!-- Always keep the full list in the background so the browser doesn't need to
+      re-render everything when the user clears the search field -->
+      <b-repo-list
+        v-if="stars || $apollo.loading"
+        v-show="!isSearching"
+        :repositories="stars ? stars.edges : []"
+        :busy="$apollo.loading"
+      />
+      <div
+        v-if="
+          !isSearching && !$apollo.loading && (!stars || stars.length === 0)
+        "
+        class="text-center text-gray-600"
+      >
+        <c-icon name="star" />
+        <p class="mt-2">You haven't starred any repositories yet.</p>
+      </div>
+
+      <!-- Search results -->
+      <b-repo-list
+        v-show="isSearching"
+        :repositories="searchResults"
+        :busy="$apollo.loading"
+      />
+      <div
+        v-if="isSearching && searchResults.length === 0"
+        class="text-center text-gray-600"
+      >
+        <c-icon name="search" />
+        <p class="mt-2">
+          Nothing found when searching for "{{ searchString }}".
+        </p>
+      </div>
     </main>
 
     <b-footer inverted />
@@ -44,22 +76,39 @@ import { onLogout } from '@/vue-apollo'
 import BFooter from '@/blocks/BFooter.vue'
 import BRepoList from '@/blocks/BRepoList.vue'
 import CButton from '@/components/CButton.vue'
+import CIcon from '@/components/CIcon.vue'
 import CInput from '@/components/CInput.vue'
 import CToolbar from '@/components/CToolbar.vue'
 import gql from 'graphql-tag'
+import index from '@/utils/search'
+
+const searchOpts = {
+  // Searchable properties
+  tokenize: [
+    'node.name',
+    'node.owner.login',
+    'node.description',
+    'node.primaryLanguage.name'
+  ],
+
+  // Where to find the identifier for a repository
+  idProp: 'node.id'
+}
 
 export default {
   components: {
     BFooter,
     BRepoList,
     CButton,
+    CIcon,
     CInput,
     CToolbar
   },
 
   data() {
     return {
-      searchString: ''
+      searchString: '',
+      search: () => new Set()
     }
   },
 
@@ -102,17 +151,22 @@ export default {
         }
       `,
 
-      update: data =>
-        data.viewer ? data.viewer.starredRepositories : undefined,
+      update: data => data?.viewer?.starredRepositories,
 
       variables() {
         return { cursor: undefined }
       },
 
       result(response) {
-        // If there's more data, load it automatically
         if (this.hasNext) {
+          // If there's more data, load it automatically
           this.loadNext()
+        } else {
+          // Once we're done loading, build a search index
+          this.search = index(
+            response?.data?.viewer?.starredRepositories?.edges,
+            searchOpts
+          )
         }
       }
     },
@@ -135,40 +189,32 @@ export default {
      * @returns True if there's more data that can be fetched from the API.
      */
     hasNext() {
-      return this.stars && this.stars.pageInfo.hasNextPage
+      return !!this.stars?.pageInfo?.hasNextPage
     },
 
     /**
-     * Filters the list of starred repository using the current search string. The filter returns
-     * all items where the name, description, owner name or language name contain the current
-     * search string (not case sensitive).
+     * Returns whether there is an active search filter. This is considered to be the case when
+     * the search string is set and longer than 2 characters.
      *
-     * TODO: This is kinda brute force, maybe there's a better way to do this
+     * @returns True if search is active
+     */
+    isSearching() {
+      return this.searchString && this.searchString.trim().length >= 3
+    },
+
+    /**
+     * Filters the list of starred repository using the current search string.
      *
      * @returns {Array} Filtered stars
      */
-    filteredStars() {
-      if (!this.stars || !this.stars.edges) {
+    searchResults() {
+      if (!this.stars?.edges || !this.isSearching) {
         return []
       }
 
-      if (this.searchString.trim() === '' || this.searchString.length < 3) {
-        return this.stars.edges
-      }
-
-      const s = this.searchString.toLowerCase()
-
-      const filteredStars = this.stars.edges.filter(star => {
-        const { name, description, owner, primaryLanguage: lang } = star.node
-        return (
-          name.toLowerCase().indexOf(s) >= 0 ||
-          (!!description && description.toLowerCase().indexOf(s) >= 0) ||
-          owner.login.toLowerCase().indexOf(s) >= 0 ||
-          (!!lang && !!lang.name && lang.name.toLowerCase().indexOf(s) >= 0)
-        )
-      })
-
-      return filteredStars
+      const s = this.searchString.trim().toLowerCase()
+      const result = this.search(s)
+      return this.stars.edges.filter(star => result.has(star.node.id))
     }
   },
 
@@ -194,9 +240,6 @@ export default {
       })
     },
 
-    /**
-     * Event handler for focusing the search input when a specific hotkey is pressed.
-     */
     focusSearchHotkey(event) {
       // If the event key is a single word character (0-9, a-z) and the search field is not focused
       // yet, treat the input as an input to the search field

@@ -39,8 +39,10 @@ export default {
 
   methods: {
     /**
+     * Displays a toast message.
+     *
      * @param {string} text The text of the toast message
-     * @param {*} options Additional options of the toast message
+     * @param {ToastOptions} options Additional options of the toast message
      */
     handleToast(text, options) {
       // Prepend the toast to the list

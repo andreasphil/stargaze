@@ -1,17 +1,25 @@
+/**
+ * Specifies properties of a toast.
+ *
+ * @typedef {Object} ToastOptions
+ * @property {string} icon The icon of the toast
+ */
+
 // The list of handlers that are subscribed to new toast messages
 const toastHandlers = new Set()
 
+/** @type {ToastOptions} */
 const defaultOpts = {
   icon: 'info'
 }
 
 const VueToaster = {
-  install(Vue, options) {
+  install(Vue) {
     /**
      * Broadcast a toast message.
      *
      * @param {string} text The text of the message
-     * @param {*} options Additional payload of the message
+     * @param {ToastOptions} options Additional payload of the message
      */
     Vue.prototype.$toast = function(text, options) {
       const opts = { ...defaultOpts, ...options }

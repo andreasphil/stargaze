@@ -13,7 +13,7 @@ export default function requireLogin(to, _, next) {
     to.matched.some(route => route.meta.requireLogin) &&
     !loginTokenExists()
   ) {
-    // Login is required but not token exists
+    // Login is required but no token exists
     next({ name: 'Home' })
   } else if (
     to.matched.some(route => route.meta.redirectWhenLoggedIn) &&

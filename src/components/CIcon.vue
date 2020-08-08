@@ -24,9 +24,6 @@ export default {
   },
 
   computed: {
-    /**
-     * Return the SVG icon with the provided name if it exists.
-     */
     svg() {
       return feather.icons[this.name]
         ? feather.icons[this.name].toSvg({

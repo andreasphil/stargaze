@@ -70,9 +70,6 @@ export default {
   },
 
   methods: {
-    /**
-     * Put the focus on the HTML input element inside the component.
-     */
     focus() {
       this.$refs.input.focus()
     },

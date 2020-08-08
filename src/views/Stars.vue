@@ -19,7 +19,6 @@
           class="ml-4"
           v-model="searchString"
           placeholder="Filter..."
-          :disabled="$apollo.loading"
         />
       </template>
 

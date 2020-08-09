@@ -14,7 +14,7 @@
   </a>
 </p>
 
-Stars on GitHub are really hand for bookmarking interesting projects on GitHub. Unfortunately, I find GitHub's the built-in list of starred repositories a bit slow and clunky to use, so I've built my own!
+Stars on GitHub are really hand for bookmarking interesting projects on GitHub. Unfortunately, I find the built-in list of starred repositories a bit slow and clunky to use, so I've built my own!
 
 - View all your starred repositories at once - no pagination no anything, it's all there right away
 - Start typing anywhere on the page to filter repository names, descriptions, authors, and languages

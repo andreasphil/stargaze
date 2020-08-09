@@ -26,6 +26,8 @@
       :class="{ 'pl-10': !!icon }"
       :placeholder="placeholder"
       :disabled="disabled"
+      :spellcheck="spellcheck"
+      :title="title"
       v-model="localValue"
     />
   </div>
@@ -43,9 +45,14 @@ export default {
       default: ''
     },
     placeholder: String,
+    title: String,
     block: Boolean,
     icon: String,
-    disabled: Boolean
+    disabled: Boolean,
+    spellcheck: {
+      type: Boolean,
+      default: true
+    }
   },
 
   computed: {
@@ -68,6 +75,10 @@ export default {
      */
     focus() {
       this.$refs.input.focus()
+    },
+
+    focused() {
+      return document.activeElement === this.$refs.input
     }
   }
 }

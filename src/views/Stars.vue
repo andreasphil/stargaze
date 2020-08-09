@@ -19,6 +19,8 @@
           class="ml-4"
           v-model="searchString"
           placeholder="Filter..."
+          title="Tip: Type anywhere to start filtering!"
+          :spellcheck="false"
         />
       </template>
 
@@ -196,7 +198,10 @@ export default {
      * Event handler for focusing the search input when a specific hotkey is pressed.
      */
     focusSearchHotkey(event) {
-      if (event.key === '/') {
+      // If the event key is a single word character (0-9, a-z) and the search field is not focused
+      // yet, treat the input as an input to the search field
+      if (event.key.match(/^[\w/]$/) && !this.$refs.search.focused()) {
+        this.searchString = event.key
         this.$refs.search.focus()
       }
     },

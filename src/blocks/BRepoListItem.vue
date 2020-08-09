@@ -26,6 +26,7 @@
         <div class="w-16 h-16">
           <img
             :src="icon"
+            :alt="author ? `GitHub avatar of ${author}` : ''"
             loading="lazy"
             width="64px"
             height="64px"

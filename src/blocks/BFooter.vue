@@ -1,7 +1,7 @@
 <template>
   <footer class="text-center">
     <div class="bg-wave p-4 pb-0" :class="{ 'bg-wave--inverted': inverted }">
-      <img class="w-64 mx-auto" src="@/assets/outer-space.svg" />
+      <img class="w-64 mx-auto" src="@/assets/outer-space.svg" alt="" />
     </div>
     <p class="text-sm px-4 py-12" :class="{ 'bg-gray-200': inverted }">
       A thing made by <a :href="authorWebsite">Andreas Philippi.</a> Check out

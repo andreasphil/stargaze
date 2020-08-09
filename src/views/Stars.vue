@@ -5,6 +5,7 @@
         <img
           v-if="viewer"
           class="flex-shrink-0 rounded-full w-8 h-8"
+          alt="Your GitHub avatar"
           :src="viewer.avatarUrl"
         />
         <div

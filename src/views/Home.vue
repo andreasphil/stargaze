@@ -12,7 +12,7 @@
         bg-gray-200
       "
     >
-      <h1 class="text-sm uppercase font-semibold text-gray-600">
+      <h1 class="text-sm uppercase font-semibold">
         Stargaze
         <span class="rounded ml-1 py-1 px-2 bg-gray-600 text-gray-100"
           >Beta</span

@@ -13,6 +13,7 @@
       duration-150
     "
     :class="{ primary, large, 'w-full': block }"
+    :role="role"
     @click="$emit('click')"
   >
     <c-icon v-if="icon" :name="icon" />
@@ -34,7 +35,11 @@ export default {
     icon: String,
     primary: Boolean,
     block: Boolean,
-    large: Boolean
+    large: Boolean,
+    role: {
+      type: String,
+      default: 'button'
+    }
   }
 }
 </script>

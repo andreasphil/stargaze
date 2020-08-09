@@ -1,6 +1,8 @@
-import { loginTokenExists } from '../vue-apollo'
-import Auth from '../views/Auth.vue'
-import Home from '../views/Home.vue'
+import Auth from '@/views/Auth.vue'
+import Home from '@/views/Home.vue'
+import metadata from '@/utils/metadata'
+import requireLogin from '@/router/require-login'
+import updateHead from '@/router/update-head'
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 
@@ -12,7 +14,8 @@ const routes = [
     name: 'Home',
     component: Home,
     meta: {
-      redirectWhenAuthenticated: 'Stars'
+      redirectWhenLoggedIn: 'Stars',
+      title: metadata.title()
     }
   },
   {
@@ -20,14 +23,16 @@ const routes = [
     name: 'Auth',
     component: Auth,
     meta: {
-      redirectWhenAuthenticated: 'Stars'
+      redirectWhenLoggedIn: 'Stars',
+      title: metadata.title('Your being logged in ...')
     }
   },
   {
     path: '/stars',
     name: 'Stars',
     meta: {
-      requireAuth: true
+      requireLogin: true,
+      title: metadata.title('Starred repositories')
     },
     component: () =>
       import(/* webpackChunkName: "stars" */ '../views/Stars.vue')
@@ -39,24 +44,7 @@ const router = new VueRouter({
   routes
 })
 
-router.beforeEach((to, _, next) => {
-  if (to.matched.some(route => route.meta.requireAuth) && !loginTokenExists()) {
-    // Login is required but not token exists
-    next({ name: 'Home' })
-  } else if (
-    to.matched.some(route => route.meta.redirectWhenAuthenticated) &&
-    loginTokenExists()
-  ) {
-    // Page is set to redirect somewhere else if a login token exists
-    const redirect = to.matched
-      .map(route => route.meta)
-      .find(routeMeta => !!routeMeta.redirectWhenAuthenticated)
-
-    next({ name: redirect.redirectWhenAuthenticated })
-  } else {
-    // Normal navigation
-    next()
-  }
-})
+router.beforeEach(requireLogin)
+router.afterEach(to => updateHead({ title: to?.meta?.title }))
 
 export default router

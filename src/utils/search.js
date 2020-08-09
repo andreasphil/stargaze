@@ -1,4 +1,10 @@
 /**
+ * An inverted index mapping search terms to a set of IDs of objects matching the search term.
+ *
+ * @typedef {Map.<string, Set.<string>>} SearchIndex
+ */
+
+/**
  * Specifies configuration for building a search index.
  *
  * @typedef {Object} IndexingOptions
@@ -17,52 +23,33 @@
  */
 
 /**
- * Looks up all ID entries in the index for a search term. The search term is split according to
- * the provided matcher expression. If the term consists of multiple words, the results for each
- * word are combined into one set.
+ * Returns the intersection of multiple sets.
  *
- * @param {Map} index Search index to get the results from
- * @param {string} term Search term to look up
- * @param {RegExp} matcher The expression used to split the term into multiple words
- * @returns {Set.<string>} A set containing the IDs associated with the search term
+ * @param {...Set} sets Sets to get common elements from
+ * @returns {Set} Set containing the elements shared among the source sets
  */
-function search(index, term, matcher = /\w+/g) {
-  const results = term
-    .toLowerCase()
-    .match(matcher)
-    .filter(term => index.has(term))
-    .map(term => index.get(term))
-    .flatMap(ids => Array.from(ids))
+function intersect(...sets) {
+  const setsCopy = [...sets]
 
-  return new Set(results)
-}
-
-/**
- * Curries + memoizes the search function for a specific search index, using a pre-defined
- * matcher. The resulting function takes a search term as a parameter and returns the results
- * from the index.
- *
- * @param {Map.<string, Set.<string>>} index Search index to use
- * @param {RegExp} matcher Matcher to use
- * @returns {SearchFn} Search function
- */
-function prepareSearch(index, matcher) {
-  const memo = new Map()
-
-  const searchFn = term => {
-    if (memo.has(term)) {
-      // Return the cached result if the term has been searched for before
-      return memo.get(term)
-    }
-
-    // Perform a new search and cache the result
-    const results = search(index, term, matcher)
-    memo.set(term, results)
-
-    return results
+  if (!setsCopy?.length) {
+    return new Set()
+  } else if (setsCopy.length === 1) {
+    return setsCopy[0]
   }
 
-  return searchFn
+  const a = setsCopy.shift()
+  const b = setsCopy.shift()
+  const intersection = new Set()
+
+  a.forEach(itemFromA => {
+    if (b.has(itemFromA)) {
+      intersection.add(itemFromA)
+    }
+  })
+
+  setsCopy.unshift(intersection)
+
+  return intersect(...setsCopy)
 }
 
 /**
@@ -91,9 +78,57 @@ function getNestedProp(obj, prop) {
 }
 
 /**
+ * Looks up all ID entries in the index for a search term. The search term is split according to
+ * the provided matcher expression. If the term consists of multiple words, only results containing
+ * all words are returned.
+ *
+ * @param {Map} index Search index to get the results from
+ * @param {string} term Search term to look up
+ * @param {RegExp} matcher The expression used to split the term into multiple words
+ * @returns {Set.<string>} A set containing the IDs associated with the search term
+ */
+function search(index, term, matcher = /\w+/g) {
+  const results = term
+    .toLowerCase()
+    .match(matcher)
+    .filter(term => index.has(term))
+    .map(term => index.get(term))
+
+  return intersect(...results)
+}
+
+/**
+ * Curries + memoizes the search function for a specific search index, using a pre-defined
+ * matcher. The resulting function takes a search term as a parameter and returns the results
+ * from the index.
+ *
+ * @param {SearchIndex} index Search index to use
+ * @param {RegExp} matcher Matcher to use
+ * @returns {SearchFn} Search function
+ */
+function initializeSearch(index, matcher) {
+  const memo = new Map()
+
+  const searchFn = term => {
+    if (memo.has(term)) {
+      // Return the cached result if the term has been searched for before
+      return memo.get(term)
+    }
+
+    // Perform a new search and cache the result
+    const results = search(index, term, matcher)
+    memo.set(term, results)
+
+    return results
+  }
+
+  return searchFn
+}
+
+/**
  * Adds the specified data to an existing search index.
  *
- * @param {Map.<string, Set.<string>>} index Existing index
+ * @param {SearchIndex} index Existing index
  * @param {Object[]} data New data to add
  * @param {*} options Indexing options
  * @returns {Map} Combined search index containing the old and new data
@@ -137,7 +172,6 @@ function addToIndex(index, data, options) {
  *  - Results only contain matches for full words (e.g. 'hello' will match 'hello', but not 'hel')
  *
  * TODO: Implement support for partial matches
- * TODO: Adding more token in search should narrow the results
  *
  * @param {Object[]} data The data set that should be indexed
  * @param {IndexingOptions} options Settings for indexing
@@ -153,9 +187,6 @@ export default function index(data, options = {}) {
 
   const opts = { ...defaultOpts, ...options }
 
-  // Build a search index
-  const searchMap = addToIndex(new Map(), data || [], opts)
-
-  // Build a search function curried + with memoization for this specific index
-  return prepareSearch(searchMap, opts.matcher)
+  const searchIndex = addToIndex(new Map(), data || [], opts)
+  return initializeSearch(searchIndex, opts.matcher)
 }

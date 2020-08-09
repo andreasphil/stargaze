@@ -212,8 +212,7 @@ export default {
         return []
       }
 
-      const s = this.searchString.trim().toLowerCase()
-      const result = this.search(s)
+      const result = this.search(this.searchString)
       return this.stars.edges.filter(star => result.has(star.node.id))
     }
   },

@@ -14,16 +14,17 @@
   </a>
 </p>
 
-Stars on GitHub are really handy for bookmarking interesting projects on GitHub. Unfortunately, I find the built-in list of starred repositories a bit slow and clunky to use, so I've built my own!
+Stars on GitHub are really handy for bookmarking interesting projects on GitHub. Unfortunately, I find the built-in list of starred repositories a bit slow and clunky to use, so built my own!
 
 - View all your starred repositories at once - no pagination no anything, it's all there right away
 - Start typing anywhere on the page to filter repository names, descriptions, authors, and languages
 - Quickly access the repository, the website, or the author's GitHub profile
+- Only requires reading permissions to your account, and never tracks you
 - Fast, accessible, and looks good 🥰
 
 ## Development
 
-The app is built on a pretty standard [Vue CLI](https://cli.vuejs.org) stack, run by [Netlify Dev](https://www.netlify.com/products/dev/) to enable local development and testing of serverless functions.
+The app is based on a pretty standard [Vue CLI](https://cli.vuejs.org) stack, run by [Netlify Dev](https://www.netlify.com/products/dev/) to enable local development and testing of serverless functions.
 
 To get started, install dependencies using `npm install`. Because Stargaze relies on GitHub's GraphQL API and OAuth flow, you'll also need to [create an OAuth app](https://docs.github.com/en/developers/apps/creating-an-oauth-app) in the developer section in your profile settings. For local development, the following settings should work:
 
@@ -52,7 +53,7 @@ VUE_APP_GRAPHQL_HTTP=https://api.github.com/graphql
 
 Once all is set up, you have the following npm scripts available to run common development tasks:
 
-- Compile and start dev server: `npm start`
+- Compile and start dev server: `npm start` (`netlify dev` will ask you to sign in if you haven't already)
 - Build for production: `npm run build`
 - Run tests: `npm run test:unit` (there will be tests soon, I promise! 🤞)
 - Lint and fix files: `npm run lint`
@@ -63,9 +64,9 @@ Deployment to Netlify should be unproblematic, just link the repository to a new
 
 ## Credits
 
-Apart from the open source packages listed in [package.json](package.json), Stargaze uses
+Apart from the open source packages listed in [package.json](package.json), Stargaze uses:
 
 - Illustrations from [unDraw](https://undraw.co)
 - Favicons generated with [favicon.io](https://favicon.io)
 
-Thanks!
+Thanks 🙏

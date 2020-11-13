@@ -4,8 +4,8 @@ import { loginTokenExists } from '../vue-apollo'
  * Checks whether an active session exists and redirects the user based on the route's meta
  * configuration.
  *
- * @param {Route} to Target route
- * @param {Route} _ Original route (ignored by the handler)
+ * @param {import('vue-router').Route} to Target route
+ * @param {import('vue-router').Route} _ Original route (ignored by the handler)
  * @param {Function} next Callback when the guard has finished
  */
 export default function requireLogin(to, _, next) {

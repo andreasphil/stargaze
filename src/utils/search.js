@@ -1,7 +1,7 @@
 /**
  * An inverted index mapping search terms to a set of IDs of objects matching the search term.
  *
- * @typedef {Map.<string, Set.<string>>} SearchIndex
+ * @typedef {Map<string, Set<string>>} SearchIndex
  */
 
 /**
@@ -19,7 +19,7 @@
  *
  * @typedef {Function} SearchFn
  * @param {string} term The search term
- * @returns {Set.<string>} A set containing the result IDs
+ * @returns {Set<string>} A set containing the result IDs
  */
 
 /**
@@ -85,7 +85,7 @@ function getNestedProp(obj, prop) {
  * @param {Map} index Search index to get the results from
  * @param {string} term Search term to look up
  * @param {RegExp} matcher The expression used to split the term into multiple words
- * @returns {Set.<string>} A set containing the IDs associated with the search term
+ * @returns {Set<string>} A set containing the IDs associated with the search term
  */
 function search(index, term, matcher = /\w+/g) {
   const results = term
@@ -128,37 +128,44 @@ function initializeSearch(index, matcher) {
 /**
  * Adds the specified data to an existing search index.
  *
+ * Indexing works like this: First, all properties of the object that should be searchable are
+ * combined into a single string to make them easier to process. Since the search algorithm is
+ * designed to only return a set of IDs as search results, we don't need to remember the exact
+ * property responsible for the match. Next, the string is converted to lower case, just like
+ * the search term will be, in order to make searching case-insensitive. The result is split into
+ * individual tokens. Each token is added as a key to a map, the value being the IDs of all
+ * objects containing the token.
+ *
  * @param {SearchIndex} index Existing index
  * @param {Object[]} data New data to add
- * @param {*} options Indexing options
- * @returns {Map} Combined search index containing the old and new data
+ * @param {IndexingOptions} options Indexing options
+ * @returns {SearchIndex} Combined search index containing the old and new data
  */
 function addToIndex(index, data, options) {
-  // Indexing works like this: First, all properties of the object that should be searchable are
-  // combined into a single string to make them easier to process. Since the search algorithm is
-  // designed to only return a set of IDs as search results, we don't need to remember the exact
-  // property responsible for the macht. Next, the string is converted to lower case, just like
-  // the search term will be, in order to make searching case-insensitive. The result is split into
-  // individual tokens. Each token is added as a key to a map, the value being the IDs of all
-  // objects containing the token.
+  return data.reduce(
+    /**
+     * @param {SearchIndex} all New index
+     * @param {Object} current Object that is added to the index
+     */
+    (all, current) => {
+      options.tokenize
+        .map(prop => getNestedProp(current, prop))
+        .join(' ')
+        .toLowerCase()
+        .match(options.matcher)
+        .forEach(token => {
+          if (!all.has(token)) {
+            all.set(token, new Set())
+          }
 
-  return data.reduce((all, current) => {
-    options.tokenize
-      .map(prop => getNestedProp(current, prop))
-      .join(' ')
-      .toLowerCase()
-      .match(options.matcher)
-      .forEach(token => {
-        if (!all.has(token)) {
-          all.set(token, new Set())
-        }
+          const id = getNestedProp(current, options.idProp)
+          all.get(token).add(id)
+        })
 
-        const id = getNestedProp(current, options.idProp)
-        all.get(token).add(id)
-      })
-
-    return all
-  }, new Map(index))
+      return all
+    },
+    new Map(index)
+  )
 }
 
 /**
@@ -172,6 +179,10 @@ function addToIndex(index, data, options) {
  *  - Results only contain matches for full words (e.g. 'hello' will match 'hello', but not 'hel')
  *
  * TODO: Implement support for partial matches
+ * TODO: Make async
+ * TODO: Use web workers
+ * TODO: Idea: Return exact matches first, then do a traditional filter in the background and
+ *       return these results later
  *
  * @param {Object[]} data The data set that should be indexed
  * @param {IndexingOptions} options Settings for indexing

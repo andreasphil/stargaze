@@ -1,46 +1,53 @@
 <template>
-  <footer class="text-center">
-    <div class="bg-wave p-4 pb-0" :class="{ 'bg-wave--inverted': inverted }">
-      <img class="w-64 mx-auto" src="@/assets/outer-space.svg" alt="" />
+  <footer class="text-center" :class="{ 'bg-gray-200': inverted }">
+    <div class="relative">
+      <wave-svg
+        class="bg-wave h-48 w-full"
+        :class="{ 'bg-wave--inverted': inverted }"
+      />
+      <outer-space-svg
+        class="w-64 absolute bottom-0 left-1/2 transform -translate-x-32"
+      />
     </div>
-    <p class="text-sm px-4 py-12" :class="{ 'bg-gray-200': inverted }">
-      A thing made by <a :href="authorWebsite">Andreas Philippi.</a> Check out
-      the <a :href="repository">source on GitHub!</a>
+
+    <p class="text-sm px-4 py-12">
+      A thing made by <a :href="authorWebsite">{{ author }}.</a> Check out the
+      <a :href="repository">source on GitHub.</a>
     </p>
   </footer>
 </template>
 
 <script>
 import Meta from '@/utils/metadata.js'
+import OuterSpaceSvg from '@/assets/outer-space.svg'
+import WaveSvg from '@/assets/wave.svg'
 
 export default {
+  components: {
+    OuterSpaceSvg,
+    WaveSvg
+  },
+
   props: {
     inverted: Boolean
   },
 
   data() {
-    return {
-      repository: Meta.repository,
-      authorWebsite: Meta.authorWebsite
-    }
+    return { ...Meta }
   }
 }
 </script>
 
 <style lang="postcss" scoped>
 .bg-wave {
-  @apply relative;
+  @apply text-gray-200;
 }
 
-.bg-wave::after {
-  content: '';
-  background: url(~@/assets/wave.svg);
-  background-size: 100% 100%;
-  z-index: -1;
-  @apply absolute inset-0;
+.bg-wave--inverted {
+  @apply text-gray-100;
 }
 
-.bg-wave--inverted::after {
-  transform: rotate(180deg);
+.bg-wave path {
+  @apply fill-current;
 }
 </style>

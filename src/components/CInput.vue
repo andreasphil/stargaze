@@ -38,15 +38,15 @@ export default {
   props: {
     value: {
       type: String,
-      default: ''
+      default: "",
     },
     placeholder: String,
     title: String,
     disabled: Boolean,
     spellcheck: {
       type: Boolean,
-      default: true
-    }
+      default: true,
+    },
   },
 
   computed: {
@@ -58,9 +58,9 @@ export default {
         return this.value
       },
       set(value) {
-        this.$emit('input', value)
-      }
-    }
+        this.$emit("input", value)
+      },
+    },
   },
 
   methods: {
@@ -70,8 +70,8 @@ export default {
 
     focused() {
       return document.activeElement === this.$refs.input
-    }
-  }
+    },
+  },
 }
 </script>
 

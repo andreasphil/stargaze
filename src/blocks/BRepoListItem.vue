@@ -69,7 +69,7 @@
 </template>
 
 <script>
-import ExternalLinkSvg from '@/assets/external-link.svg'
+import ExternalLinkSvg from "@/assets/external-link.svg"
 
 export default {
   components: { ExternalLinkSvg },
@@ -77,25 +77,25 @@ export default {
   props: {
     name: {
       type: String,
-      required: true
+      required: true,
     },
     description: {
       type: String,
-      required: true
+      required: true,
     },
     url: {
       type: String,
-      required: true
+      required: true,
     },
     icon: {
       type: String,
-      required: true
+      required: true,
     },
     author: String,
     authorUrl: String,
     homepage: String,
-    language: String
-  }
+    language: String,
+  },
 }
 </script>
 

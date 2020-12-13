@@ -1,46 +1,46 @@
-import Home from '@/views/Home.vue'
-import metadata from '@/utils/metadata'
-import requireLogin from '@/router/require-login'
-import updateHead from '@/router/update-head'
-import Vue from 'vue'
-import VueRouter from 'vue-router'
+import Home from "@/views/Home.vue"
+import metadata from "@/utils/metadata"
+import requireLogin from "@/router/require-login"
+import updateHead from "@/router/update-head"
+import Vue from "vue"
+import VueRouter from "vue-router"
 
 Vue.use(VueRouter)
 
 const routes = [
   {
-    path: '/',
-    name: 'Home',
+    path: "/",
+    name: "Home",
     component: Home,
     meta: {
-      redirectWhenLoggedIn: 'Stars',
-      title: metadata.title()
-    }
+      redirectWhenLoggedIn: "Stars",
+      title: metadata.title(),
+    },
   },
   {
-    path: '/auth',
-    name: 'Auth',
-    component: () => import(/* webpackChunkName: "auth" */ '../views/Auth.vue'),
+    path: "/auth",
+    name: "Auth",
+    component: () => import(/* webpackChunkName: "auth" */ "../views/Auth.vue"),
     meta: {
-      redirectWhenLoggedIn: 'Stars',
-      title: metadata.title('Your being logged in ...')
-    }
+      redirectWhenLoggedIn: "Stars",
+      title: metadata.title("Your being logged in ..."),
+    },
   },
   {
-    path: '/stars',
-    name: 'Stars',
+    path: "/stars",
+    name: "Stars",
     meta: {
       requireLogin: true,
-      title: metadata.title('Starred repositories')
+      title: metadata.title("Starred repositories"),
     },
     component: () =>
-      import(/* webpackChunkName: "stars" */ '../views/Stars.vue')
-  }
+      import(/* webpackChunkName: "stars" */ "../views/Stars.vue"),
+  },
 ]
 
 const router = new VueRouter({
-  mode: 'history',
-  routes
+  mode: "history",
+  routes,
 })
 
 router.beforeEach(requireLogin)

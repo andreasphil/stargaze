@@ -33,10 +33,10 @@
 </template>
 
 <script>
-import { getState, getSignInUrl } from '@/utils/auth.js'
-import BFooter from '@/blocks/BFooter.vue'
-import CButton from '@/components/CButton.vue'
-import GithubSvg from '@/assets/github.svg'
+import { getState, getSignInUrl } from "@/utils/auth.js"
+import BFooter from "@/blocks/BFooter.vue"
+import CButton from "@/components/CButton.vue"
+import GithubSvg from "@/assets/github.svg"
 
 export default {
   components: { BFooter, CButton, GithubSvg },
@@ -49,7 +49,7 @@ export default {
       const randomState = getState()
       const url = getSignInUrl(randomState)
       window.location.href = url
-    }
-  }
+    },
+  },
 }
 </script>

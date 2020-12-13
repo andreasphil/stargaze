@@ -18,10 +18,10 @@ export const getState = () => {
  */
 export const getSignInUrl = state => {
   const url = new URL(process.env.VUE_APP_AUTH_URL)
-  url.searchParams.append('state', state)
-  url.searchParams.append('client_id', process.env.VUE_APP_AUTH_CLIENT_ID)
-  url.searchParams.append('redirect_uri', process.env.VUE_APP_AUTH_REDIRECT_URL)
-  url.searchParams.append('scope', 'read:user')
+  url.searchParams.append("state", state)
+  url.searchParams.append("client_id", process.env.VUE_APP_AUTH_CLIENT_ID)
+  url.searchParams.append("redirect_uri", process.env.VUE_APP_AUTH_REDIRECT_URL)
+  url.searchParams.append("scope", "read:user")
 
   return url.toString()
 }
@@ -34,7 +34,7 @@ export const getSignInUrl = state => {
  */
 export const getAccessToken = async code => {
   const url = new URL(process.env.VUE_APP_AUTH_TOKEN_URL)
-  url.searchParams.append('code', code)
+  url.searchParams.append("code", code)
 
   const response = await fetch(url)
   const token = await response.text()

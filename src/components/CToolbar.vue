@@ -28,28 +28,28 @@
 <script>
 export default {
   props: {
-    busy: Boolean
+    busy: Boolean,
   },
 
   data() {
     return {
-      floating: this.updateFloatingState()
+      floating: this.updateFloatingState(),
     }
   },
 
   methods: {
     updateFloatingState() {
       this.floating = window.scrollY > 48
-    }
+    },
   },
 
   mounted() {
-    document.addEventListener('scroll', this.updateFloatingState)
+    document.addEventListener("scroll", this.updateFloatingState)
   },
 
   beforeDestroy() {
-    document.removeEventListener('scroll', this.updateFloatingState)
-  }
+    document.removeEventListener("scroll", this.updateFloatingState)
+  },
 }
 </script>
 

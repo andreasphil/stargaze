@@ -18,11 +18,11 @@
 </template>
 
 <script>
-import { getAccessToken } from '@/utils/auth'
-import { onLogin } from '@/vue-apollo'
-import BRepoList from '@/blocks/BRepoList.vue'
-import CInput from '@/components/CInput.vue'
-import CToolbar from '@/components/CToolbar.vue'
+import { getAccessToken } from "@/utils/auth"
+import { onLogin } from "@/vue-apollo"
+import BRepoList from "@/blocks/BRepoList.vue"
+import CInput from "@/components/CInput.vue"
+import CToolbar from "@/components/CToolbar.vue"
 
 export default {
   components: { BRepoList, CInput, CToolbar },
@@ -33,7 +33,7 @@ export default {
     // If there's no code, it's likely that the user ended up on this page by mistake. Redirect
     // back to home.
     if (!code) {
-      this.$router.push({ name: 'Home' })
+      this.$router.push({ name: "Home" })
     }
 
     // Get the token and re-initialize apollo with the login information
@@ -41,7 +41,7 @@ export default {
     await onLogin(this.$apollo.getClient(), token)
 
     // Redirect to the actual app
-    this.$router.replace({ name: 'Stars' })
-  }
+    this.$router.replace({ name: "Stars" })
+  },
 }
 </script>

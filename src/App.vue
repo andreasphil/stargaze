@@ -6,10 +6,10 @@
 </template>
 
 <script>
-import BToaster from '@/blocks/BToaster.vue'
+import BToaster from "@/blocks/BToaster.vue"
 
 export default {
-  components: { BToaster }
+  components: { BToaster },
 }
 </script>
 

@@ -44,7 +44,7 @@ const VueToaster = {
         toastHandlers.delete(handler)
       }
     }
-  }
+  },
 }
 
 export default VueToaster

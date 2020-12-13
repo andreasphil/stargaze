@@ -1,15 +1,15 @@
-import Vue from 'vue'
-import VueApollo from 'vue-apollo'
+import Vue from "vue"
+import VueApollo from "vue-apollo"
 import {
   createApolloClient,
-  restartWebsockets
-} from 'vue-cli-plugin-apollo/graphql-client'
+  restartWebsockets,
+} from "vue-cli-plugin-apollo/graphql-client"
 
 // Install the vue plugin
 Vue.use(VueApollo)
 
 // Name of the localStorage item
-const AUTH_TOKEN = 'apollo-token'
+const AUTH_TOKEN = "apollo-token"
 
 // Http endpoint
 const httpEndpoint = process.env.VUE_APP_GRAPHQL_HTTP
@@ -35,7 +35,7 @@ const defaultOptions = {
   websocketsOnly: false,
 
   // Is being rendered on the server?
-  ssr: false
+  ssr: false,
 
   // Override default apollo link
   // note: don't override httpLink here, specify httpLink options in the
@@ -64,7 +64,7 @@ export function createProvider(options = {}) {
   // Create apollo client
   const { apolloClient, wsClient } = createApolloClient({
     ...defaultOptions,
-    ...options
+    ...options,
   })
   apolloClient.wsClient = wsClient
 
@@ -74,17 +74,17 @@ export function createProvider(options = {}) {
     defaultOptions: { $query: {} },
 
     errorHandler(error) {
-      console.error('Apollo error', error.message)
+      console.error("Apollo error", error.message)
 
       if (error.networkError && error.networkError.statusCode === 401) {
         // Unauthorized, redirect to home page so the user can log in again
         onLogout(apolloClient)
-        this.$router.push({ name: 'Home' })
-        this.$toast('Looks like your session expired. Please sign in again.', {
-          type: 'warning'
+        this.$router.push({ name: "Home" })
+        this.$toast("Looks like your session expired. Please sign in again.", {
+          type: "warning",
         })
       }
-    }
+    },
   })
 
   return apolloProvider
@@ -106,7 +106,7 @@ export async function onLogin(apolloClient, token) {
   try {
     await apolloClient.resetStore()
   } catch (err) {
-    console.error('Error on cache reset (login)', err.message)
+    console.error("Error on cache reset (login)", err.message)
   }
 }
 
@@ -125,7 +125,7 @@ export async function onLogout(apolloClient) {
   try {
     await apolloClient.resetStore()
   } catch (err) {
-    console.error('Error on cache reset (logout)', err.message)
+    console.error("Error on cache reset (logout)", err.message)
   }
 }
 
@@ -137,5 +137,5 @@ export async function onLogout(apolloClient) {
  */
 export function loginTokenExists() {
   const token = localStorage.getItem(AUTH_TOKEN)
-  return !!token && token.trim() !== ''
+  return !!token && token.trim() !== ""
 }

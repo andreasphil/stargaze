@@ -66,7 +66,7 @@ function getNestedProp(obj, prop) {
     return undefined
   }
 
-  const dotIndex = prop.indexOf('.')
+  const dotIndex = prop.indexOf(".")
   if (dotIndex >= 0) {
     const current = prop.substring(0, dotIndex)
     const remaining = prop.substring(dotIndex + 1, prop.length)
@@ -150,7 +150,7 @@ function addToIndex(index, data, options) {
     (all, current) => {
       options.tokenize
         .map(prop => getNestedProp(current, prop))
-        .join(' ')
+        .join(" ")
         .toLowerCase()
         .match(options.matcher)
         .forEach(token => {
@@ -192,8 +192,8 @@ export default function index(data, options = {}) {
   /** @type {IndexingOptions} */
   const defaultOpts = {
     matcher: /\w+/g,
-    idProp: 'id',
-    tokenize: []
+    idProp: "id",
+    tokenize: [],
   }
 
   const opts = { ...defaultOpts, ...options }

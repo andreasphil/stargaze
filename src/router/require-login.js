@@ -1,4 +1,4 @@
-import { loginTokenExists } from '../vue-apollo'
+import { loginTokenExists } from "../vue-apollo"
 
 /**
  * Checks whether an active session exists and redirects the user based on the route's meta
@@ -14,7 +14,7 @@ export default function requireLogin(to, _, next) {
     !loginTokenExists()
   ) {
     // Login is required but no token exists
-    next({ name: 'Home' })
+    next({ name: "Home" })
   } else if (
     to.matched.some(route => route.meta.redirectWhenLoggedIn) &&
     loginTokenExists()

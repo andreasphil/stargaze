@@ -18,23 +18,23 @@
 </template>
 
 <script>
-import Meta from '@/utils/metadata.js'
-import OuterSpaceSvg from '@/assets/outer-space.svg'
-import WaveSvg from '@/assets/wave.svg'
+import Meta from "@/utils/metadata.js"
+import OuterSpaceSvg from "@/assets/outer-space.svg"
+import WaveSvg from "@/assets/wave.svg"
 
 export default {
   components: {
     OuterSpaceSvg,
-    WaveSvg
+    WaveSvg,
   },
 
   props: {
-    inverted: Boolean
+    inverted: Boolean,
   },
 
   data() {
     return { ...Meta }
-  }
+  },
 }
 </script>
 

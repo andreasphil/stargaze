@@ -26,14 +26,14 @@
 </template>
 
 <script>
-import ExclamationSvg from '@/assets/exclamation.svg'
+import ExclamationSvg from "@/assets/exclamation.svg"
 
 export default {
   components: { ExclamationSvg },
 
   data() {
     return {
-      toasts: []
+      toasts: [],
     }
   },
 
@@ -49,14 +49,14 @@ export default {
       this.toasts.unshift({
         ...options,
         text,
-        id: Date.now()
+        id: Date.now(),
       })
 
       // Schedule removing it from the list again
       setTimeout(() => {
         this.toasts.pop()
       }, 5000)
-    }
+    },
   },
 
   mounted() {
@@ -67,7 +67,7 @@ export default {
   beforeDestroy() {
     // Clean up toast subscription
     this.$toastOff(this.handleToast)
-  }
+  },
 }
 </script>
 

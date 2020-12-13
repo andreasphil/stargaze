@@ -25,8 +25,8 @@
 </template>
 
 <script>
-import BRepoListItem from '@/blocks/BRepoListItem.vue'
-import BRepoListSkeleton from '@/blocks/BRepoListSkeleton.vue'
+import BRepoListItem from "@/blocks/BRepoListItem.vue"
+import BRepoListSkeleton from "@/blocks/BRepoListSkeleton.vue"
 
 export default {
   components: { BRepoListItem, BRepoListSkeleton },
@@ -34,9 +34,9 @@ export default {
   props: {
     repositories: {
       type: Array,
-      default: () => []
+      default: () => [],
     },
-    busy: Boolean
-  }
+    busy: Boolean,
+  },
 }
 </script>

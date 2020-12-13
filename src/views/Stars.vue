@@ -75,30 +75,30 @@
 </template>
 
 <script>
-import { onLogout } from '@/vue-apollo'
-import BFooter from '@/blocks/BFooter.vue'
-import BRepoList from '@/blocks/BRepoList.vue'
-import CButton from '@/components/CButton.vue'
-import CInput from '@/components/CInput.vue'
-import CToolbar from '@/components/CToolbar.vue'
-import gql from 'graphql-tag'
-import index from '@/utils/search'
-import LogoutSvg from '@/assets/logout.svg'
-import EmojiSadSvg from '@/assets/emoji-sad.svg'
-import StarSvg from '@/assets/star.svg'
-import SearchCircleSvg from '@/assets/search-circle.svg'
+import { onLogout } from "@/vue-apollo"
+import BFooter from "@/blocks/BFooter.vue"
+import BRepoList from "@/blocks/BRepoList.vue"
+import CButton from "@/components/CButton.vue"
+import CInput from "@/components/CInput.vue"
+import CToolbar from "@/components/CToolbar.vue"
+import gql from "graphql-tag"
+import index from "@/utils/search"
+import LogoutSvg from "@/assets/logout.svg"
+import EmojiSadSvg from "@/assets/emoji-sad.svg"
+import StarSvg from "@/assets/star.svg"
+import SearchCircleSvg from "@/assets/search-circle.svg"
 
 const searchOpts = {
   // Searchable properties
   tokenize: [
-    'node.name',
-    'node.owner.login',
-    'node.description',
-    'node.primaryLanguage.name'
+    "node.name",
+    "node.owner.login",
+    "node.description",
+    "node.primaryLanguage.name",
   ],
 
   // Where to find the identifier for a repository
-  idProp: 'node.id'
+  idProp: "node.id",
 }
 
 export default {
@@ -111,13 +111,13 @@ export default {
     EmojiSadSvg,
     LogoutSvg,
     StarSvg,
-    SearchCircleSvg
+    SearchCircleSvg,
   },
 
   data() {
     return {
-      searchString: '',
-      search: () => new Set()
+      searchString: "",
+      search: () => new Set(),
     }
   },
 
@@ -177,7 +177,7 @@ export default {
             searchOpts
           )
         }
-      }
+      },
     },
 
     /**
@@ -190,7 +190,7 @@ export default {
           avatarUrl
         }
       }
-    `
+    `,
   },
 
   computed: {
@@ -223,7 +223,7 @@ export default {
 
       const result = this.search(this.searchString)
       return this.stars.edges.filter(star => result.has(star.node.id))
-    }
+    },
   },
 
   methods: {
@@ -233,18 +233,18 @@ export default {
     loadNext() {
       this.$apollo.queries.stars.fetchMore({
         variables: {
-          cursor: this.stars.pageInfo.endCursor
+          cursor: this.stars.pageInfo.endCursor,
         },
         updateQuery: (before, { fetchMoreResult }) => {
           // Merge meta data and the previous + new result set
           const after = Object.assign({}, before, fetchMoreResult)
           after.viewer.starredRepositories.edges = [
             ...before.viewer.starredRepositories.edges,
-            ...fetchMoreResult.viewer.starredRepositories.edges
+            ...fetchMoreResult.viewer.starredRepositories.edges,
           ]
 
           return after
-        }
+        },
       })
     },
 
@@ -262,18 +262,18 @@ export default {
      */
     async signOut() {
       onLogout(this.$apollo.getClient())
-      this.$router.push({ name: 'Home' })
-    }
+      this.$router.push({ name: "Home" })
+    },
   },
 
   mounted() {
     // Set up search hotkey
-    document.addEventListener('keyup', this.focusSearchHotkey)
+    document.addEventListener("keyup", this.focusSearchHotkey)
   },
 
   destroyed() {
     // Remove search hotkey
-    document.removeEventListener('keyup', this.focusSearchHotkey)
-  }
+    document.removeEventListener("keyup", this.focusSearchHotkey)
+  },
 }
 </script>

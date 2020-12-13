@@ -14,8 +14,8 @@
           mx-4
         "
       >
-        <span class="flex items-center p-4 bg-gray-900" v-if="toast.icon">
-          <c-icon v-if="toast.icon" :name="toast.icon" class="mb-1" />
+        <span class="flex items-center p-4 bg-gray-900" v-if="toast.type">
+          <exclamation-svg v-if="toast.type === 'warning'" />
         </span>
         <span class="p-4">
           {{ toast.text }}
@@ -26,10 +26,10 @@
 </template>
 
 <script>
-import CIcon from '@/components/CIcon.vue'
+import ExclamationSvg from '@/assets/exclamation.svg'
 
 export default {
-  components: { CIcon },
+  components: { ExclamationSvg },
 
   data() {
     return {
@@ -72,6 +72,10 @@ export default {
 </script>
 
 <style lang="postcss" scoped>
+svg {
+  @apply h-text-5;
+}
+
 .toast-enter-active,
 .toast-leave-active {
   @apply transition-all duration-150;

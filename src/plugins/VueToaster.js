@@ -2,16 +2,14 @@
  * Specifies properties of a toast.
  *
  * @typedef {Object} ToastOptions
- * @property {string} icon The icon of the toast
+ * @property {string} type The icon of the toast
  */
 
 // The list of handlers that are subscribed to new toast messages
 const toastHandlers = new Set()
 
 /** @type {ToastOptions} */
-const defaultOpts = {
-  icon: 'info'
-}
+const defaultOpts = {}
 
 const VueToaster = {
   install(Vue) {

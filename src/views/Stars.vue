@@ -15,18 +15,20 @@
 
         <c-input
           ref="search"
-          block
           icon="search"
-          class="ml-4"
+          class="ml-4 w-full"
           v-model="searchString"
           placeholder="Filter..."
           title="Tip: Type anywhere to start filtering!"
           :spellcheck="false"
-        />
+          ><template v-slot:icon><search-circle-svg /></template
+        ></c-input>
       </template>
 
       <template v-slot:right>
-        <c-button label="Sign out" icon="log-out" @click="signOut" />
+        <c-button label="Sign out" @click="signOut">
+          <template v-slot:icon><logout-svg /></template>
+        </c-button>
       </template>
     </c-toolbar>
 
@@ -47,7 +49,7 @@
         "
         class="text-center text-gray-600"
       >
-        <c-icon name="star" />
+        <star-svg class="h-6 inline" />
         <p class="mt-2">You haven't starred any repositories yet.</p>
       </div>
 
@@ -61,7 +63,7 @@
         v-if="isSearching && searchResults.length === 0"
         class="text-center text-gray-600"
       >
-        <c-icon name="search" />
+        <emoji-sad-svg class="h-6 inline" />
         <p class="mt-2">
           Nothing found when searching for "{{ searchString }}".
         </p>
@@ -77,11 +79,14 @@ import { onLogout } from '@/vue-apollo'
 import BFooter from '@/blocks/BFooter.vue'
 import BRepoList from '@/blocks/BRepoList.vue'
 import CButton from '@/components/CButton.vue'
-import CIcon from '@/components/CIcon.vue'
 import CInput from '@/components/CInput.vue'
 import CToolbar from '@/components/CToolbar.vue'
 import gql from 'graphql-tag'
 import index from '@/utils/search'
+import LogoutSvg from '@/assets/logout.svg'
+import EmojiSadSvg from '@/assets/emoji-sad.svg'
+import StarSvg from '@/assets/star.svg'
+import SearchCircleSvg from '@/assets/search-circle.svg'
 
 const searchOpts = {
   // Searchable properties
@@ -101,9 +106,12 @@ export default {
     BFooter,
     BRepoList,
     CButton,
-    CIcon,
     CInput,
-    CToolbar
+    CToolbar,
+    EmojiSadSvg,
+    LogoutSvg,
+    StarSvg,
+    SearchCircleSvg
   },
 
   data() {

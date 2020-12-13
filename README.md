@@ -67,6 +67,8 @@ Deployment to Netlify should be unproblematic, just link the repository to a new
 Apart from the open source packages listed in [package.json](package.json), Stargaze uses:
 
 - Illustrations from [unDraw](https://undraw.co)
+- Icons from [Heroicons](https://heroicons.com) and [Feather](https://feathericons.com)
 - Favicons generated with [favicon.io](https://favicon.io)
+- Wave background generated with [Get Waves](https://getwaves.io)
 
 Thanks 🙏

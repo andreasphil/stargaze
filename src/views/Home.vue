@@ -23,13 +23,9 @@
         GitHub
       </h2>
 
-      <c-button
-        label="Sign in with GitHub"
-        primary
-        large
-        icon="github"
-        @click="signIn"
-      />
+      <c-button label="Sign in with GitHub" primary large @click="signIn">
+        <template v-slot:icon><github-svg /></template>
+      </c-button>
     </main>
 
     <b-footer />
@@ -40,9 +36,10 @@
 import { getState, getSignInUrl } from '@/utils/auth.js'
 import BFooter from '@/blocks/BFooter.vue'
 import CButton from '@/components/CButton.vue'
+import GithubSvg from '@/assets/github.svg'
 
 export default {
-  components: { BFooter, CButton },
+  components: { BFooter, CButton, GithubSvg },
 
   methods: {
     /**

@@ -60,7 +60,7 @@
       >
         <span v-if="language" class="p-4 inline-block">{{ language }}</span>
         <span v-if="homepage" class="p-4 inline-block space-x-1">
-          <c-icon name="link" middle />
+          <external-link-svg class="h-text-4 inline" />
           <a :href="homepage" :title="`Visit ${name}'s website`">Website</a>
         </span>
       </div>
@@ -69,10 +69,10 @@
 </template>
 
 <script>
-import CIcon from '@/components/CIcon.vue'
+import ExternalLinkSvg from '@/assets/external-link.svg'
 
 export default {
-  components: { CIcon },
+  components: { ExternalLinkSvg },
 
   props: {
     name: {

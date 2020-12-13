@@ -1,7 +1,7 @@
 <template>
-  <div class="relative inline-flex items-center" :class="{ 'w-full': block }">
-    <span class="absolute pt-1 pl-4" v-if="icon">
-      <c-icon :name="icon" />
+  <div class="relative inline-flex items-center">
+    <span class="absolute pl-4 text-gray-600" v-if="$slots.icon">
+      <slot name="icon" />
     </span>
     <input
       ref="input"
@@ -15,7 +15,7 @@
         bg-opacity-25
         border-2
         border-transparent
-        placeholder-gray-400
+        placeholder-gray-600
         focus:bg-white
         focus:outline-none
         focus:border-yellow
@@ -23,7 +23,7 @@
         transition-all
         duration-150
       "
-      :class="{ 'pl-10': !!icon }"
+      :class="{ 'pl-10': !!$slots.icon }"
       :placeholder="placeholder"
       :disabled="disabled"
       :spellcheck="spellcheck"
@@ -34,11 +34,7 @@
 </template>
 
 <script>
-import CIcon from '@/components/CIcon.vue'
-
 export default {
-  components: { CIcon },
-
   props: {
     value: {
       type: String,
@@ -46,8 +42,6 @@ export default {
     },
     placeholder: String,
     title: String,
-    block: Boolean,
-    icon: String,
     disabled: Boolean,
     spellcheck: {
       type: Boolean,
@@ -80,3 +74,9 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+svg {
+  @apply h-text-5;
+}
+</style>

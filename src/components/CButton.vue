@@ -3,6 +3,7 @@
     class="
       rounded
       inline-flex
+      items-center
       space-x-2
       px-4
       py-3
@@ -12,30 +13,21 @@
       transition-colors
       duration-150
     "
-    :class="{ primary, large, 'w-full': block }"
     :role="role"
     @click="$emit('click')"
   >
-    <c-icon v-if="icon" :name="icon" />
+    <slot name="icon" />
     <span>{{ label }}</span>
   </button>
 </template>
 
 <script>
-import CIcon from '@/components/CIcon.vue'
-
 export default {
-  components: { CIcon },
-
   props: {
     label: {
       type: String,
       required: true
     },
-    icon: String,
-    primary: Boolean,
-    block: Boolean,
-    large: Boolean,
     role: {
       type: String,
       default: 'button'
@@ -45,15 +37,19 @@ export default {
 </script>
 
 <style lang="postcss" scoped>
-.primary {
+[primary] {
   @apply bg-yellow text-gray-900 text-opacity-75 font-medium shadow-sm;
 }
 
-.primary:hover {
+[primary]:hover {
   @apply bg-yellow bg-opacity-75;
 }
 
-.large {
+[large] {
   @apply px-5 py-4;
+}
+
+svg {
+  @apply h-text-5;
 }
 </style>

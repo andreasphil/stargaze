@@ -39,6 +39,10 @@ module.exports = {
       borderRadius: {
         default: '0.75rem',
         lg: '1.25rem'
+      },
+      spacing: {
+        'text-4': '1em',
+        'text-5': '1.25em'
       }
     }
   },

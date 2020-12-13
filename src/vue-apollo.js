@@ -81,7 +81,7 @@ export function createProvider(options = {}) {
         onLogout(apolloClient)
         this.$router.push({ name: 'Home' })
         this.$toast('Looks like your session expired. Please sign in again.', {
-          icon: 'alert-triangle'
+          type: 'warning'
         })
       }
     }

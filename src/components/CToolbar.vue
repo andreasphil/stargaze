@@ -62,14 +62,6 @@ export default {
   animation: 0.75s ease-in infinite alternate border-pulse;
 }
 
-@supports ((backdrop-filter: blur()) or (-webkit-backdrop-filter: blur())) {
-  .translucent {
-    @apply bg-opacity-75;
-    -webkit-backdrop-filter: blur(1rem) brightness(1.1);
-    backdrop-filter: blur(1rem) brightness(1.1);
-  }
-}
-
 @keyframes border-pulse {
   to {
     @apply border-transparent;

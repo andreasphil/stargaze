@@ -87,6 +87,7 @@ import LogoutSvg from "/@/assets/logout.svg"
 import EmojiSadSvg from "/@/assets/emoji-sad.svg"
 import StarSvg from "/@/assets/star.svg"
 import SearchCircleSvg from "/@/assets/search-circle.svg"
+import initSearch from "/@/utils/search"
 
 export default {
   components: {
@@ -119,7 +120,7 @@ export default {
      * @returns {boolean} True if search is active
      */
     isSearching() {
-      return this.searchString && this.searchString.trim().length >= 3
+      return this.searchString && this.searchString.trim().length
     },
 
     /**
@@ -181,6 +182,7 @@ export default {
         }
       } finally {
         this.loading = false
+        this.search = initSearch(this.stars)
       }
     },
   },

@@ -15,7 +15,7 @@
       </h2>
 
       <s-button label="Sign in with GitHub" primary large @click="signIn">
-        <!-- <template v-slot:icon><github-svg /></template> -->
+        <template v-slot:icon><github-svg /></template>
       </s-button>
     </main>
 
@@ -27,13 +27,13 @@
 import { getState, getSignInUrl } from "/@/utils/auth.js"
 import SFooter from "/@/components/SFooter.vue"
 import SButton from "/@/components/SButton.vue"
-// import GithubSvg from "/@/assets/github.svg"
+import GithubSvg from "/@/assets/github.svg"
 
 export default {
   components: {
     SFooter,
     SButton,
-    // GithubSvg
+    GithubSvg,
   },
 
   methods: {

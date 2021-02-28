@@ -21,15 +21,16 @@
           placeholder="Filter..."
           title="Tip: Type anywhere to start filtering!"
           :spellcheck="false"
-          ><template v-slot:icon>
-            <!-- <search-circle-svg /> -->
-          </template></s-input
         >
+          <template v-slot:icon>
+            <search-circle-svg />
+          </template>
+        </s-input>
       </template>
 
       <template v-slot:right>
         <s-button label="Sign out" @click="signOut">
-          <!-- <template v-slot:icon><logout-svg /></template> -->
+          <template v-slot:icon><logout-svg /></template>
         </s-button>
       </template>
     </s-toolbar>
@@ -49,7 +50,7 @@
         v-if="!isSearching && !loading && (!stars || stars.length === 0)"
         class="text-center text-gray-600"
       >
-        <!-- <star-svg class="h-6 inline" /> -->
+        <star-svg class="h-6 inline" />
         <p class="mt-2">You haven't starred any repositories yet.</p>
       </div>
 
@@ -63,7 +64,7 @@
         v-if="isSearching && searchResults.length === 0"
         class="text-center text-gray-600"
       >
-        <!-- <emoji-sad-svg class="h-6 inline" /> -->
+        <emoji-sad-svg class="h-6 inline" />
         <p class="mt-2">
           Nothing found when searching for "{{ searchString }}".
         </p>
@@ -75,7 +76,6 @@
 </template>
 
 <script>
-// import { onLogout } from "/@/vue-apollo"
 import SFooter from "/@/components/SFooter.vue"
 import SRepoList from "/@/components/SRepoList.vue"
 import SButton from "/@/components/SButton.vue"
@@ -83,10 +83,10 @@ import SInput from "/@/components/SInput.vue"
 import SToolbar from "/@/components/SToolbar.vue"
 import { logout } from "/@/utils/auth"
 import { getStars, getViewer } from "/@/utils/api"
-// import LogoutSvg from "/@/assets/logout.svg"
-// import EmojiSadSvg from "/@/assets/emoji-sad.svg"
-// import StarSvg from "/@/assets/star.svg"
-// import SearchCircleSvg from "/@/assets/search-circle.svg"
+import LogoutSvg from "/@/assets/logout.svg"
+import EmojiSadSvg from "/@/assets/emoji-sad.svg"
+import StarSvg from "/@/assets/star.svg"
+import SearchCircleSvg from "/@/assets/search-circle.svg"
 
 export default {
   components: {
@@ -95,10 +95,10 @@ export default {
     SButton,
     SInput,
     SToolbar,
-    // EmojiSadSvg,
-    // LogoutSvg,
-    // StarSvg,
-    // SearchCircleSvg,
+    EmojiSadSvg,
+    LogoutSvg,
+    StarSvg,
+    SearchCircleSvg,
   },
 
   data() {

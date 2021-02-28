@@ -45,7 +45,7 @@
       >
         <span v-if="language" class="p-4 inline-block">{{ language }}</span>
         <span v-if="homepage" class="p-4 inline-block space-x-1">
-          <!-- <external-link-svg class="h-text-4 inline" /> -->
+          <external-link-svg class="h-text-4 inline" />
           <a :href="homepage" :title="`Visit ${name}'s website`">Website</a>
         </span>
       </div>
@@ -54,11 +54,11 @@
 </template>
 
 <script>
-// import ExternalLinkSvg from "/@/assets/external-link.svg"
+import ExternalLinkSvg from "/@/assets/external-link.svg"
 
 export default {
   components: {
-    // ExternalLinkSvg
+    ExternalLinkSvg,
   },
 
   props: {

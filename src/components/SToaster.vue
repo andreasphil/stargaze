@@ -7,7 +7,7 @@
         class="flex bg-gray-800 text-gray-100 rounded shadow-md overflow-hidden mx-4"
       >
         <span class="flex items-center p-4 bg-gray-900" v-if="toast.type">
-          <!-- <exclamation-svg v-if="toast.type === 'warning'" /> -->
+          <exclamation-svg v-if="toast.type === 'warning'" />
         </span>
         <span class="p-4">
           {{ toast.text }}
@@ -18,11 +18,11 @@
 </template>
 
 <script>
-// import ExclamationSvg from "/@/assets/exclamation.svg"
+import ExclamationSvg from "/@/assets/exclamation.svg"
 
 export default {
   components: {
-    // ExclamationSvg
+    ExclamationSvg,
   },
 
   data() {

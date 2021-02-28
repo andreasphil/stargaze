@@ -1,57 +1,67 @@
-// const fetch = require("node-fetch")
+import fetch from "node-fetch"
 
-// /**
-//  * Generates a URL from which an access token for the current user can be requested.
-//  *
-//  * @param {string} code The access code obtained during the OAuth flow
-//  * @returns {string} Request URL for the access token
-//  */
-// const getAccessTokenUrl = (code) => {
-//   const {
-//     AUTH_TOKEN_URL,
-//     VITE_APP_AUTH_CLIENT_ID,
-//     AUTH_CLIENT_SECRET,
-//   } = process.env
+const tokenEndpoint = "https://github.com/login/oauth/access_token"
 
-//   if (!(AUTH_TOKEN_URL && VITE_APP_AUTH_CLIENT_ID && AUTH_CLIENT_SECRET)) {
-//     throw new Error("Token URL, client ID and/or client secret are missing")
-//   }
+/**
+ * Generates a URL from which an access token for the current user can be requested.
+ *
+ * @param {object} options Parameters for the token API call
+ * @param {string} options.code The access code obtained during the OAuth flow
+ * @param {string} options.endpoint
+ * @param {string} options.clientId
+ * @param {string} options.secret
+ * @returns {string} Request URL for the access token
+ */
+function getAccessTokenUrl(options) {
+  const { endpoint, clientId, secret, code } = options
 
-//   const url = new URL(AUTH_TOKEN_URL)
-//   url.searchParams.append("client_id", VITE_APP_AUTH_CLIENT_ID)
-//   url.searchParams.append("client_secret", AUTH_CLIENT_SECRET)
-//   url.searchParams.append("code", code)
+  if (!(endpoint && clientId && secret)) {
+    throw new Error("Token URL, client ID and/or client secret are missing")
+  }
 
-//   return url
-// }
+  const url = new URL(endpoint)
+  url.searchParams.append("client_id", clientId)
+  url.searchParams.append("client_secret", secret)
+  url.searchParams.append("code", code)
 
-// /**
-//  * Requests an access token for the current user.
-//  */
-// exports.handler = async (event, context) => {
-//   if (!event.queryStringParameters.code) {
-//     return { statusCode: 500, body: "The code parameter cannot be empty" }
-//   }
+  return url
+}
 
-//   try {
-//     const url = getAccessTokenUrl(event.queryStringParameters.code)
-//     const response = await fetch(url, {
-//       method: "POST",
-//       headers: {
-//         Accept: "application/json",
-//       },
-//     })
+/**
+ * Requests an access token for the current user.
+ */
+export default async function (req, res) {
+  const { code } = req.query
 
-//     if (!response.ok) {
-//       return {
-//         statusCode: 500,
-//         body: "Something went wrong when fetching the token from GitHub",
-//       }
-//     }
+  if (!code) {
+    res.status(500).send("The code parameter cannot be empty")
+    return
+  }
 
-//     const responseData = await response.json()
-//     return { statusCode: 200, body: responseData.access_token }
-//   } catch (err) {
-//     return { statusCode: 500, body: err.toString() }
-//   }
-// }
+  try {
+    const url = getAccessTokenUrl({
+      code,
+      endpoint: tokenEndpoint,
+      clientId: process.env.VITE_APP_AUTH_CLIENT_ID,
+      secret: process.env.AUTH_CLIENT_SECRET,
+    })
+
+    const response = await fetch(url, {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+      },
+    })
+
+    if (!response.ok) {
+      res
+        .status(500)
+        .send("Something went wrong when fetching the token from GitHub")
+    } else {
+      const responseData = await response.json()
+      res.status(200).send(responseData.access_token)
+    }
+  } catch (err) {
+    res.status(500).send(err.toString() || "Unknown error")
+  }
+}

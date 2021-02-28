@@ -1,7 +1,7 @@
 <template>
   <div class="min-h-screen flex flex-col text-center">
     <main
-      class="flex-1 flex flex-col items-center justify-center px-4 py-12 bg-gray-200"
+      class="flex-1 flex flex-col items-center justify-center px-4 py-12 bg-gray-100"
     >
       <h1 class="text-sm uppercase font-semibold">
         Stargaze

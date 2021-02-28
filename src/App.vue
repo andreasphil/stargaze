@@ -18,7 +18,7 @@ export default {
 @tailwind components;
 
 body {
-  @apply bg-gray-100;
+  @apply bg-gray-50;
 }
 
 a {

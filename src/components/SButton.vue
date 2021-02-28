@@ -1,6 +1,6 @@
 <template>
   <button
-    class="rounded inline-flex items-center space-x-2 px-4 py-3 leading-none hover:bg-gray-300 hover:bg-opacity-25 transition-colors duration-150"
+    class="rounded inline-flex items-center space-x-2 px-4 py-3 leading-none hover:bg-gray-100 transition-colors duration-150"
     :role="role"
     @click="$emit('click')"
   >
@@ -26,11 +26,11 @@ export default {
 
 <style lang="postcss" scoped>
 [primary] {
-  @apply bg-yellow-400 text-gray-900 text-opacity-75 font-medium shadow-sm;
+  @apply bg-primary-400 text-gray-900 text-opacity-75 font-medium shadow-sm;
 }
 
 [primary]:hover {
-  @apply bg-yellow-400 bg-opacity-75;
+  @apply bg-primary-400 bg-opacity-75;
 }
 
 [large] {

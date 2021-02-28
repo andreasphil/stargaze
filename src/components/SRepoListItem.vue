@@ -3,7 +3,7 @@
     <a
       :href="url"
       :title="`Visit ${name} on GitHub`"
-      class="block h-full bg-white rounded-lg overflow-hidden border-2 border-transparent text-sm text-gray-600 no-underline hover:text-gray-600 hover:border-yellow-400 transition-border duration-150"
+      class="block h-full bg-white rounded-lg overflow-hidden border-2 border-transparent text-sm text-gray-600 no-underline hover:text-gray-600 hover:border-primary-400 transition-border duration-150"
     >
       <!-- Header -->
       <div class="flex items-center m-4 space-x-4">

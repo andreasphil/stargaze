@@ -1,3 +1,5 @@
+const colors = require("tailwindcss/colors")
+
 module.exports = {
   purge: ["./src/**/*.vue"],
   darkMode: false, // or 'media' or 'class'
@@ -15,6 +17,10 @@ module.exports = {
           "sans-serif",
         ],
       },
+      colors: {
+        primary: colors.yellow,
+        gray: colors.trueGray,
+      },
       boxShadow: {
         sm: "0 .125rem .5rem 0 rgba(0, 0, 0, 0.03)",
         md:
@@ -24,7 +30,7 @@ module.exports = {
         "1/2": "50%",
       },
       borderRadius: {
-        default: "0.75rem",
+        DEFAULT: "0.75rem",
         lg: "1.25rem",
       },
       spacing: {

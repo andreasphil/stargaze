@@ -1,5 +1,5 @@
 <template>
-  <footer class="text-center" :class="{ 'bg-gray-200': inverted }">
+  <footer class="text-center" :class="{ 'bg-gray-100': inverted }">
     <div class="relative">
       <wave-svg
         class="bg-wave h-48 w-full"
@@ -40,11 +40,11 @@ export default {
 
 <style lang="postcss" scoped>
 .bg-wave {
-  @apply text-gray-200;
+  @apply text-gray-100;
 }
 
 .bg-wave--inverted {
-  @apply text-gray-100;
+  @apply text-gray-50;
 }
 
 .bg-wave path {

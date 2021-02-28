@@ -5,7 +5,7 @@
     </span>
     <input
       ref="input"
-      class="rounded w-full px-4 py-2 leading-normal bg-gray-300 bg-opacity-25 border-2 border-transparent placeholder-gray-600 focus:bg-white focus:outline-none focus:border-yellow-400 disabled:opacity-50 transition-all duration-150"
+      class="rounded w-full px-4 py-2 leading-normal bg-gray-100 border-2 border-transparent placeholder-gray-600 focus:bg-white outline-none focus:border-primary-400 disabled:opacity-50 transition-all duration-150"
       :class="{ 'pl-10': !!$slots.icon }"
       :placeholder="placeholder"
       :disabled="disabled"

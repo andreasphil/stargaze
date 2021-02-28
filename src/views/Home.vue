@@ -41,9 +41,12 @@ export default {
      * Initiates the OAuth flow by generating the auth page URL and redirecting the user there.
      */
     signIn() {
-      const randomState = getState()
-      const url = getSignInUrl(randomState)
-      window.location.href = url
+      // TODO: Make this a normal link
+      window.location.href = getSignInUrl({
+        state: getState(),
+        clientId: import.meta.env.VITE_APP_AUTH_CLIENT_ID,
+        redirectTo: `${window.location.origin}/auth`,
+      })
     },
   },
 }

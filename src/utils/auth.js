@@ -1,13 +1,17 @@
-// Name of the localStorage item
-const AUTH_TOKEN = "apollo-token"
+import { api } from "/@/utils/api"
 
 /**
- * Generates a somewhat random string of numbers that can be used for validating
- * OAuth authorizations.
+ * Name of the localStorage item where the token is saved
+ */
+const loginTokenName = "auth-key"
+
+/**
+ * Generates a somewhat random string of numbers that can be used for
+ * validating OAuth authorizations.
  *
  * See https://developer.github.com/apps/building-oauth-apps/authorizing-oauth-apps/
  *
- * @returns {string} A random state identifier
+ * @returns {string}
  */
 export const getState = () => {
   return Math.round(Math.random() * 10 ** 16).toString()
@@ -16,21 +20,20 @@ export const getState = () => {
 /**
  * Returns the URL of a page where the user can authorize the application.
  *
- * @param {string} state Unique session identifier
- * @returns {string} Authorization page URL
+ * @param {object} options Parameters for constructing the URL
+ * @param {string} options.state
+ * @param {string} options.clientId
+ * @param {string} options.redirectTo
+ * @returns {string}
  */
-export const getSignInUrl = (state) => {
-  console.log(import.meta)
-  const url = new URL(import.meta.env.VITE_APP_AUTH_URL)
+export const getSignInUrl = ({ state, clientId, redirectTo }) => {
+  const url = new URL(api.oauthStart)
 
   url.searchParams.append("state", state)
-  url.searchParams.append("client_id", import.meta.env.VITE_APP_AUTH_CLIENT_ID)
+  url.searchParams.append("client_id", clientId)
   url.searchParams.append("scope", "read:user")
 
-  url.searchParams.append(
-    "redirect_uri",
-    import.meta.env.VITE_APP_AUTH_REDIRECT_URL
-  )
+  url.searchParams.append("redirect_uri", redirectTo)
 
   return url.toString()
 }
@@ -39,29 +42,47 @@ export const getSignInUrl = (state) => {
  * Returns an access token that can be used for authenticating API requests.
  *
  * @param {string} code The code obtained during the OAuth flow
- * @returns {string} A promise of a string token
+ * @returns {Promise<string>} A promise of a string token
  */
-export const getAccessToken = async (code) => {
-  const url = new URL(import.meta.env.VITE_APP_AUTH_TOKEN_URL)
-  url.searchParams.append("code", code)
-
-  const response = await fetch(url)
+export const fetchLoginToken = async (code) => {
+  const response = await fetch(`/api/token?code=${code}`)
   const token = await response.text()
 
   return token
 }
 
 /**
- * Checks if a login token from apollo exists in local storage. Note that this
- * says nothing about the validity of the token.
+ * Checks if a login token exists in local storage. Note that this says nothing
+ * about the validity of the token.
  *
- * @returns True if a login token exists
+ * @returns {boolean}
  */
 export function loginTokenExists() {
   const token = getLoginToken()
   return !!token && token.trim() !== ""
 }
 
+/**
+ * Retrieves a saved login token.
+ *
+ * @returns {string}
+ */
 export function getLoginToken() {
-  return localStorage.getItem(AUTH_TOKEN)
+  return localStorage.getItem(loginTokenName)
+}
+
+/**
+ * Saves a login token.
+ *
+ * @param {string} token
+ */
+export function setLoginToken(token) {
+  localStorage.setItem(loginTokenName, token)
+}
+
+/**
+ * Removes the login token and all locally saved data of the current session.
+ */
+export function logout() {
+  localStorage.removeItem(loginTokenName)
 }

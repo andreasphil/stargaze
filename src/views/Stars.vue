@@ -81,25 +81,11 @@ import SRepoList from "/@/components/SRepoList.vue"
 import SButton from "/@/components/SButton.vue"
 import SInput from "/@/components/SInput.vue"
 import SToolbar from "/@/components/SToolbar.vue"
-// import gql from "graphql-tag"
-import index from "/@/utils/search"
+import { logout } from "/@/utils/auth"
 // import LogoutSvg from "/@/assets/logout.svg"
 // import EmojiSadSvg from "/@/assets/emoji-sad.svg"
 // import StarSvg from "/@/assets/star.svg"
 // import SearchCircleSvg from "/@/assets/search-circle.svg"
-
-const searchOpts = {
-  // Searchable properties
-  tokenize: [
-    "node.name",
-    "node.owner.login",
-    "node.description",
-    "node.primaryLanguage.name",
-  ],
-
-  // Where to find the identifier for a repository
-  idProp: "node.id",
-}
 
 export default {
   components: {
@@ -165,13 +151,13 @@ export default {
   //         }
   //       }
   //     `,
-
+  //
   //     update: (data) => data?.viewer?.starredRepositories,
-
+  //
   //     variables() {
   //       return { cursor: undefined }
   //     },
-
+  //
   //     result(response) {
   //       if (this.hasNext) {
   //         // If there's more data, load it automatically
@@ -185,18 +171,18 @@ export default {
   //       }
   //     },
   //   },
-
+  //
   //   /**
   //    * Query for profile data of the current user.
   //    */
-  //   // viewer: gql`
-  //   //   query viewer {
-  //   //     viewer {
-  //   //       name
-  //   //       avatarUrl
-  //   //     }
-  //   //   }
-  //   // `,
+  //   viewer: gql`
+  //     query viewer {
+  //       viewer {
+  //         name
+  //         avatarUrl
+  //       }
+  //     }
+  //   `,
   // },
 
   computed: {
@@ -267,7 +253,7 @@ export default {
      * Clean up local user data and redirect back to the home page.
      */
     async signOut() {
-      // onLogout(this.$apollo.getClient())
+      logout()
       this.$router.push({ name: "Home" })
     },
   },

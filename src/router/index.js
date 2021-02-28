@@ -3,6 +3,8 @@ import requireLogin from "/@/router/require-login"
 import updateHead from "/@/router/update-head"
 import metadata from "/@/utils/metadata"
 import Home from "/@/views/Home.vue"
+import Auth from "/@/views/Auth.vue"
+import Stars from "/@/views/Stars.vue"
 
 const routes = [
   {
@@ -17,7 +19,7 @@ const routes = [
   {
     path: "/auth",
     name: "Auth",
-    component: () => import("../views/Auth.vue"),
+    component: Auth,
     meta: {
       redirectWhenLoggedIn: "Stars",
       title: metadata.title("You're being logged in ..."),
@@ -30,7 +32,7 @@ const routes = [
       requireLogin: true,
       title: metadata.title("Starred repositories"),
     },
-    component: () => import("../views/Stars.vue"),
+    component: Stars,
   },
 ]
 

@@ -11,17 +11,17 @@ const toastHandlers = new Set()
 /** @type {ToastOptions} */
 const defaultOpts = {}
 
-const VueToaster = {
-  install(Vue) {
+export default {
+  install(app) {
     /**
      * Broadcast a toast message.
      *
      * @param {string} text The text of the message
      * @param {ToastOptions} options Additional payload of the message
      */
-    Vue.prototype.$toast = function(text, options) {
+    app.config.globalProperties.$toast = function (text, options) {
       const opts = { ...defaultOpts, ...options }
-      toastHandlers.forEach(handler => handler(text, opts))
+      toastHandlers.forEach((handler) => handler(text, opts))
     }
 
     /**
@@ -30,7 +30,7 @@ const VueToaster = {
      *
      * @param {Function} handler Handler function that will be called with the toast data
      */
-    Vue.prototype.$toastOn = function(handler) {
+    app.config.globalProperties.$toastOn = function (handler) {
       toastHandlers.add(handler)
     }
 
@@ -39,12 +39,10 @@ const VueToaster = {
      *
      * @param {Function} handler The handler that should be removed
      */
-    Vue.prototype.$toastOff = function(handler) {
+    app.config.globalProperties.$toastOff = function (handler) {
       if (toastHandlers.has(handler)) {
         toastHandlers.delete(handler)
       }
     }
   },
 }
-
-export default VueToaster

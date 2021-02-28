@@ -1,13 +1,13 @@
 <template>
   <footer class="text-center" :class="{ 'bg-gray-200': inverted }">
     <div class="relative">
-      <wave-svg
+      <!-- <wave-svg
         class="bg-wave h-48 w-full"
         :class="{ 'bg-wave--inverted': inverted }"
       />
       <outer-space-svg
         class="w-64 absolute bottom-0 left-1/2 transform -translate-x-32"
-      />
+      /> -->
     </div>
 
     <p class="text-sm px-4 py-12">
@@ -18,14 +18,14 @@
 </template>
 
 <script>
-import Meta from "@/utils/metadata.js"
-import OuterSpaceSvg from "@/assets/outer-space.svg"
-import WaveSvg from "@/assets/wave.svg"
+import Meta from "/@/utils/metadata.js"
+// import OuterSpaceSvg from "/@/assets/outer-space.svg"
+// import WaveSvg from "/@/assets/wave.svg"
 
 export default {
   components: {
-    OuterSpaceSvg,
-    WaveSvg,
+    // OuterSpaceSvg,
+    // WaveSvg,
   },
 
   props: {

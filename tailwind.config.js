@@ -1,21 +1,8 @@
 module.exports = {
   purge: ["./src/**/*.vue"],
+  darkMode: false, // or 'media' or 'class'
   theme: {
     extend: {
-      colors: {
-        gray: {
-          100: "hsl(216, 33%, 97%)",
-          200: "hsl(216, 27%, 93%)",
-          300: "hsl(216, 27%, 88%)",
-          400: "hsl(216, 27%, 70%)",
-          500: "hsl(216, 21%, 60%)",
-          600: "hsl(216, 21%, 46%)",
-          700: "hsl(216, 15%, 34%)",
-          800: "hsl(216, 15%, 22%)",
-          900: "hsl(216, 15%, 10%)",
-        },
-        yellow: "hsl(45, 100%, 68%)",
-      },
       container: {
         center: true,
       },
@@ -47,7 +34,9 @@ module.exports = {
     },
   },
   variants: {
-    opacity: ["disabled"],
+    extend: {
+      opacity: ["disabled"],
+    },
   },
   plugins: [],
 }

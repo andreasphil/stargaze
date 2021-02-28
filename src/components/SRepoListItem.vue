@@ -3,22 +3,7 @@
     <a
       :href="url"
       :title="`Visit ${name} on GitHub`"
-      class="
-        block
-        h-full
-        bg-white
-        rounded-lg
-        overflow-hidden
-        border-2
-        border-transparent
-        text-sm
-        text-gray-600
-        no-underline
-        hover:text-gray-600
-        hover:border-yellow
-        transition-border
-        duration-150
-      "
+      class="block h-full bg-white rounded-lg overflow-hidden border-2 border-transparent text-sm text-gray-600 no-underline hover:text-gray-600 hover:border-yellow-400 transition-border duration-150"
     >
       <!-- Header -->
       <div class="flex items-center m-4 space-x-4">
@@ -60,7 +45,7 @@
       >
         <span v-if="language" class="p-4 inline-block">{{ language }}</span>
         <span v-if="homepage" class="p-4 inline-block space-x-1">
-          <external-link-svg class="h-text-4 inline" />
+          <!-- <external-link-svg class="h-text-4 inline" /> -->
           <a :href="homepage" :title="`Visit ${name}'s website`">Website</a>
         </span>
       </div>
@@ -69,10 +54,12 @@
 </template>
 
 <script>
-import ExternalLinkSvg from "@/assets/external-link.svg"
+// import ExternalLinkSvg from "/@/assets/external-link.svg"
 
 export default {
-  components: { ExternalLinkSvg },
+  components: {
+    // ExternalLinkSvg
+  },
 
   props: {
     name: {

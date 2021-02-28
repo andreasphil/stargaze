@@ -1,16 +1,6 @@
-import VueToaster from "@/plugins/VueToaster"
-import Vue from "vue"
+import { createApp } from "vue"
 import App from "./App.vue"
-import router from "./router"
-import { createProvider } from "./vue-apollo"
+import router from "/@/router"
+import VueToaster from "/@/plugins/VueToaster"
 
-Vue.config.productionTip = false
-
-// Plugins
-Vue.use(VueToaster)
-
-new Vue({
-  router,
-  apolloProvider: createProvider(),
-  render: h => h(App),
-}).$mount("#app")
+createApp(App).use(router).use(VueToaster).mount("#app")

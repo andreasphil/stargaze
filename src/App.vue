@@ -1,15 +1,15 @@
 <template>
   <div id="app" class="font-sans antialiased text-gray-800">
-    <b-toaster />
+    <s-toaster />
     <router-view />
   </div>
 </template>
 
 <script>
-import BToaster from "@/blocks/BToaster.vue"
+import SToaster from "/@/components/SToaster.vue"
 
 export default {
-  components: { BToaster },
+  components: { SToaster },
 }
 </script>
 

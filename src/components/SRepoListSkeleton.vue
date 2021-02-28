@@ -1,15 +1,6 @@
 <template>
   <li>
-    <div
-      class="
-        h-full
-        bg-white
-        rounded-lg
-        border
-        border-transparent
-        text-sm
-      "
-    >
+    <div class="h-full bg-white rounded-lg border border-transparent text-sm">
       <!-- Header -->
       <div class="flex items-center m-4 space-x-4">
         <!-- Icon -->

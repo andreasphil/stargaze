@@ -1,6 +1,6 @@
 <template>
   <div class="min-h-screen flex flex-col items-stretch pt-20">
-    <c-toolbar :busy="$apollo.loading">
+    <s-toolbar :busy="loading">
       <template v-slot:left>
         <img
           v-if="viewer"
@@ -13,7 +13,7 @@
           class="flex-shrink-0 rounded-full w-8 h-8 bg-gray-100"
         ></div>
 
-        <c-input
+        <s-input
           ref="search"
           icon="search"
           class="ml-4 w-full"
@@ -21,72 +21,72 @@
           placeholder="Filter..."
           title="Tip: Type anywhere to start filtering!"
           :spellcheck="false"
-          ><template v-slot:icon><search-circle-svg /></template
-        ></c-input>
+          ><template v-slot:icon>
+            <!-- <search-circle-svg /> -->
+          </template></s-input
+        >
       </template>
 
       <template v-slot:right>
-        <c-button label="Sign out" @click="signOut">
-          <template v-slot:icon><logout-svg /></template>
-        </c-button>
+        <s-button label="Sign out" @click="signOut">
+          <!-- <template v-slot:icon><logout-svg /></template> -->
+        </s-button>
       </template>
-    </c-toolbar>
+    </s-toolbar>
 
     <main
       class="flex-1 w-full max-w-screen-xl mx-auto pt-4 px-4 pb-24 md:pt-24"
     >
       <!-- Always keep the full list in the background so the browser doesn't need to
       re-render everything when the user clears the search field -->
-      <b-repo-list
-        v-if="stars || $apollo.loading"
+      <s-repo-list
+        v-if="stars || loading"
         v-show="!isSearching"
         :repositories="stars ? stars.edges : []"
-        :busy="$apollo.loading"
+        :busy="loading"
       />
       <div
-        v-if="
-          !isSearching && !$apollo.loading && (!stars || stars.length === 0)
-        "
+        v-if="!isSearching && !loading && (!stars || stars.length === 0)"
         class="text-center text-gray-600"
       >
-        <star-svg class="h-6 inline" />
+        <!-- <star-svg class="h-6 inline" /> -->
         <p class="mt-2">You haven't starred any repositories yet.</p>
       </div>
 
       <!-- Search results -->
-      <b-repo-list
+      <s-repo-list
         v-show="isSearching"
         :repositories="searchResults"
-        :busy="$apollo.loading"
+        :busy="loading"
       />
       <div
         v-if="isSearching && searchResults.length === 0"
         class="text-center text-gray-600"
       >
-        <emoji-sad-svg class="h-6 inline" />
+        <!-- <emoji-sad-svg class="h-6 inline" /> -->
         <p class="mt-2">
           Nothing found when searching for "{{ searchString }}".
         </p>
       </div>
     </main>
 
-    <b-footer inverted />
+    <s-footer inverted />
   </div>
 </template>
 
 <script>
-import { onLogout } from "@/vue-apollo"
-import BFooter from "@/blocks/BFooter.vue"
-import BRepoList from "@/blocks/BRepoList.vue"
-import CButton from "@/components/CButton.vue"
-import CInput from "@/components/CInput.vue"
-import CToolbar from "@/components/CToolbar.vue"
-import gql from "graphql-tag"
-import index from "@/utils/search"
-import LogoutSvg from "@/assets/logout.svg"
-import EmojiSadSvg from "@/assets/emoji-sad.svg"
-import StarSvg from "@/assets/star.svg"
-import SearchCircleSvg from "@/assets/search-circle.svg"
+// import { onLogout } from "/@/vue-apollo"
+import SFooter from "/@/components/SFooter.vue"
+import SRepoList from "/@/components/SRepoList.vue"
+import SButton from "/@/components/SButton.vue"
+import SInput from "/@/components/SInput.vue"
+import SToolbar from "/@/components/SToolbar.vue"
+// import gql from "graphql-tag"
+import index from "/@/utils/search"
+// import LogoutSvg from "/@/assets/logout.svg"
+// import EmojiSadSvg from "/@/assets/emoji-sad.svg"
+// import StarSvg from "/@/assets/star.svg"
+// import SearchCircleSvg from "/@/assets/search-circle.svg"
 
 const searchOpts = {
   // Searchable properties
@@ -103,95 +103,101 @@ const searchOpts = {
 
 export default {
   components: {
-    BFooter,
-    BRepoList,
-    CButton,
-    CInput,
-    CToolbar,
-    EmojiSadSvg,
-    LogoutSvg,
-    StarSvg,
-    SearchCircleSvg,
+    SFooter,
+    SRepoList,
+    SButton,
+    SInput,
+    SToolbar,
+    // EmojiSadSvg,
+    // LogoutSvg,
+    // StarSvg,
+    // SearchCircleSvg,
   },
 
   data() {
     return {
       searchString: "",
       search: () => new Set(),
+      loading: false,
+      viewer: {
+        avatarUrl: "#",
+        name: "Max Muster",
+      },
+      stars: [],
     }
   },
 
-  apollo: {
-    /**
-     * Query for starred repositories by the current user.
-     */
-    stars: {
-      query: gql`
-        query stars($cursor: String) {
-          viewer {
-            starredRepositories(
-              after: $cursor
-              orderBy: { direction: DESC, field: STARRED_AT }
-            ) {
-              pageInfo {
-                hasNextPage
-                endCursor
-              }
-              edges {
-                node {
-                  id
-                  name
-                  owner {
-                    avatarUrl
-                    login
-                    url
-                  }
-                  description
-                  descriptionHTML
-                  url
-                  homepageUrl
-                  primaryLanguage {
-                    name
-                  }
-                }
-              }
-            }
-          }
-        }
-      `,
+  // apollo: {
+  //   /**
+  //    * Query for starred repositories by the current user.
+  //    */
+  //   stars: {
+  //     query: gql`
+  //       query stars($cursor: String) {
+  //         viewer {
+  //           starredRepositories(
+  //             after: $cursor
+  //             orderBy: { direction: DESC, field: STARRED_AT }
+  //           ) {
+  //             pageInfo {
+  //               hasNextPage
+  //               endCursor
+  //             }
+  //             edges {
+  //               node {
+  //                 id
+  //                 name
+  //                 owner {
+  //                   avatarUrl
+  //                   login
+  //                   url
+  //                 }
+  //                 description
+  //                 descriptionHTML
+  //                 url
+  //                 homepageUrl
+  //                 primaryLanguage {
+  //                   name
+  //                 }
+  //               }
+  //             }
+  //           }
+  //         }
+  //       }
+  //     `,
 
-      update: data => data?.viewer?.starredRepositories,
+  //     update: (data) => data?.viewer?.starredRepositories,
 
-      variables() {
-        return { cursor: undefined }
-      },
+  //     variables() {
+  //       return { cursor: undefined }
+  //     },
 
-      result(response) {
-        if (this.hasNext) {
-          // If there's more data, load it automatically
-          this.loadNext()
-        } else {
-          // Once we're done loading, build a search index
-          this.search = index(
-            response?.data?.viewer?.starredRepositories?.edges,
-            searchOpts
-          )
-        }
-      },
-    },
+  //     result(response) {
+  //       if (this.hasNext) {
+  //         // If there's more data, load it automatically
+  //         this.loadNext()
+  //       } else {
+  //         // Once we're done loading, build a search index
+  //         this.search = index(
+  //           response?.data?.viewer?.starredRepositories?.edges,
+  //           searchOpts
+  //         )
+  //       }
+  //     },
+  //   },
 
-    /**
-     * Query for profile data of the current user.
-     */
-    viewer: gql`
-      query viewer {
-        viewer {
-          name
-          avatarUrl
-        }
-      }
-    `,
-  },
+  //   /**
+  //    * Query for profile data of the current user.
+  //    */
+  //   // viewer: gql`
+  //   //   query viewer {
+  //   //     viewer {
+  //   //       name
+  //   //       avatarUrl
+  //   //     }
+  //   //   }
+  //   // `,
+  // },
 
   computed: {
     /**
@@ -222,7 +228,7 @@ export default {
       }
 
       const result = this.search(this.searchString)
-      return this.stars.edges.filter(star => result.has(star.node.id))
+      return this.stars.edges.filter((star) => result.has(star.node.id))
     },
   },
 
@@ -261,7 +267,7 @@ export default {
      * Clean up local user data and redirect back to the home page.
      */
     async signOut() {
-      onLogout(this.$apollo.getClient())
+      // onLogout(this.$apollo.getClient())
       this.$router.push({ name: "Home" })
     },
   },

@@ -1,31 +1,31 @@
 <template>
   <div class="pt-20">
-    <c-toolbar :busy="true">
+    <s-toolbar :busy="true">
       <template v-slot:left>
         <div class="flex-shrink-0 rounded-full w-8 h-8 bg-gray-100"></div>
-        <c-input block disabled class="ml-4" placeholder="Filter..." />
+        <s-input block disabled class="ml-4" placeholder="Filter..." />
       </template>
 
       <template v-slot:right>
         <div></div>
       </template>
-    </c-toolbar>
+    </s-toolbar>
 
     <main class="max-w-screen-xl w-full mx-auto pt-4 px-4 pb-24 md:pt-24">
-      <b-repo-list :busy="true" />
+      <s-repo-list :busy="true" />
     </main>
   </div>
 </template>
 
 <script>
-import { getAccessToken } from "@/utils/auth"
-import { onLogin } from "@/vue-apollo"
-import BRepoList from "@/blocks/BRepoList.vue"
-import CInput from "@/components/CInput.vue"
-import CToolbar from "@/components/CToolbar.vue"
+import { getAccessToken } from "/@/utils/auth"
+// import { onLogin } from "/@/vue-apollo"
+import SRepoList from "/@/components/SRepoList.vue"
+import SInput from "/@/components/SInput.vue"
+import SToolbar from "/@/components/SToolbar.vue"
 
 export default {
-  components: { BRepoList, CInput, CToolbar },
+  components: { SRepoList, SInput, SToolbar },
 
   async mounted() {
     const { code } = this.$route.query
@@ -38,7 +38,7 @@ export default {
 
     // Get the token and re-initialize apollo with the login information
     const token = await getAccessToken(code)
-    await onLogin(this.$apollo.getClient(), token)
+    // await onLogin(this.$apollo.getClient(), token)
 
     // Redirect to the actual app
     this.$router.replace({ name: "Stars" })

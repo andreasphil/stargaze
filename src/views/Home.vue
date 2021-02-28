@@ -1,16 +1,7 @@
 <template>
   <div class="min-h-screen flex flex-col text-center">
     <main
-      class="
-        flex-1
-        flex
-        flex-col
-        items-center
-        justify-center
-        px-4
-        py-12
-        bg-gray-200
-      "
+      class="flex-1 flex flex-col items-center justify-center px-4 py-12 bg-gray-200"
     >
       <h1 class="text-sm uppercase font-semibold">
         Stargaze
@@ -23,23 +14,27 @@
         GitHub
       </h2>
 
-      <c-button label="Sign in with GitHub" primary large @click="signIn">
-        <template v-slot:icon><github-svg /></template>
-      </c-button>
+      <s-button label="Sign in with GitHub" primary large @click="signIn">
+        <!-- <template v-slot:icon><github-svg /></template> -->
+      </s-button>
     </main>
 
-    <b-footer />
+    <s-footer />
   </div>
 </template>
 
 <script>
-import { getState, getSignInUrl } from "@/utils/auth.js"
-import BFooter from "@/blocks/BFooter.vue"
-import CButton from "@/components/CButton.vue"
-import GithubSvg from "@/assets/github.svg"
+import { getState, getSignInUrl } from "/@/utils/auth.js"
+import SFooter from "/@/components/SFooter.vue"
+import SButton from "/@/components/SButton.vue"
+// import GithubSvg from "/@/assets/github.svg"
 
 export default {
-  components: { BFooter, CButton, GithubSvg },
+  components: {
+    SFooter,
+    SButton,
+    // GithubSvg
+  },
 
   methods: {
     /**

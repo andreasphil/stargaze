@@ -3,7 +3,7 @@
     <s-toolbar :busy="loading">
       <template v-slot:left>
         <img
-          v-if="viewer"
+          v-if="viewer && viewer.avatarUrl"
           class="flex-shrink-0 rounded-full w-8 h-8"
           alt="Your GitHub avatar"
           :src="viewer.avatarUrl"
@@ -43,7 +43,7 @@
       <s-repo-list
         v-if="stars || loading"
         v-show="!isSearching"
-        :repositories="stars || []"
+        :repositories="stars"
         :busy="loading"
       />
       <div
@@ -106,8 +106,8 @@ export default {
       searchString: "",
       search: () => new Set(),
       loading: true,
-      viewer: undefined,
-      stars: undefined,
+      viewer: JSON.parse(localStorage.getItem("viewer") || "{}"),
+      stars: JSON.parse(localStorage.getItem("stars") || "[]"),
     }
   },
 
@@ -162,7 +162,10 @@ export default {
     async hydrate() {
       try {
         this.viewer = await getViewer()
+        localStorage.setItem("viewer", JSON.stringify(this.viewer))
+
         this.stars = await getStars()
+        localStorage.setItem("stars", JSON.stringify(this.stars))
       } catch (err) {
         if (err === api.notLoggedIn || api.notAuthorized) {
           this.$toast(

@@ -87,5 +87,5 @@ export function setLoginToken(token) {
  * Removes the login token and all locally saved data of the current session.
  */
 export function logout() {
-  localStorage.removeItem(loginTokenName)
+  localStorage.clear()
 }

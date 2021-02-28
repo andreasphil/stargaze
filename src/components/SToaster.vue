@@ -1,19 +1,21 @@
 <template>
   <div class="fixed top-0 left-1/2 transform -translate-x-1/2 z-10">
-    <transition-group name="toast" class="flex flex-col pt-10 space-y-4">
-      <div
-        v-for="toast in toasts"
-        :key="toast.id"
-        class="flex bg-gray-800 text-gray-100 rounded shadow-md overflow-hidden mx-4 mt-4"
-      >
-        <span class="flex items-center p-4 bg-gray-900" v-if="toast.type">
-          <exclamation-svg v-if="toast.type === 'warning'" />
-        </span>
-        <span class="p-4">
-          {{ toast.text }}
-        </span>
-      </div>
-    </transition-group>
+    <div class="flex flex-col pt-4 space-y-4">
+      <transition-group name="toast">
+        <div
+          v-for="toast in toasts"
+          :key="toast.id"
+          class="flex bg-gray-800 text-gray-100 rounded shadow-md overflow-hidden mx-4"
+        >
+          <span class="flex items-center p-4 bg-gray-900" v-if="toast.type">
+            <exclamation-svg v-if="toast.type === 'warning'" />
+          </span>
+          <span class="p-4">
+            {{ toast.text }}
+          </span>
+        </div>
+      </transition-group>
+    </div>
   </div>
 </template>
 

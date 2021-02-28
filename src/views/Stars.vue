@@ -42,7 +42,7 @@
       <s-repo-list
         v-if="stars || loading"
         v-show="!isSearching"
-        :repositories="stars ? stars.edges : []"
+        :repositories="stars || []"
         :busy="loading"
       />
       <div
@@ -82,6 +82,7 @@ import SButton from "/@/components/SButton.vue"
 import SInput from "/@/components/SInput.vue"
 import SToolbar from "/@/components/SToolbar.vue"
 import { logout } from "/@/utils/auth"
+import { getStars, getViewer } from "/@/utils/api"
 // import LogoutSvg from "/@/assets/logout.svg"
 // import EmojiSadSvg from "/@/assets/emoji-sad.svg"
 // import StarSvg from "/@/assets/star.svg"
@@ -104,100 +105,18 @@ export default {
     return {
       searchString: "",
       search: () => new Set(),
-      loading: false,
-      viewer: {
-        avatarUrl: "#",
-        name: "Max Muster",
-      },
-      stars: [],
+      loading: true,
+      viewer: undefined,
+      stars: undefined,
     }
   },
 
-  // apollo: {
-  //   /**
-  //    * Query for starred repositories by the current user.
-  //    */
-  //   stars: {
-  //     query: gql`
-  //       query stars($cursor: String) {
-  //         viewer {
-  //           starredRepositories(
-  //             after: $cursor
-  //             orderBy: { direction: DESC, field: STARRED_AT }
-  //           ) {
-  //             pageInfo {
-  //               hasNextPage
-  //               endCursor
-  //             }
-  //             edges {
-  //               node {
-  //                 id
-  //                 name
-  //                 owner {
-  //                   avatarUrl
-  //                   login
-  //                   url
-  //                 }
-  //                 description
-  //                 descriptionHTML
-  //                 url
-  //                 homepageUrl
-  //                 primaryLanguage {
-  //                   name
-  //                 }
-  //               }
-  //             }
-  //           }
-  //         }
-  //       }
-  //     `,
-  //
-  //     update: (data) => data?.viewer?.starredRepositories,
-  //
-  //     variables() {
-  //       return { cursor: undefined }
-  //     },
-  //
-  //     result(response) {
-  //       if (this.hasNext) {
-  //         // If there's more data, load it automatically
-  //         this.loadNext()
-  //       } else {
-  //         // Once we're done loading, build a search index
-  //         this.search = index(
-  //           response?.data?.viewer?.starredRepositories?.edges,
-  //           searchOpts
-  //         )
-  //       }
-  //     },
-  //   },
-  //
-  //   /**
-  //    * Query for profile data of the current user.
-  //    */
-  //   viewer: gql`
-  //     query viewer {
-  //       viewer {
-  //         name
-  //         avatarUrl
-  //       }
-  //     }
-  //   `,
-  // },
-
   computed: {
-    /**
-     * @returns True if there's more data that can be fetched from the API.
-     */
-    hasNext() {
-      return !!this.stars?.pageInfo?.hasNextPage
-    },
-
     /**
      * Returns whether there is an active search filter. This is considered to be the case when
      * the search string is set and longer than 2 characters.
      *
-     * @returns True if search is active
+     * @returns {boolean} True if search is active
      */
     isSearching() {
       return this.searchString && this.searchString.trim().length >= 3
@@ -209,37 +128,16 @@ export default {
      * @returns {Array} Filtered stars
      */
     searchResults() {
-      if (!this.stars?.edges || !this.isSearching) {
+      if (!this.stars || !this.isSearching) {
         return []
       }
 
       const result = this.search(this.searchString)
-      return this.stars.edges.filter((star) => result.has(star.node.id))
+      return this.stars.filter((star) => result.has(star.node.id))
     },
   },
 
   methods: {
-    /**
-     * Query the next batch of starred repositories from the API.
-     */
-    loadNext() {
-      this.$apollo.queries.stars.fetchMore({
-        variables: {
-          cursor: this.stars.pageInfo.endCursor,
-        },
-        updateQuery: (before, { fetchMoreResult }) => {
-          // Merge meta data and the previous + new result set
-          const after = Object.assign({}, before, fetchMoreResult)
-          after.viewer.starredRepositories.edges = [
-            ...before.viewer.starredRepositories.edges,
-            ...fetchMoreResult.viewer.starredRepositories.edges,
-          ]
-
-          return after
-        },
-      })
-    },
-
     focusSearchHotkey(event) {
       // If the event key is a single word character (0-9, a-z) and the search field is not focused
       // yet, treat the input as an input to the search field
@@ -252,7 +150,7 @@ export default {
     /**
      * Clean up local user data and redirect back to the home page.
      */
-    async signOut() {
+    signOut() {
       logout()
       this.$router.push({ name: "Home" })
     },
@@ -261,9 +159,31 @@ export default {
   mounted() {
     // Set up search hotkey
     document.addEventListener("keyup", this.focusSearchHotkey)
+
+    getViewer()
+      .then((result) => {
+        this.viewer = result
+      })
+      .catch((err) => {
+        // TODO: Better error handling
+        console.error(err)
+      })
+
+    getStars()
+      .then((result) => {
+        this.stars = result
+        // TODO: Restore search functionality
+      })
+      .catch((err) => {
+        // TODO: Better error handling
+        console.error(err)
+      })
+      .finally(() => {
+        this.loading = false
+      })
   },
 
-  destroyed() {
+  beforeUnmount() {
     // Remove search hotkey
     document.removeEventListener("keyup", this.focusSearchHotkey)
   },

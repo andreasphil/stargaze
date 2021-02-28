@@ -82,7 +82,7 @@ import SButton from "/@/components/SButton.vue"
 import SInput from "/@/components/SInput.vue"
 import SToolbar from "/@/components/SToolbar.vue"
 import { logout } from "/@/utils/auth"
-import { getStars, getViewer } from "/@/utils/api"
+import { api, getStars, getViewer } from "/@/utils/api"
 import LogoutSvg from "/@/assets/logout.svg"
 import EmojiSadSvg from "/@/assets/emoji-sad.svg"
 import StarSvg from "/@/assets/star.svg"
@@ -139,8 +139,9 @@ export default {
 
   methods: {
     focusSearchHotkey(event) {
-      // If the event key is a single word character (0-9, a-z) and the search field is not focused
-      // yet, treat the input as an input to the search field
+      // If the event key is a single word character (0-9, a-z) and the search
+      // field is not focused yet, treat the input as an input to the search
+      // field
       if (event.key.match(/^[\w/]$/) && !this.$refs.search.focused()) {
         this.searchString = event.key
         this.$refs.search.focus()
@@ -154,33 +155,38 @@ export default {
       logout()
       this.$router.push({ name: "Home" })
     },
+
+    /**
+     * Fetch viewer and stars data from the API.
+     */
+    async hydrate() {
+      try {
+        this.viewer = await getViewer()
+        this.stars = await getStars()
+      } catch (err) {
+        if (err === api.notLoggedIn || api.notAuthorized) {
+          this.$toast(
+            "Looks like your session expired. Please sign in again.",
+            {
+              type: "warning",
+            }
+          )
+
+          this.signOut()
+        } else {
+          this.$toast(err, { type: "warning" })
+        }
+      } finally {
+        this.loading = false
+      }
+    },
   },
 
-  mounted() {
+  async mounted() {
     // Set up search hotkey
     document.addEventListener("keyup", this.focusSearchHotkey)
 
-    getViewer()
-      .then((result) => {
-        this.viewer = result
-      })
-      .catch((err) => {
-        // TODO: Better error handling
-        console.error(err)
-      })
-
-    getStars()
-      .then((result) => {
-        this.stars = result
-        // TODO: Restore search functionality
-      })
-      .catch((err) => {
-        // TODO: Better error handling
-        console.error(err)
-      })
-      .finally(() => {
-        this.loading = false
-      })
+    this.hydrate()
   },
 
   beforeUnmount() {

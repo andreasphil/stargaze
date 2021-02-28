@@ -46,9 +46,12 @@ export const getSignInUrl = ({ state, clientId, redirectTo }) => {
  */
 export const fetchLoginToken = async (code) => {
   const response = await fetch(`/api/token?code=${code}`)
-  const token = await response.text()
 
-  return token
+  if (!response.ok) {
+    throw new Error()
+  }
+
+  return response.text()
 }
 
 /**

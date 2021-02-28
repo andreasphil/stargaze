@@ -38,30 +38,27 @@ export default async function (req, res) {
     return
   }
 
-  try {
-    const url = getAccessTokenUrl({
-      code,
-      endpoint: tokenEndpoint,
-      clientId: process.env.VITE_APP_AUTH_CLIENT_ID,
-      secret: process.env.AUTH_CLIENT_SECRET,
-    })
+  const url = getAccessTokenUrl({
+    code,
+    endpoint: tokenEndpoint,
+    clientId: process.env.VITE_APP_AUTH_CLIENT_ID,
+    secret: process.env.AUTH_CLIENT_SECRET,
+  })
 
-    const response = await fetch(url, {
-      method: "POST",
-      headers: {
-        Accept: "application/json",
-      },
-    })
+  const response = await fetch(url, {
+    method: "POST",
+    headers: {
+      Accept: "application/json",
+    },
+  })
 
-    if (!response.ok) {
-      res
-        .status(500)
-        .send("Something went wrong when fetching the token from GitHub")
-    } else {
-      const responseData = await response.json()
-      res.status(200).send(responseData.access_token)
-    }
-  } catch (err) {
-    res.status(500).send(err.toString() || "Unknown error")
+  const content = await response.json()
+
+  if (!response.ok || content?.error) {
+    res
+      .status(500)
+      .send("Something went wrong when fetching the token from GitHub")
+  } else {
+    res.status(200).send(content.access_token)
   }
 }

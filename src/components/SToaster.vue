@@ -4,7 +4,7 @@
       <div
         v-for="toast in toasts"
         :key="toast.id"
-        class="flex bg-gray-800 text-gray-100 rounded shadow-md overflow-hidden mx-4"
+        class="flex bg-gray-800 text-gray-100 rounded shadow-md overflow-hidden mx-4 mt-4"
       >
         <span class="flex items-center p-4 bg-gray-900" v-if="toast.type">
           <exclamation-svg v-if="toast.type === 'warning'" />
@@ -49,7 +49,7 @@ export default {
       // Schedule removing it from the list again
       setTimeout(() => {
         this.toasts.pop()
-      }, 5000)
+      }, 10000)
     },
   },
 

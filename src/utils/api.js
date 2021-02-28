@@ -3,6 +3,10 @@ import { getLoginToken, loginTokenExists } from "/@/utils/auth"
 export const api = {
   endpoint: "https://api.github.com/graphql",
   oauthStart: "https://github.com/login/oauth/authorize",
+
+  notAuthorized: "Not authorized",
+  notLoggedIn: "Not logged in",
+  otherError: "Something went wrong when requesting data from GitHub",
 }
 
 /**
@@ -75,16 +79,24 @@ function starsQuery(cursor) {
  */
 async function post(query) {
   if (!loginTokenExists()) {
-    throw new Error("Not logged in")
+    throw new Error(api.notLoggedIn)
   }
 
-  return fetch(api.endpoint, {
+  const response = await fetch(api.endpoint, {
     method: "POST",
     body: query,
     headers: {
       Authorization: `bearer ${getLoginToken()}`,
     },
-  }).then((response) => response.json())
+  })
+
+  if (!response.ok) {
+    throw new Error(
+      response.status === 401 ? api.notAuthorized : api.otherError
+    )
+  }
+
+  return response.json()
 }
 
 /**

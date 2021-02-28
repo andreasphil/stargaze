@@ -32,16 +32,24 @@ export default {
     // If there's no code, it's likely that the user ended up on this page by
     // mistake. Redirect back to home.
     if (!code) {
-      this.$router.push({ name: "Home" })
+      this.$router.replace({ name: "Home" })
     }
 
     // Grab and save the token
-    const token = await fetchLoginToken(code)
-    setLoginToken(token)
+    try {
+      const token = await fetchLoginToken(code)
+      setLoginToken(token)
 
-    // Redirect to the actual app
-    // TODO: Display error and redirect if something breaks
-    this.$router.replace({ name: "Stars" })
+      // Redirect to the actual app
+      this.$router.replace({ name: "Stars" })
+    } catch {
+      this.$toast(
+        "Something went wrong while signing you in. Please try again.",
+        { type: "warning" }
+      )
+
+      this.$router.replace({ name: "Home" })
+    }
   },
 }
 </script>

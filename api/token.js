@@ -1,4 +1,4 @@
-import fetch from "node-fetch"
+const fetch = require("node-fetch")
 
 const tokenEndpoint = "https://github.com/login/oauth/access_token"
 
@@ -30,7 +30,7 @@ function getAccessTokenUrl(options) {
 /**
  * Requests an access token for the current user.
  */
-export default async function (req, res) {
+module.exports = async function (req, res) {
   const { code } = req.query
 
   if (!code) {

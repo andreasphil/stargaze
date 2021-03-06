@@ -1,5 +1,5 @@
 <h1 align="center">
-  Stargaze ✨
+  Stargaze 🌟
 </h1>
 
 <h4 align="center">

@@ -21,6 +21,7 @@ export default {
       default: "button",
     },
   },
+  emits: ["click"],
 }
 </script>
 

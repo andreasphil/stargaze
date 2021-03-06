@@ -15,7 +15,7 @@
       </h2>
 
       <s-button label="Sign in with GitHub" primary large @click="signIn">
-        <template v-slot:icon><github-svg /></template>
+        <template #icon><github-svg /></template>
       </s-button>
     </main>
 

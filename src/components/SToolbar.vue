@@ -27,18 +27,18 @@ export default {
     }
   },
 
-  methods: {
-    updateFloatingState() {
-      this.floating = window.scrollY > 48
-    },
-  },
-
   mounted() {
     document.addEventListener("scroll", this.updateFloatingState)
   },
 
   beforeUnmount() {
     document.removeEventListener("scroll", this.updateFloatingState)
+  },
+
+  methods: {
+    updateFloatingState() {
+      this.floating = window.scrollY > 48
+    },
   },
 }
 </script>

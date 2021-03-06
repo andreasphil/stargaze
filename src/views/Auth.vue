@@ -1,12 +1,12 @@
 <template>
   <div class="pt-20">
     <s-toolbar :busy="true">
-      <template v-slot:left>
+      <template #left>
         <div class="flex-shrink-0 rounded-full w-8 h-8 bg-gray-100"></div>
         <s-input block disabled class="ml-4" placeholder="Filter..." />
       </template>
 
-      <template v-slot:right>
+      <template #right>
         <div></div>
       </template>
     </s-toolbar>

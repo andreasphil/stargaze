@@ -6,7 +6,7 @@
       :name="repository.node.name"
       :url="repository.node.url"
       :author="repository.node.owner.login"
-      :authorUrl="repository.node.owner.url"
+      :author-url="repository.node.owner.url"
       :icon="repository.node.owner.avatarUrl"
       :description="repository.node.descriptionHTML"
       :homepage="repository.node.homepageUrl"

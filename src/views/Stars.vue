@@ -1,7 +1,7 @@
 <template>
   <div class="min-h-screen flex flex-col items-stretch pt-20">
     <s-toolbar :busy="loading">
-      <template v-slot:left>
+      <template #left>
         <img
           v-if="viewer && viewer.avatarUrl"
           class="flex-shrink-0 rounded-full w-8 h-8"
@@ -15,22 +15,22 @@
 
         <s-input
           ref="search"
+          v-model="searchString"
           icon="search"
           class="ml-4 w-full"
-          v-model="searchString"
           placeholder="Filter..."
           title="Tip: Type anywhere to start filtering!"
           :spellcheck="false"
         >
-          <template v-slot:icon>
+          <template #icon>
             <search-circle-svg />
           </template>
         </s-input>
       </template>
 
-      <template v-slot:right>
+      <template #right>
         <s-button label="Sign out" @click="signOut">
-          <template v-slot:icon><logout-svg /></template>
+          <template #icon><logout-svg /></template>
         </s-button>
       </template>
     </s-toolbar>
@@ -138,6 +138,18 @@ export default {
     },
   },
 
+  async mounted() {
+    // Set up search hotkey
+    document.addEventListener("keyup", this.focusSearchHotkey)
+
+    this.hydrate()
+  },
+
+  beforeUnmount() {
+    // Remove search hotkey
+    document.removeEventListener("keyup", this.focusSearchHotkey)
+  },
+
   methods: {
     focusSearchHotkey(event) {
       // If the event key is a single word character (0-9, a-z) and the search
@@ -185,18 +197,6 @@ export default {
         this.search = initSearch(this.stars)
       }
     },
-  },
-
-  async mounted() {
-    // Set up search hotkey
-    document.addEventListener("keyup", this.focusSearchHotkey)
-
-    this.hydrate()
-  },
-
-  beforeUnmount() {
-    // Remove search hotkey
-    document.removeEventListener("keyup", this.focusSearchHotkey)
   },
 }
 </script>

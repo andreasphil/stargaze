@@ -78,10 +78,22 @@ export default {
       type: String,
       required: true,
     },
-    author: String,
-    authorUrl: String,
-    homepage: String,
-    language: String,
+    author: {
+      type: String,
+      default: null,
+    },
+    authorUrl: {
+      type: String,
+      default: null,
+    },
+    homepage: {
+      type: String,
+      default: null,
+    },
+    language: {
+      type: String,
+      default: null,
+    },
   },
 }
 </script>

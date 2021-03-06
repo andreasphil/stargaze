@@ -7,7 +7,7 @@
           :key="toast.id"
           class="flex bg-gray-800 text-gray-100 rounded shadow-md overflow-hidden mx-4"
         >
-          <span class="flex items-center p-4 bg-gray-900" v-if="toast.type">
+          <span v-if="toast.type" class="flex items-center p-4 bg-gray-900">
             <exclamation-svg v-if="toast.type === 'warning'" />
           </span>
           <span class="p-4">
@@ -33,6 +33,16 @@ export default {
     }
   },
 
+  mounted() {
+    // Subscribe to new toasts
+    this.$toastOn(this.handleToast)
+  },
+
+  beforeUnmount() {
+    // Clean up toast subscription
+    this.$toastOff(this.handleToast)
+  },
+
   methods: {
     /**
      * Displays a toast message.
@@ -53,16 +63,6 @@ export default {
         this.toasts.pop()
       }, 10000)
     },
-  },
-
-  mounted() {
-    // Subscribe to new toasts
-    this.$toastOn(this.handleToast)
-  },
-
-  beforeUnmount() {
-    // Clean up toast subscription
-    this.$toastOff(this.handleToast)
   },
 }
 </script>

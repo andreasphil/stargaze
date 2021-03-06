@@ -1,4 +1,4 @@
-import useSearch, { fullWordSplit } from "use-search"
+import { default as initSearchDep, fullWordSplit } from "js-inverted-index"
 
 /**
  * Build a search index for a list of starred repositories.
@@ -6,7 +6,7 @@ import useSearch, { fullWordSplit } from "use-search"
  * @param {Array} documents
  */
 export default function initSearch(documents) {
-  const { search, add } = useSearch({
+  const { search, add } = initSearchDep({
     fields: [
       "node.name",
       "node.owner.login",

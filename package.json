@@ -8,8 +8,8 @@
     "serve": "vite preview"
   },
   "dependencies": {
+    "js-inverted-index": "github:andreasphil/js-inverted-index",
     "node-fetch": "^2.6.1",
-    "use-search": "github:andreasphil/use-search",
     "vue": "^3.0.5",
     "vue-router": "^4.0.4"
   },

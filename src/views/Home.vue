@@ -3,13 +3,13 @@
     <main
       class="flex-1 flex flex-col items-center justify-center px-4 py-12 bg-gray-100"
     >
-      <h1 class="text-sm uppercase font-semibold">
+      <h1 class="text-sm uppercase font-semibold leading-normal">
         Stargaze
         <span class="rounded ml-1 py-1 px-2 bg-gray-600 text-gray-100"
           >Beta</span
         >
       </h1>
-      <h2 class="font-semibold text-4xl max-w-3xl mt-4 mb-16">
+      <h2 class="font-bold text-4xl max-w-3xl mt-4 mb-16 leading-normal">
         A beautiful and fast interface for browsing your starred repositories on
         GitHub
       </h2>

@@ -19,7 +19,7 @@ module.exports = {
       },
       colors: {
         primary: colors.yellow,
-        gray: colors.trueGray,
+        gray: colors.blueGray,
       },
       boxShadow: {
         sm: "0 .125rem .5rem 0 rgba(0, 0, 0, 0.03)",

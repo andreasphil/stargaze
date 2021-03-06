@@ -2,15 +2,16 @@
   <div class="min-h-screen flex flex-col items-stretch pt-20">
     <s-toolbar :busy="loading">
       <template #left>
-        <img
+        <s-blur-icon
           v-if="viewer && viewer.avatarUrl"
-          class="flex-shrink-0 rounded-full w-8 h-8"
+          class="flex-shrink-0"
           alt="Your GitHub avatar"
+          rounded="rounded-full"
           :src="viewer.avatarUrl"
         />
         <div
           v-else
-          class="flex-shrink-0 rounded-full w-8 h-8 bg-gray-100"
+          class="flex-shrink-0 rounded-full w-10 h-10 bg-gray-100"
         ></div>
 
         <s-input
@@ -88,6 +89,7 @@ import EmojiSadSvg from "/@/assets/emoji-sad.svg"
 import StarSvg from "/@/assets/star.svg"
 import SearchCircleSvg from "/@/assets/search-circle.svg"
 import initSearch from "/@/utils/search"
+import SBlurIcon from "/@/components/SBlurIcon.vue"
 
 export default {
   components: {
@@ -100,6 +102,7 @@ export default {
     LogoutSvg,
     StarSvg,
     SearchCircleSvg,
+    SBlurIcon,
   },
 
   data() {

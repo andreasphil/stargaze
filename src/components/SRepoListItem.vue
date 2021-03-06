@@ -8,16 +8,12 @@
       <!-- Header -->
       <div class="flex items-center m-4 space-x-4">
         <!-- Icon -->
-        <div class="w-16 h-16">
-          <img
+        <s-blur-icon
+          width="w-16"
+          height="h-16"
             :src="icon"
             :alt="author ? `GitHub avatar of ${author}` : ''"
-            loading="lazy"
-            width="64px"
-            height="64px"
-            class="rounded w-full h-full bg-gray-100"
           />
-        </div>
 
         <!-- Author and name -->
         <div class="flex-grow title-width">
@@ -54,11 +50,13 @@
 </template>
 
 <script>
+import SBlurIcon from "/@/components/SBlurIcon.vue"
 import ExternalLinkSvg from "/@/assets/external-link.svg"
 
 export default {
   components: {
     ExternalLinkSvg,
+    SBlurIcon,
   },
 
   props: {

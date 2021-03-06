@@ -1,6 +1,6 @@
 <template>
   <div
-    class="fixed top-0 inset-x-0 bg-white border-t-4 border-primary-400 transition-shadow duration-500 translucent"
+    class="fixed top-0 inset-x-0 bg-white border-t-4 border-primary-400 transition-shadow duration-500 z-10"
     :class="{ busy, 'shadow-sm': floating }"
   >
     <nav class="max-w-screen-xl mx-auto flex p-4">
@@ -45,7 +45,7 @@ export default {
 
 <style lang="postcss" scoped>
 .nav-section {
-  @apply flex-1 flex items-center;
+  @apply flex flex-1 items-center;
 }
 
 .busy {

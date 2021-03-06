@@ -1,11 +1,12 @@
 {
-  "name": "stargaze-vite",
-  "version": "0.0.0",
+  "name": "stargaze",
+  "version": "1.0.0",
   "scripts": {
-    "start": "vercel dev",
+    "start": "netlify dev",
     "dev": "vite",
     "build": "vite build",
-    "serve": "vite preview"
+    "serve": "vite preview",
+    "lint": "eslint src/; prettier -c src/"
   },
   "dependencies": {
     "js-inverted-index": "github:andreasphil/js-inverted-index",

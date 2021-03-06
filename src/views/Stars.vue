@@ -82,7 +82,7 @@ import SButton from "/@/components/SButton.vue"
 import SInput from "/@/components/SInput.vue"
 import SToolbar from "/@/components/SToolbar.vue"
 import { logout } from "/@/utils/auth"
-import { api, getStars, getViewer } from "/@/utils/api"
+import { config as apiConfig, getStars, getViewer } from "/@/utils/api"
 import LogoutSvg from "/@/assets/logout.svg"
 import EmojiSadSvg from "/@/assets/emoji-sad.svg"
 import StarSvg from "/@/assets/star.svg"
@@ -168,7 +168,7 @@ export default {
         this.stars = await getStars()
         localStorage.setItem("stars", JSON.stringify(this.stars))
       } catch (err) {
-        if (err === api.notLoggedIn || api.notAuthorized) {
+        if (err === apiConfig.notLoggedIn || apiConfig.notAuthorized) {
           this.$toast(
             "Looks like your session expired. Please sign in again.",
             {

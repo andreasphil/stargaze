@@ -1,8 +1,9 @@
 import { getLoginToken, loginTokenExists } from "/@/utils/auth"
 
-export const api = {
-  endpoint: "https://api.github.com/graphql",
-  oauthStart: "https://github.com/login/oauth/authorize",
+export const config = {
+  endpointUrl: "https://api.github.com/graphql",
+  oauthStartUrl: "https://github.com/login/oauth/authorize",
+  tokenUrl: (code) => `/.netlify/functions/token?code=${code}`,
 
   notAuthorized: "Not authorized",
   notLoggedIn: "Not logged in",
@@ -79,10 +80,10 @@ function starsQuery(cursor) {
  */
 async function post(query) {
   if (!loginTokenExists()) {
-    throw new Error(api.notLoggedIn)
+    throw new Error(config.notLoggedIn)
   }
 
-  const response = await fetch(api.endpoint, {
+  const response = await fetch(config.endpointUrl, {
     method: "POST",
     body: query,
     headers: {
@@ -92,7 +93,7 @@ async function post(query) {
 
   if (!response.ok) {
     throw new Error(
-      response.status === 401 ? api.notAuthorized : api.otherError
+      response.status === 401 ? config.notAuthorized : config.otherError
     )
   }
 

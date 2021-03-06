@@ -1,4 +1,4 @@
-import { api } from "/@/utils/api"
+import { config } from "/@/utils/api"
 
 /**
  * Name of the localStorage item where the token is saved
@@ -27,7 +27,7 @@ export const getState = () => {
  * @returns {string}
  */
 export const getSignInUrl = ({ state, clientId, redirectTo }) => {
-  const url = new URL(api.oauthStart)
+  const url = new URL(config.oauthStartUrl)
 
   url.searchParams.append("state", state)
   url.searchParams.append("client_id", clientId)
@@ -45,7 +45,7 @@ export const getSignInUrl = ({ state, clientId, redirectTo }) => {
  * @returns {Promise<string>} A promise of a string token
  */
 export const fetchLoginToken = async (code) => {
-  const response = await fetch(`/api/token?code=${code}`)
+  const response = await fetch(config.tokenUrl(code))
 
   if (!response.ok) {
     throw new Error()

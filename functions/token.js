@@ -30,12 +30,14 @@ function getAccessTokenUrl(options) {
 /**
  * Requests an access token for the current user.
  */
-module.exports = async function (req, res) {
-  const { code } = req.query
+exports.handler = async function (event) {
+  const { code } = event.queryStringParameters
 
   if (!code) {
-    res.status(500).send("The code parameter cannot be empty")
-    return
+    return {
+      statusCode: 500,
+      body: "The code parameter cannot be empty",
+    }
   }
 
   const url = getAccessTokenUrl({
@@ -55,10 +57,14 @@ module.exports = async function (req, res) {
   const content = await response.json()
 
   if (!response.ok || content?.error) {
-    res
-      .status(500)
-      .send("Something went wrong when fetching the token from GitHub")
+    return {
+      statusCode: 500,
+      body: "Something went wrong when fetching the token from GitHub",
+    }
   } else {
-    res.status(200).send(content.access_token)
+    return {
+      statusCode: 200,
+      body: content.access_token,
+    }
   }
 }

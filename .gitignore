@@ -1,6 +1,9 @@
 .DS_Store
-.vercel
 *.local
 dist
 dist-ssr
 node_modules
+
+# Local Netlify folder and environment variables
+.netlify
+.env

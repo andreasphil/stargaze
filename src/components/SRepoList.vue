@@ -1,5 +1,5 @@
 <template>
-  <ol class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+  <ol class="-mx-4">
     <s-repo-list-item
       v-for="repository in repositories"
       :key="repository.node.id"
@@ -8,13 +8,8 @@
       :author="repository.node.owner.login"
       :author-url="repository.node.owner.url"
       :icon="repository.node.owner.avatarUrl"
-      :description="repository.node.descriptionHTML"
+      :description="repository.node.description"
       :homepage="repository.node.homepageUrl"
-      :language="
-        repository.node.primaryLanguage
-          ? repository.node.primaryLanguage.name
-          : undefined
-      "
     />
 
     <!-- Skeleton items while the list is loading -->

@@ -1,39 +1,27 @@
 <template>
-  <div class="min-h-screen flex flex-col text-center">
-    <main
-      class="flex-1 flex flex-col items-center justify-center px-4 py-12 bg-gray-100"
-    >
-      <h1 class="text-sm uppercase font-semibold leading-normal">
-        Stargaze
-        <span class="rounded ml-1 py-1 px-2 bg-gray-600 text-gray-100"
-          >Beta</span
-        >
-      </h1>
-      <h2 class="font-bold text-4xl max-w-3xl mt-4 mb-16 leading-normal">
-        A beautiful and fast interface for browsing your starred repositories on
-        GitHub
-      </h2>
+  <s-layout class="text-center flex items-center justify-center flex-col">
+    <h1 class="font-semibold text-primary-500">Stargaze</h1>
+    <h2 class="font-bold text-4xl max-w-3xl mt-4 mb-16 leading-normal">
+      A faster way of browsing and searching your starred repositories on GitHub
+    </h2>
 
-      <s-button label="Sign in with GitHub" primary large @click="signIn">
-        <template #icon><github-svg /></template>
-      </s-button>
-    </main>
-
-    <s-footer />
-  </div>
+    <s-button label="Sign in with GitHub" primary large @click="signIn">
+      <github-svg />
+    </s-button>
+  </s-layout>
 </template>
 
 <script>
 import { getState, getSignInUrl } from "/@/utils/auth.js"
-import SFooter from "/@/components/SFooter.vue"
 import SButton from "/@/components/SButton.vue"
 import GithubSvg from "/@/assets/github.svg"
+import SLayout from "/@/components/SLayout.vue"
 
 export default {
   components: {
-    SFooter,
     SButton,
     GithubSvg,
+    SLayout,
   },
 
   methods: {

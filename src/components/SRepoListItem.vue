@@ -1,61 +1,57 @@
 <template>
-  <li>
-    <a
-      :href="url"
-      :title="`Visit ${name} on GitHub`"
-      class="block h-full bg-white rounded-lg overflow-hidden border-2 border-transparent text-sm text-gray-600 no-underline hover:text-gray-600 hover:border-primary-400 transition-border duration-150"
-    >
-      <!-- Header -->
-      <div class="flex items-center m-4 space-x-4">
-        <!-- Icon -->
-        <s-blur-icon
-          width="w-16"
-          height="h-16"
-            :src="icon"
-            :alt="author ? `GitHub avatar of ${author}` : ''"
-          />
+  <li
+    class="flex items-center px-4 h-24 space-x-3 normal:rounded-lg normal:border border-transparent hover:bg-gray-100 focus:border-primary-500 cursor-pointer outline-none"
+    tabindex="0"
+  >
+    <!-- Icon -->
+    <s-blur-icon
+      class="flex-none"
+      width="w-14"
+      height="h-14"
+      rounded="rounded-full"
+      :src="icon"
+      :alt="author ? `GitHub avatar of ${author}` : ''"
+    />
 
-        <!-- Author and name -->
-        <div class="flex-grow title-width">
-          <a
-            v-if="author"
-            :href="authorUrl"
-            :title="`Visit ${author} on GitHub`"
-            class="block truncate no-underline"
-            >@{{ author }}</a
-          >
+    <div class="title-width flex-1">
+      <!-- Author and name -->
+      <h2 class="truncate space-x-1">
+        <a
+          :href="authorUrl"
+          :title="`Visit ${author}'s profile on GitHub`"
+          class="font-medium"
+          tabindex="-1"
+          >{{ author }}</a
+        ><span class="text-gray-300">/</span
+        ><a
+          :href="url"
+          :title="`Visit ${name} on GitHub`"
+          class="font-bold text-gray-900"
+          tabindex="-1"
+          >{{ name }}</a
+        >
+      </h2>
 
-          <h2 class="text-base text-gray-800 font-semibold truncate">
-            {{ name }}
-          </h2>
-        </div>
-      </div>
-
-      <!-- Content -->
-      <div class="m-4 mt-6 h-16 overflow-hidden" v-html="description"></div>
-
-      <!-- Footer -->
-      <div
-        v-if="language || homepage"
-        class="border-t border-gray-100 divide-x divide-gray-100"
+      <!-- Description and website -->
+      <p
+        v-if="description || homepage"
+        class="text-sm h-text-5 leading-5 truncate"
       >
-        <span v-if="language" class="p-4 inline-block">{{ language }}</span>
-        <span v-if="homepage" class="p-4 inline-block space-x-1">
-          <external-link-svg class="h-text-4 inline" />
-          <a :href="homepage" :title="`Visit ${name}'s website`">Website</a>
-        </span>
-      </div>
-    </a>
+        <a v-if="homepage" :href="homepage" tabindex="-1">{{
+          shorten(homepage)
+        }}</a>
+        <template v-if="description && homepage"> – </template>
+        <span class="text-gray-500">{{ description }}</span>
+      </p>
+    </div>
   </li>
 </template>
 
 <script>
 import SBlurIcon from "/@/components/SBlurIcon.vue"
-import ExternalLinkSvg from "/@/assets/external-link.svg"
 
 export default {
   components: {
-    ExternalLinkSvg,
     SBlurIcon,
   },
 
@@ -66,7 +62,7 @@ export default {
     },
     description: {
       type: String,
-      required: true,
+      default: null,
     },
     url: {
       type: String,
@@ -88,16 +84,32 @@ export default {
       type: String,
       default: null,
     },
-    language: {
-      type: String,
-      default: null,
+  },
+
+  methods: {
+    shorten(input) {
+      const output = input.replace(/^https?:\/\/(www.)?/, "")
+      return output.length > 30 ? `${output.substring(0, 30)}...` : output
     },
   },
 }
 </script>
 
-<style scoped>
+<style lang="postcss" scoped>
+li,
+li * {
+  @apply transition-all duration-100;
+}
+
+a {
+  @apply no-underline;
+}
+
+a:hover {
+  @apply underline;
+}
+
 .title-width {
-  max-width: calc(100% - 5rem);
+  max-width: calc(100% - 6.5rem);
 }
 </style>

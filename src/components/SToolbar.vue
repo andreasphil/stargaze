@@ -1,14 +1,11 @@
 <template>
-  <div
-    class="fixed top-0 inset-x-0 bg-white border-t-4 border-primary-400 transition-shadow duration-500 z-10"
-    :class="{ busy, 'shadow-sm': floating }"
-  >
-    <nav class="max-w-screen-xl mx-auto flex p-4">
+  <div class="fixed inset-x-0 top-0 z-10 bg-white shadow-sm">
+    <nav class="container flex mx-auto p-4 h-20">
       <div v-if="$slots.left" class="nav-section">
         <slot name="left" />
       </div>
 
-      <div v-if="$slots.right" class="nav-section justify-end">
+      <div v-if="$slots.right" class="justify-end nav-section">
         <slot name="right" />
       </div>
     </nav>
@@ -17,10 +14,6 @@
 
 <script>
 export default {
-  props: {
-    busy: Boolean,
-  },
-
   data() {
     return {
       floating: this.updateFloatingState(),
@@ -46,15 +39,5 @@ export default {
 <style lang="postcss" scoped>
 .nav-section {
   @apply flex flex-1 items-center;
-}
-
-.busy {
-  animation: 0.75s ease-in infinite alternate border-pulse;
-}
-
-@keyframes border-pulse {
-  to {
-    @apply border-transparent;
-  }
 }
 </style>

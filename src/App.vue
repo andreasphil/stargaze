@@ -1,8 +1,6 @@
 <template>
-  <div id="app" class="font-sans antialiased text-gray-800">
-    <s-toaster />
-    <router-view />
-  </div>
+  <s-toaster />
+  <router-view />
 </template>
 
 <script>
@@ -18,11 +16,11 @@ export default {
 @tailwind components;
 
 body {
-  @apply bg-gray-50;
+  @apply text-gray-800 font-sans antialiased bg-white;
 }
 
 a {
-  @apply text-gray-600 underline transition-colors duration-150;
+  @apply text-gray-500 underline transition-colors duration-150;
 }
 
 a:hover {

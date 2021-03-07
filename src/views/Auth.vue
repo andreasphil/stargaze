@@ -1,20 +1,20 @@
 <template>
-  <div class="pt-20">
-    <s-toolbar :busy="true">
-      <template #left>
-        <div class="flex-shrink-0 rounded-full w-8 h-8 bg-gray-100"></div>
-        <s-input block disabled class="ml-4" placeholder="Filter..." />
-      </template>
+  <s-layout>
+    <template #toolbar>
+      <s-toolbar>
+        <template #left>
+          <div class="flex-shrink-0 rounded-full w-10 h-10 bg-gray-100"></div>
+          <s-input block disabled class="ml-4" placeholder="Filter..." />
+        </template>
 
-      <template #right>
-        <div></div>
-      </template>
-    </s-toolbar>
+        <template #right>
+          <div></div>
+        </template>
+      </s-toolbar>
+    </template>
 
-    <main class="max-w-screen-xl w-full mx-auto pt-4 px-4 pb-24 md:pt-24">
-      <s-repo-list :busy="true" />
-    </main>
-  </div>
+    <s-repo-list :busy="true" />
+  </s-layout>
 </template>
 
 <script>
@@ -22,9 +22,10 @@ import { fetchLoginToken, setLoginToken } from "/@/utils/auth"
 import SRepoList from "/@/components/SRepoList.vue"
 import SInput from "/@/components/SInput.vue"
 import SToolbar from "/@/components/SToolbar.vue"
+import SLayout from "/@/components/SLayout.vue"
 
 export default {
-  components: { SRepoList, SInput, SToolbar },
+  components: { SRepoList, SInput, SToolbar, SLayout },
 
   async mounted() {
     const { code } = this.$route.query

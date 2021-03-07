@@ -78,10 +78,10 @@ svg {
 }
 
 .toast-enter {
-  @apply transform -translate-y-4 scale-75 opacity-0;
+  @apply opacity-0 transform -translate-y-4 scale-75;
 }
 
 .toast-leave-to {
-  @apply transform scale-90 opacity-0;
+  @apply opacity-0 transform scale-90;
 }
 </style>

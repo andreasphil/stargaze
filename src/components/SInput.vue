@@ -6,7 +6,7 @@
     <input
       ref="input"
       v-model="localValue"
-      class="rounded w-full px-4 py-2 leading-normal bg-gray-100 border-2 border-transparent placeholder-gray-600 focus:bg-white outline-none focus:border-primary-400 disabled:opacity-50 transition-all duration-150"
+      class="placeholder-gray-600 px-4 py-2 w-full leading-normal bg-gray-100 focus:bg-white border focus:border-primary-500 border-transparent rounded outline-none disabled:opacity-50 transition-all duration-150 focus:ring-primary-200 focus:ring-4"
       :class="{ 'pl-10': !!$slots.icon }"
       :placeholder="placeholder"
       :disabled="disabled"
@@ -66,7 +66,7 @@ export default {
 }
 </script>
 
-<style scoped>
+<style lang="postcss" scoped>
 svg {
   @apply h-text-5;
 }

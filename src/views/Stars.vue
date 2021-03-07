@@ -1,83 +1,76 @@
 <template>
-  <div class="min-h-screen flex flex-col items-stretch pt-20">
-    <s-toolbar :busy="loading">
-      <template #left>
-        <s-blur-icon
-          v-if="viewer && viewer.avatarUrl"
-          class="flex-shrink-0"
-          alt="Your GitHub avatar"
-          rounded="rounded-full"
-          :src="viewer.avatarUrl"
-        />
-        <div
-          v-else
-          class="flex-shrink-0 rounded-full w-10 h-10 bg-gray-100"
-        ></div>
+  <s-layout>
+    <template #toolbar>
+      <s-toolbar>
+        <template #left>
+          <s-blur-icon
+            v-if="viewer && viewer.avatarUrl"
+            class="flex-shrink-0"
+            alt="Your GitHub avatar"
+            rounded="rounded-full"
+            :src="viewer.avatarUrl"
+          />
+          <div
+            v-else
+            class="flex-shrink-0 rounded-full w-10 h-10 bg-gray-100"
+          ></div>
 
-        <s-input
-          ref="search"
-          v-model="searchString"
-          icon="search"
-          class="ml-4 w-full"
-          placeholder="Filter..."
-          title="Tip: Type anywhere to start filtering!"
-          :spellcheck="false"
-        >
-          <template #icon>
-            <search-circle-svg />
-          </template>
-        </s-input>
-      </template>
+          <s-input
+            ref="search"
+            v-model="searchString"
+            icon="search"
+            class="ml-3 w-full"
+            placeholder="Filter..."
+            title="Tip: Type anywhere to start filtering!"
+            :spellcheck="false"
+          >
+            <template #icon>
+              <search-circle-svg />
+            </template>
+          </s-input>
+        </template>
 
-      <template #right>
-        <s-button label="Sign out" @click="signOut">
-          <template #icon><logout-svg /></template>
-        </s-button>
-      </template>
-    </s-toolbar>
+        <template #right>
+          <s-button label="Sign out" tabindex="-1" @click="signOut">
+            <logout-svg />
+          </s-button>
+        </template>
+      </s-toolbar>
+    </template>
 
-    <main
-      class="flex-1 w-full max-w-screen-xl mx-auto pt-4 px-4 pb-24 md:pt-24"
+    <!-- Always keep the full list in the background so the browser doesn't need to
+        re-render everything when the user clears the search field -->
+    <s-repo-list
+      v-if="stars || loading"
+      v-show="!isSearching"
+      :repositories="stars"
+      :busy="loading"
+    />
+    <div
+      v-if="!isSearching && !loading && (!stars || stars.length === 0)"
+      class="text-center text-gray-600"
     >
-      <!-- Always keep the full list in the background so the browser doesn't need to
-      re-render everything when the user clears the search field -->
-      <s-repo-list
-        v-if="stars || loading"
-        v-show="!isSearching"
-        :repositories="stars"
-        :busy="loading"
-      />
-      <div
-        v-if="!isSearching && !loading && (!stars || stars.length === 0)"
-        class="text-center text-gray-600"
-      >
-        <star-svg class="h-6 inline" />
-        <p class="mt-2">You haven't starred any repositories yet.</p>
-      </div>
+      <star-svg class="h-6 inline" />
+      <p class="mt-2">You haven't starred any repositories yet.</p>
+    </div>
 
-      <!-- Search results -->
-      <s-repo-list
-        v-show="isSearching"
-        :repositories="searchResults"
-        :busy="loading"
-      />
-      <div
-        v-if="isSearching && searchResults.length === 0"
-        class="text-center text-gray-600"
-      >
-        <emoji-sad-svg class="h-6 inline" />
-        <p class="mt-2">
-          Nothing found when searching for "{{ searchString }}".
-        </p>
-      </div>
-    </main>
-
-    <s-footer inverted />
-  </div>
+    <!-- Search results -->
+    <s-repo-list
+      v-show="isSearching"
+      :repositories="searchResults"
+      :busy="loading"
+    />
+    <div
+      v-if="isSearching && searchResults.length === 0"
+      class="text-center text-gray-600"
+    >
+      <emoji-sad-svg class="h-6 inline" />
+      <p class="mt-2">Nothing found when searching for "{{ searchString }}".</p>
+    </div>
+  </s-layout>
 </template>
 
 <script>
-import SFooter from "/@/components/SFooter.vue"
 import SRepoList from "/@/components/SRepoList.vue"
 import SButton from "/@/components/SButton.vue"
 import SInput from "/@/components/SInput.vue"
@@ -90,10 +83,10 @@ import StarSvg from "/@/assets/star.svg"
 import SearchCircleSvg from "/@/assets/search-circle.svg"
 import initSearch from "/@/utils/search"
 import SBlurIcon from "/@/components/SBlurIcon.vue"
+import SLayout from "/@/components/SLayout.vue"
 
 export default {
   components: {
-    SFooter,
     SRepoList,
     SButton,
     SInput,
@@ -103,6 +96,7 @@ export default {
     StarSvg,
     SearchCircleSvg,
     SBlurIcon,
+    SLayout,
   },
 
   data() {
@@ -155,11 +149,28 @@ export default {
 
   methods: {
     focusSearchHotkey(event) {
+      if (this.$refs.search.focused()) {
+        return
+      }
+
+      const { key, altKey } = event
+
       // If the event key is a single word character (0-9, a-z) and the search
       // field is not focused yet, treat the input as an input to the search
       // field
-      if (event.key.match(/^[\w/]$/) && !this.$refs.search.focused()) {
-        this.searchString = event.key
+      if (key.match(/^[\w/]$/)) {
+        this.searchString += key
+        this.$refs.search.focus()
+      } else if (key === "Backspace") {
+        if (altKey) {
+          this.searchString = ""
+        } else {
+          this.searchString = this.searchString.substring(
+            0,
+            Math.max(this.searchString.length - 1, 0)
+          )
+        }
+
         this.$refs.search.focus()
       }
     },

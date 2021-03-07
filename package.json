@@ -24,6 +24,7 @@
     "netlify-cli": "^3.10.6",
     "postcss": "^8.2.6",
     "prettier": "^2.2.1",
+    "prettier-plugin-tailwind": "^2.2.9",
     "tailwindcss": "^2.0.3",
     "vite": "^2.0.1",
     "vite-svg-loader": "^1.4.2"

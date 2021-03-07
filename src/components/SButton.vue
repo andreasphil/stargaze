@@ -1,10 +1,10 @@
 <template>
   <button
-    class="rounded inline-flex items-center space-x-2 px-4 py-3 leading-none hover:bg-gray-100 transition-colors duration-150"
+    class="px-4 py-3 inline-flex items-center space-x-2 leading-none rounded hover:bg-gray-100 transition-all duration-150"
     :role="role"
     @click="$emit('click')"
   >
-    <slot name="icon" />
+    <slot />
     <span>{{ label }}</span>
   </button>
 </template>
@@ -27,11 +27,11 @@ export default {
 
 <style lang="postcss" scoped>
 [primary] {
-  @apply bg-primary-400 text-gray-900 text-opacity-75 font-medium shadow-sm;
+  @apply text-white font-semibold bg-primary-500 shadow-lg;
 }
 
 [primary]:hover {
-  @apply bg-primary-400 bg-opacity-75;
+  @apply ring-primary-200 ring-4;
 }
 
 [large] {

@@ -1,5 +1,5 @@
 <template>
-  <div class="fixed inset-x-0 top-0 z-10 bg-white shadow-sm">
+  <div class="fixed inset-x-0 top-0 z-20 bg-white shadow-sm">
     <nav class="container flex mx-auto p-4 h-20">
       <div v-if="$slots.left" class="nav-section">
         <slot name="left" />

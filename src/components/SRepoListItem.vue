@@ -1,9 +1,6 @@
 <template>
   <li
-    class="flex items-center px-4 h-24 space-x-3 normal:rounded-lg normal:border border-transparent hover:bg-gray-100 focus:border-primary-500 cursor-pointer outline-none"
-    tabindex="0"
-    @keyup.enter.stop="go"
-    @click.stop="go"
+    class="relative flex items-center px-4 h-24 space-x-3 normal:rounded-lg hover:bg-gray-100"
   >
     <!-- Icon -->
     <s-image-icon
@@ -22,15 +19,12 @@
           :title="`Visit ${author}'s profile on GitHub`"
           class="font-medium"
           tabindex="-1"
-          @click.stop
           >{{ author }}</a
         ><span class="text-gray-300">/</span
         ><a
           :href="url"
           :title="`Visit ${name} on GitHub`"
-          class="font-bold text-gray-900"
-          tabindex="-1"
-          @click.stop
+          class="font-bold text-gray-900 absolute-link"
           >{{ name }}</a
         >
       </h2>
@@ -51,11 +45,11 @@
 </template>
 
 <script>
-import SBlurIcon from "/@/components/SBlurIcon.vue"
+import SImageIcon from "./SImageIcon.vue"
 
 export default {
   components: {
-    SBlurIcon,
+    SImageIcon,
   },
 
   props: {
@@ -90,8 +84,8 @@ export default {
     homepageTitle: {
       type: String,
       default: null,
-  },
     },
+  },
 }
 </script>
 
@@ -102,7 +96,7 @@ li * {
 }
 
 a {
-  @apply no-underline;
+  @apply relative z-10 no-underline;
 }
 
 a:hover {
@@ -111,5 +105,18 @@ a:hover {
 
 .title-width {
   max-width: calc(100% - 6.5rem);
+}
+
+.absolute-link {
+  @apply static z-auto outline-none;
+}
+
+.absolute-link::after {
+  @apply absolute inset-0 border border-transparent rounded-lg;
+  content: "";
+}
+
+.absolute-link:focus::after {
+  @apply border-primary-500;
 }
 </style>

@@ -10,6 +10,7 @@
       :icon="repository.node.owner.avatarUrl"
       :description="repository.node.description"
       :homepage="repository.node.homepageUrl"
+      :homepage-title="shorten(repository.node.homepageUrl)"
     />
 
     <!-- Skeleton items while the list is loading -->
@@ -32,6 +33,29 @@ export default {
       default: () => [],
     },
     busy: Boolean,
+  },
+
+  data: function () {
+    return { shortHomepageUrls: {} }
+  },
+
+  methods: {
+    shorten(input) {
+      if (!input) {
+        return null
+      }
+
+      if (this.shortHomepageUrls[input]) {
+        return this.shortHomepageUrls[input]
+      }
+
+      let output = input.replace(/^https?:\/\/(www.)?/, "")
+      output = output.length > 30 ? `${output.substring(0, 30)}...` : output
+
+      this.shortHomepageUrls[input] = output
+
+      return output
+    },
   },
 }
 </script>

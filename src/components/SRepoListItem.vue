@@ -41,8 +41,8 @@
         v-if="description || homepage"
         class="text-sm h-text-5 leading-5 truncate"
       >
-        <a v-if="homepage" :href="homepage" tabindex="-1" @click.stop>{{
-          shorten(homepage)
+        <a v-if="homepage" :href="homepage" tabindex="-1">{{
+          homepageTitle || homepage
         }}</a>
         <template v-if="description && homepage"> – </template>
         <span class="text-gray-500">{{ description }}</span>
@@ -88,19 +88,11 @@ export default {
       type: String,
       default: null,
     },
+    homepageTitle: {
+      type: String,
+      default: null,
   },
-
-  methods: {
-    shorten(input) {
-      const output = input.replace(/^https?:\/\/(www.)?/, "")
-      return output.length > 30 ? `${output.substring(0, 30)}...` : output
     },
-
-    go(event) {
-      const url = event.shiftKey && this.homepage ? this.homepage : this.url
-      window.open(url, "_self")
-    },
-  },
 }
 </script>
 

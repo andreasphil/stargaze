@@ -11,7 +11,7 @@
           />
           <div
             v-else
-            class="flex-shrink-0 rounded-full w-10 h-10 bg-gray-100"
+            class="flex-shrink-0 w-10 h-10 bg-gray-100 rounded-full"
           ></div>
 
           <s-input
@@ -49,7 +49,7 @@
       v-if="!isSearching && !loading && (!stars || stars.length === 0)"
       class="text-center text-gray-600"
     >
-      <star-svg class="h-6 inline" />
+      <star-svg class="inline h-6" />
       <p class="mt-2">You haven't starred any repositories yet.</p>
     </div>
 
@@ -63,7 +63,7 @@
       v-if="isSearching && searchResults.length === 0"
       class="text-center text-gray-600"
     >
-      <emoji-sad-svg class="h-6 inline" />
+      <emoji-sad-svg class="inline h-6" />
       <p class="mt-2">Nothing found when searching for "{{ searchString }}".</p>
     </div>
   </s-layout>

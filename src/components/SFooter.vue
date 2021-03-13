@@ -1,6 +1,6 @@
 <template>
   <footer class="bg-gray-50">
-    <p class="text-center text-sm px-4 py-12">
+    <p class="px-4 py-12 text-center text-sm">
       A thing made by <a :href="authorWebsite">{{ author }}.</a> Check out the
       <a :href="repository">source on GitHub.</a>
     </p>

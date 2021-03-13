@@ -2,10 +2,10 @@
   <slot name="toolbar" />
 
   <div
-    class="min-h-screen flex flex-col items-stretch"
+    class="flex flex-col items-stretch min-h-screen"
     :class="{ 'pt-20': !!$slots.toolbar }"
   >
-    <main class="container flex-1 py-8 px-4 normal:py-20" v-bind="$attrs">
+    <main class="container flex-1 px-4 normal:py-20 py-8" v-bind="$attrs">
       <slot />
     </main>
     <s-footer class="flex-none" />

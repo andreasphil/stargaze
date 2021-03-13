@@ -1,11 +1,11 @@
 <template>
-  <div class="fixed top-0 left-1/2 transform -translate-x-1/2 z-10">
+  <div class="fixed z-10 left-1/2 top-0 transform -translate-x-1/2">
     <div class="flex flex-col pt-4 space-y-4">
       <transition-group name="toast">
         <div
           v-for="toast in toasts"
           :key="toast.id"
-          class="flex bg-gray-800 text-gray-100 rounded shadow-md overflow-hidden mx-4"
+          class="flex mx-4 text-gray-100 bg-gray-800 rounded shadow-md overflow-hidden"
         >
           <span v-if="toast.type" class="flex items-center p-4 bg-gray-900">
             <exclamation-svg v-if="toast.type === 'warning'" />

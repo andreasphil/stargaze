@@ -3,7 +3,7 @@
     <template #toolbar>
       <s-toolbar>
         <template #left>
-          <div class="flex-shrink-0 rounded-full w-10 h-10 bg-gray-100"></div>
+          <div class="flex-shrink-0 w-10 h-10 bg-gray-100 rounded-full"></div>
           <s-input block disabled class="ml-4" placeholder="Filter..." />
         </template>
 

@@ -3,7 +3,7 @@
     :src="src"
     :alt="alt"
     loading="lazy"
-    class="border border-gray-200 p-1 bg-gray-50"
+    class="p-1 bg-gray-50 border border-gray-200"
     :class="[rounded, width, height]"
   />
 </template>

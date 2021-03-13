@@ -1,6 +1,6 @@
 <template>
   <li
-    class="relative flex items-center px-4 h-24 space-x-3 normal:rounded-lg hover:bg-gray-100"
+    class="relative flex items-center px-4 h-24 hover:bg-gray-100 normal:rounded-lg space-x-3"
   >
     <!-- Icon -->
     <s-image-icon
@@ -13,7 +13,7 @@
 
     <div class="title-width flex-1">
       <!-- Author and name -->
-      <h2 class="truncate space-x-1">
+      <h2 class="space-x-1 truncate">
         <a
           :href="authorUrl"
           :title="`Visit ${author}'s profile on GitHub`"
@@ -24,7 +24,7 @@
         ><a
           :href="url"
           :title="`Visit ${name} on GitHub`"
-          class="font-bold text-gray-900 absolute-link"
+          class="absolute-link text-gray-900 font-bold"
           >{{ name }}</a
         >
       </h2>
@@ -32,7 +32,7 @@
       <!-- Description and website -->
       <p
         v-if="description || homepage"
-        class="text-sm h-text-5 leading-5 truncate"
+        class="h-text-5 text-sm leading-5 truncate"
       >
         <a v-if="homepage" :href="homepage" tabindex="-1">{{
           homepageTitle || homepage

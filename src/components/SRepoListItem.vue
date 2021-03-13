@@ -45,7 +45,7 @@
 </template>
 
 <script>
-import SImageIcon from "./SImageIcon.vue"
+import SImageIcon from "/@/components/SImageIcon.vue"
 
 export default {
   components: {
@@ -112,7 +112,7 @@ a:hover {
 }
 
 .absolute-link::after {
-  @apply absolute inset-0 border border-transparent rounded-lg;
+  @apply border-2 absolute inset-0 border-transparent rounded-lg;
   content: "";
 }
 

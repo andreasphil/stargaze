@@ -56,11 +56,11 @@
     <!-- Search results -->
     <s-repo-list
       v-show="isSearching"
-      :repositories="loading ? [] : searchResults"
+      :repositories="searchResults"
       :busy="loading"
     />
     <div
-      v-if="isSearching && searchResults.length === 0"
+      v-if="!loading && isSearching && searchResults.length === 0"
       class="text-center text-gray-600"
     >
       <emoji-sad-svg class="inline h-6" />
@@ -81,7 +81,7 @@ import EmojiSadSvg from "/@/assets/emoji-sad.svg"
 import StarSvg from "/@/assets/star.svg"
 import SearchCircleSvg from "/@/assets/search-circle.svg"
 import initSearch from "/@/utils/search"
-import SImageIcon from "../components/SImageIcon.vue"
+import SImageIcon from "/@/components/SImageIcon.vue"
 import SLayout from "/@/components/SLayout.vue"
 
 export default {

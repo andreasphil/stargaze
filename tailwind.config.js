@@ -17,9 +17,6 @@ module.exports = {
         "text-5": "1.25em",
       },
     },
-    fontFamily: {
-      sans: ["Inter", ...theme.fontFamily.sans],
-    },
     colors: {
       black: colors.black,
       gray: colors.coolGray,
@@ -34,9 +31,6 @@ module.exports = {
     },
     screens: {
       normal: "680px",
-    },
-    borderWidth: {
-      DEFAULT: "2px",
     },
   },
   variants: {

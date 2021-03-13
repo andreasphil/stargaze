@@ -40,13 +40,13 @@
     <!-- Always keep the full list in the background so the browser doesn't need to
         re-render everything when the user clears the search field -->
     <s-repo-list
-      v-if="stars || loading"
+      v-if="(stars && stars.length) || loading"
       v-show="!isSearching"
       :repositories="stars"
       :busy="loading"
     />
     <div
-      v-if="!isSearching && !loading && (!stars || stars.length === 0)"
+      v-if="!(isSearching || loading || stars || stars.length)"
       class="text-center text-gray-600"
     >
       <star-svg class="inline h-6" />
@@ -56,7 +56,7 @@
     <!-- Search results -->
     <s-repo-list
       v-show="isSearching"
-      :repositories="searchResults"
+      :repositories="loading ? [] : searchResults"
       :busy="loading"
     />
     <div

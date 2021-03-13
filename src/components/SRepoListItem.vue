@@ -6,11 +6,10 @@
     @click.stop="go"
   >
     <!-- Icon -->
-    <s-blur-icon
+    <s-image-icon
       class="flex-none"
       width="w-14"
       height="h-14"
-      rounded="rounded-full"
       :src="icon"
       :alt="author ? `GitHub avatar of ${author}` : ''"
     />

@@ -3,11 +3,10 @@
     <template #toolbar>
       <s-toolbar>
         <template #left>
-          <s-blur-icon
+          <s-image-icon
             v-if="viewer && viewer.avatarUrl"
             class="flex-shrink-0"
             alt="Your GitHub avatar"
-            rounded="rounded-full"
             :src="viewer.avatarUrl"
           />
           <div
@@ -82,7 +81,7 @@ import EmojiSadSvg from "/@/assets/emoji-sad.svg"
 import StarSvg from "/@/assets/star.svg"
 import SearchCircleSvg from "/@/assets/search-circle.svg"
 import initSearch from "/@/utils/search"
-import SBlurIcon from "/@/components/SBlurIcon.vue"
+import SImageIcon from "../components/SImageIcon.vue"
 import SLayout from "/@/components/SLayout.vue"
 
 export default {
@@ -95,7 +94,7 @@ export default {
     LogoutSvg,
     StarSvg,
     SearchCircleSvg,
-    SBlurIcon,
+    SImageIcon,
     SLayout,
   },
 
@@ -132,6 +131,16 @@ export default {
 
       const result = this.search(this.searchString)
       return this.stars.filter((star) => result.has(star.node.id))
+    },
+  },
+
+  watch: {
+    viewer: function (newValue) {
+      localStorage.setItem("viewer", JSON.stringify(newValue))
+    },
+
+    stars: function (newValue) {
+      localStorage.setItem("stars", JSON.stringify(newValue))
     },
   },
 
@@ -189,10 +198,7 @@ export default {
     async hydrate() {
       try {
         this.viewer = await getViewer()
-        localStorage.setItem("viewer", JSON.stringify(this.viewer))
-
         this.stars = await getStars()
-        localStorage.setItem("stars", JSON.stringify(this.stars))
       } catch (err) {
         if (err === apiConfig.notLoggedIn || apiConfig.notAuthorized) {
           this.$toast(

@@ -1,7 +1,7 @@
 <template>
   <s-layout class="flex flex-col items-center justify-center text-center">
     <h1 class="text-primary-500 font-semibold">Stargaze</h1>
-    <h2 class="mb-16 mt-4 max-w-3xl text-4xl font-bold leading-normal">
+    <h2 class="mb-16 mt-4 max-w-3xl text-4xl font-extrabold leading-snug">
       A faster way of browsing and searching your starred repositories on GitHub
     </h2>
 

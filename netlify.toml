@@ -4,8 +4,7 @@
   functions = "functions"
 
 [dev]
-  framework = "#custom"
-  command = "npm run dev"
+  framework = "vite"
   targetPort = 3000
   autoLaunch = false
 

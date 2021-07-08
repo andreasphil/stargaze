@@ -1,6 +1,17 @@
 <template>
   <button
-    class="inline-flex items-center px-4 py-3 leading-none hover:bg-gray-100 rounded space-x-2 transition-all duration-150"
+    class="
+      inline-flex
+      items-center
+      px-4
+      py-3
+      leading-none
+      hover:bg-gray-100
+      rounded
+      space-x-2
+      transition-all
+      duration-150
+    "
     :role="role"
     @click="$emit('click')"
   >
@@ -31,14 +42,10 @@ export default {
 }
 
 [primary]:hover {
-  @apply ring-primary-200 ring-4;
+  @apply ring-4 ring-primary-200;
 }
 
 [large] {
   @apply px-5 py-4;
-}
-
-svg {
-  @apply h-text-5;
 }
 </style>

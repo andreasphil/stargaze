@@ -70,19 +70,19 @@
 </template>
 
 <script>
-import SRepoList from "/@/components/SRepoList.vue"
-import SButton from "/@/components/SButton.vue"
-import SInput from "/@/components/SInput.vue"
-import SToolbar from "/@/components/SToolbar.vue"
-import { logout } from "/@/utils/auth"
-import { config as apiConfig, getStars, getViewer } from "/@/utils/api"
-import LogoutSvg from "/@/assets/logout.svg"
 import EmojiSadSvg from "/@/assets/emoji-sad.svg"
-import StarSvg from "/@/assets/star.svg"
+import LogoutSvg from "/@/assets/logout.svg"
 import SearchCircleSvg from "/@/assets/search-circle.svg"
-import initSearch from "/@/utils/search"
+import StarSvg from "/@/assets/star.svg"
+import SButton from "/@/components/SButton.vue"
 import SImageIcon from "/@/components/SImageIcon.vue"
+import SInput from "/@/components/SInput.vue"
 import SLayout from "/@/components/SLayout.vue"
+import SRepoList from "/@/components/SRepoList.vue"
+import SToolbar from "/@/components/SToolbar.vue"
+import { config as apiConfig,getStars,getViewer } from "/@/utils/api"
+import { logout } from "/@/utils/auth"
+import initSearch from "/@/utils/search"
 
 export default {
   components: {

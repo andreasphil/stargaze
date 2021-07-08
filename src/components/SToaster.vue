@@ -5,7 +5,15 @@
         <div
           v-for="toast in toasts"
           :key="toast.id"
-          class="flex mx-4 text-gray-100 bg-gray-800 rounded shadow-md overflow-hidden"
+          class="
+            flex
+            mx-4
+            text-gray-100
+            bg-gray-800
+            rounded
+            shadow-md
+            overflow-hidden
+          "
         >
           <span v-if="toast.type" class="flex items-center p-4 bg-gray-900">
             <exclamation-svg v-if="toast.type === 'warning'" />

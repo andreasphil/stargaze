@@ -12,10 +12,10 @@
 </template>
 
 <script>
-import { getState, getSignInUrl } from "/@/utils/auth.js"
-import SButton from "/@/components/SButton.vue"
 import GithubSvg from "/@/assets/github.svg"
+import SButton from "/@/components/SButton.vue"
 import SLayout from "/@/components/SLayout.vue"
+import { getSignInUrl,getState } from "/@/utils/auth.js"
 
 export default {
   components: {

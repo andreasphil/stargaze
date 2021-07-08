@@ -27,5 +27,9 @@ a:hover {
   @apply text-gray-900;
 }
 
+svg {
+  @apply h-text-5;
+}
+
 @tailwind utilities;
 </style>

@@ -1,6 +1,14 @@
 <template>
   <li
-    class="flex items-center px-4 h-24 normal:border border-transparent space-x-3"
+    class="
+      flex
+      items-center
+      px-4
+      h-24
+      normal:border
+      border-transparent
+      space-x-3
+    "
   >
     <!-- Icon -->
     <div class="skeleton w-14 h-14"></div>

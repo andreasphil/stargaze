@@ -1,6 +1,15 @@
 <template>
   <li
-    class="relative flex items-center px-4 h-24 hover:bg-gray-100 normal:rounded-lg space-x-3"
+    class="
+      relative
+      flex
+      items-center
+      px-4
+      h-24
+      hover:bg-gray-100
+      normal:rounded-lg
+      space-x-3
+    "
   >
     <!-- Icon -->
     <s-image-icon
@@ -112,7 +121,7 @@ a:hover {
 }
 
 .absolute-link::after {
-  @apply border-2 absolute inset-0 border-transparent rounded-lg;
+  @apply absolute inset-0 border-2 border-transparent rounded-lg;
   content: "";
 }
 

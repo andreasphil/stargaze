@@ -52,9 +52,7 @@
       <template #icon>
         <star-svg class="h-6" />
       </template>
-      <template #message>
-        You haven't starred any repositories yet.
-      </template>
+      <template #message>You haven't starred any repositories yet.</template>
     </s-empty-state>
 
     <!-- No search results -->
@@ -81,7 +79,7 @@ import SInput from "/@/components/SInput.vue"
 import SLayout from "/@/components/SLayout.vue"
 import SRepoList from "/@/components/SRepoList.vue"
 import SToolbar from "/@/components/SToolbar.vue"
-import { config as apiConfig,getStars,getViewer } from "/@/utils/api"
+import { config as apiConfig, getStars, getViewer } from "/@/utils/api"
 import { logout } from "/@/utils/auth"
 import initSearch from "/@/utils/search"
 

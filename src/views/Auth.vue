@@ -22,7 +22,7 @@ import SInput from "/@/components/SInput.vue"
 import SLayout from "/@/components/SLayout.vue"
 import SRepoList from "/@/components/SRepoList.vue"
 import SToolbar from "/@/components/SToolbar.vue"
-import { fetchLoginToken,setLoginToken } from "/@/utils/auth"
+import { fetchLoginToken, setLoginToken } from "/@/utils/auth"
 
 export default {
   components: { SRepoList, SInput, SToolbar, SLayout },

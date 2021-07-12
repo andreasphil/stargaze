@@ -47,19 +47,25 @@
       :busy="loading && !listed.length"
     />
 
-    <!-- Search results -->
-    <s-repo-list
-      v-show="isSearching"
-      :repositories="searchResults"
-      :busy="loading"
-    />
-    <div
-      v-if="!loading && isSearching && searchResults.length === 0"
-      class="text-center text-gray-600"
-    >
-      <emoji-sad-svg class="inline h-6" />
-      <p class="mt-2">Nothing found when searching for "{{ searchString }}".</p>
-    </div>
+    <!-- No starred repositories -->
+    <s-empty-state v-if="!(isSearching || loading || listed.length)">
+      <template #icon>
+        <star-svg class="h-6" />
+      </template>
+      <template #message>
+        You haven't starred any repositories yet.
+      </template>
+    </s-empty-state>
+
+    <!-- No search results -->
+    <s-empty-state v-if="isSearching && !(loading || listed.length)">
+      <template #icon>
+        <emoji-sad-svg class="h-6" />
+      </template>
+      <template #message>
+        Nothing found when searching for "{{ searchString }}".
+      </template>
+    </s-empty-state>
   </s-layout>
 </template>
 
@@ -69,6 +75,7 @@ import LogoutSvg from "/@/assets/logout.svg"
 import SearchCircleSvg from "/@/assets/search-circle.svg"
 import StarSvg from "/@/assets/star.svg"
 import SButton from "/@/components/SButton.vue"
+import SEmptyState from "/@/components/SEmptyState.vue"
 import SImageIcon from "/@/components/SImageIcon.vue"
 import SInput from "/@/components/SInput.vue"
 import SLayout from "/@/components/SLayout.vue"
@@ -90,6 +97,7 @@ export default {
     SearchCircleSvg,
     SImageIcon,
     SLayout,
+    SEmptyState,
   },
 
   data() {
@@ -126,8 +134,8 @@ export default {
       }
 
       if (this.isSearching) {
-      const result = this.search(this.searchString)
-      return this.stars.filter((star) => result.has(star.node.id))
+        const result = this.search(this.searchString)
+        return this.stars.filter((star) => result.has(star.node.id))
       }
 
       return this.stars.slice(0, Math.min(this.stars.length, 20))

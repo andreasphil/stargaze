@@ -37,21 +37,15 @@
       </s-toolbar>
     </template>
 
-    <!-- Always keep the full list in the background so the browser doesn't need to
-        re-render everything when the user clears the search field -->
+    <h1 class="mb-4 text-primary-500 text-sm font-bold uppercase">
+      {{ isSearching ? `Results for "${searchString}"` : "Recently starred" }}
+    </h1>
+
     <s-repo-list
-      v-if="(stars && stars.length) || loading"
-      v-show="!isSearching"
-      :repositories="stars"
-      :busy="loading"
+      v-if="listed.length || loading"
+      :repositories="listed"
+      :busy="loading && !listed.length"
     />
-    <div
-      v-if="!(isSearching || loading || stars || stars.length)"
-      class="text-center text-gray-600"
-    >
-      <star-svg class="inline h-6" />
-      <p class="mt-2">You haven't starred any repositories yet.</p>
-    </div>
 
     <!-- Search results -->
     <s-repo-list
@@ -110,8 +104,8 @@ export default {
 
   computed: {
     /**
-     * Returns whether there is an active search filter. This is considered to be the case when
-     * the search string is set and longer than 2 characters.
+     * Returns whether there is an active search filter. This is considered to
+     * be the case when the search string is set and not all whitespace.
      *
      * @returns {boolean} True if search is active
      */
@@ -120,17 +114,23 @@ export default {
     },
 
     /**
-     * Filters the list of starred repository using the current search string.
+     * Returns an array of starred repositories to be displayed in the UI.
+     * If a search term is set, these are the search results. Otherwise it's
+     * a list of the most recently starred repositories.
      *
-     * @returns {Array} Filtered stars
+     * @returns {Array} Filtered repositories
      */
-    searchResults() {
-      if (!this.stars || !this.isSearching) {
+    listed() {
+      if (!this.stars?.length > 0) {
         return []
       }
 
+      if (this.isSearching) {
       const result = this.search(this.searchString)
       return this.stars.filter((star) => result.has(star.node.id))
+      }
+
+      return this.stars.slice(0, Math.min(this.stars.length, 20))
     },
   },
 

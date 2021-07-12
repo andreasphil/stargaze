@@ -22,7 +22,7 @@
 
     <div class="title-width flex-1">
       <!-- Author and name -->
-      <h2 class="space-x-1 truncate">
+      <h2 class="leading-[1.1em] mb-1 space-x-1 truncate">
         <a
           :href="authorUrl"
           :title="`Visit ${author}'s profile on GitHub`"

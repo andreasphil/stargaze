@@ -48,4 +48,12 @@ export default {
 [large] {
   @apply px-5 py-4;
 }
+
+[inverted] {
+  @apply bg-gray-700 text-gray-100;
+}
+
+[inverted]:hover {
+  @apply bg-gray-600;
+}
 </style>

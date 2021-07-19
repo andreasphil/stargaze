@@ -1,18 +1,19 @@
 <template>
   <div
     class="
-      flex flex-col
-      items-center
-      justify-center
+      flex
       -mx-4
-      h-24
-      bg-gray-50
+      text-gray-100
+      bg-gray-800
       normal:rounded-lg
+      overflow-hidden
     "
   >
-    <slot name="icon" />
-    <p class="mt-1">
+    <span class="flex items-center p-4 bg-gray-900">
+      <slot name="icon" />
+    </span>
+    <span class="p-4">
       <slot name="message" />
-    </p>
+    </span>
   </div>
 </template>

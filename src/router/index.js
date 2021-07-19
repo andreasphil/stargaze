@@ -5,6 +5,7 @@ import metadata from "/@/utils/metadata"
 import Home from "/@/views/Home.vue"
 import Auth from "/@/views/Auth.vue"
 import Stars from "/@/views/Stars.vue"
+import Error404 from "/@/views/404.vue"
 
 const routes = [
   {
@@ -33,6 +34,11 @@ const routes = [
       title: metadata.title("Starred repositories"),
     },
     component: Stars,
+  },
+  {
+    path: "/:pathMatch(.*)*",
+    name: "not-found",
+    component: Error404,
   },
 ]
 

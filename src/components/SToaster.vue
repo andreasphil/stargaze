@@ -1,5 +1,5 @@
 <template>
-  <div class="fixed z-10 left-1/2 top-0 transform -translate-x-1/2">
+  <div class="fixed z-30 normal:left-1/2 top-0 transform normal:-translate-x-1/2">
     <div class="flex flex-col pt-4 space-y-4">
       <transition-group name="toast">
         <div
@@ -10,7 +10,7 @@
             mx-4
             text-gray-100
             bg-gray-800
-            rounded
+            rounded-lg
             shadow-md
             overflow-hidden
           "

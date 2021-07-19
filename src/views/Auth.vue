@@ -4,7 +4,11 @@
       <s-toolbar>
         <template #left>
           <div class="flex-shrink-0 w-10 h-10 bg-gray-100 rounded-full"></div>
-          <s-input block disabled class="ml-4" placeholder="Filter..." />
+          <s-input block disabled class="ml-4" placeholder="Filter...">
+            <template #icon>
+              <search-circle-svg />
+            </template>
+          </s-input>
         </template>
 
         <template #right>
@@ -18,6 +22,7 @@
 </template>
 
 <script>
+import SearchCircleSvg from "/@/assets/search-circle.svg"
 import SInput from "/@/components/SInput.vue"
 import SLayout from "/@/components/SLayout.vue"
 import SRepoList from "/@/components/SRepoList.vue"
@@ -25,7 +30,7 @@ import SToolbar from "/@/components/SToolbar.vue"
 import { fetchLoginToken, setLoginToken } from "/@/utils/auth"
 
 export default {
-  components: { SRepoList, SInput, SToolbar, SLayout },
+  components: { SRepoList, SInput, SToolbar, SLayout, SearchCircleSvg },
 
   async mounted() {
     const { code } = this.$route.query

@@ -50,7 +50,7 @@ export default {
 }
 
 [inverted] {
-  @apply bg-gray-700 text-gray-100;
+  @apply text-gray-100 bg-gray-700;
 }
 
 [inverted]:hover {

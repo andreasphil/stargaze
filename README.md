@@ -2,9 +2,9 @@
   Stargaze 🌟
 </h1>
 
-<h4 align="center">
-  A faster way of browsing and searching your starred repositories on GitHub
-</h4>
+<p align="center">
+  <strong>A faster way of browsing and searching your starred repositories on GitHub</strong>
+</p>
 
 <p align="center">
   <a href="https://app.netlify.com/sites/stargaze/deploys" title="Netlify Status">
@@ -12,8 +12,8 @@
   </a>
 </p>
 
-- View all your starred repositories at once
-- Start typing anywhere to filter repository names, descriptions, authors, and languages
+- View your most recently starred repositories
+- Start typing anywhere to filter all repositories by name, description, author, and language
 - Quickly access the repository, the website, or the author's GitHub profile
 - No tracking and only requires reading permissions to your account
 
@@ -21,7 +21,7 @@
 
 The app is built on [Vue 3](https://v3.vuejs.org) with [Vite](https://vitejs.dev), run by [Netlify Dev](https://www.netlify.com/products/dev/) to enable local development and testing of serverless functions.
 
-To get started, install dependencies using `npm install`. Because Stargaze relies on GitHub's GraphQL API and OAuth flow, you'll also need to [create an OAuth app](https://docs.github.com/en/developers/apps/creating-an-oauth-app) in the developer section in your profile settings. For local development, the following settings should work:
+To get started, install dependencies using `yarn install`. Because Stargaze relies on GitHub's GraphQL API and OAuth flow, you'll also need to [create an OAuth app](https://docs.github.com/en/developers/apps/creating-an-oauth-app) in the developer section in your profile settings. For local development, the following settings should work:
 
 - Homepage URL: `http://localhost:1234`
 - Authorization Callback URL: `http://localhost:1234`
@@ -36,9 +36,9 @@ AUTH_CLIENT_SECRET=<GitHub app secret>
 
 Once all is set up, you have the following npm scripts available to run common development tasks:
 
-- Compile and start dev server: `npm start`
-- Build for production: `npm run build`
-- Lint files: `npm run lint`
+- Compile and start dev server: `yarn start`
+- Build for production: `yarn build`
+- Lint files: `yarn lint` (fix issues automatically: `yarn lint:fix`)
 
 ## Deploy to Netlify
 

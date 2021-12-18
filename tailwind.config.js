@@ -2,9 +2,7 @@ const colors = require("tailwindcss/colors")
 const theme = require("tailwindcss/defaultTheme")
 
 module.exports = {
-  purge: ["./src/**/*.vue"],
-  mode: "jit",
-  darkMode: false, // or 'media' or 'class'
+  content: ["./src/**/*.vue"],
   theme: {
     extend: {
       container: {
@@ -20,7 +18,7 @@ module.exports = {
     },
     colors: {
       black: colors.black,
-      gray: colors.coolGray,
+      gray: colors.gray,
       primary: colors.indigo,
       transparent: "transparent",
       white: colors.white,
@@ -32,11 +30,6 @@ module.exports = {
     },
     screens: {
       normal: "680px",
-    },
-  },
-  variants: {
-    extend: {
-      opacity: ["disabled"],
     },
   },
   plugins: [],

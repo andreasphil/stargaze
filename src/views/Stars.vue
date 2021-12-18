@@ -5,13 +5,13 @@
         <template #left>
           <s-image-icon
             v-if="viewer && viewer.avatarUrl"
-            class="flex-shrink-0"
+            class="shrink-0"
             alt="Your GitHub avatar"
             :src="viewer.avatarUrl"
           />
           <div
             v-else
-            class="flex-shrink-0 w-10 h-10 bg-gray-100 rounded-full"
+            class="shrink-0 w-10 h-10 bg-gray-100 rounded-full"
           ></div>
 
           <s-input

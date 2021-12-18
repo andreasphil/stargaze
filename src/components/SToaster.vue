@@ -1,6 +1,6 @@
 <template>
   <div
-    class="fixed z-30 normal:left-1/2 top-0 transform normal:-translate-x-1/2"
+    class="fixed z-30 normal:left-1/2 top-0 normal:-translate-x-1/2"
   >
     <div class="flex flex-col pt-4 space-y-4">
       <transition-group name="toast">
@@ -88,10 +88,10 @@ svg {
 }
 
 .toast-enter {
-  @apply opacity-0 transform -translate-y-4 scale-75;
+  @apply opacity-0 -translate-y-4 scale-75;
 }
 
 .toast-leave-to {
-  @apply opacity-0 transform scale-90;
+  @apply opacity-0 scale-90;
 }
 </style>

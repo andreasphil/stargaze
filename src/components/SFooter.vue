@@ -8,11 +8,16 @@
 </template>
 
 <script>
+import { defineComponent } from "vue"
 import meta from "/@/utils/metadata.js"
 
-export default {
-  data() {
-    return { ...meta }
+export default defineComponent({
+  setup() {
+    return {
+      author: meta.author,
+      authorWebsite: meta.authorWebsite,
+      repository: meta.repository,
+    }
   },
-}
+})
 </script>

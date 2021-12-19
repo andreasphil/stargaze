@@ -1,7 +1,5 @@
 <template>
-  <div
-    class="fixed z-30 normal:left-1/2 top-0 normal:-translate-x-1/2"
-  >
+  <div class="fixed z-30 normal:left-1/2 top-0 normal:-translate-x-1/2">
     <div class="flex flex-col pt-4 space-y-4">
       <transition-group name="toast">
         <div
@@ -30,9 +28,10 @@
 </template>
 
 <script>
+import { defineComponent } from "vue"
 import ExclamationSvg from "/@/assets/exclamation.svg"
 
-export default {
+export default defineComponent({
   components: {
     ExclamationSvg,
   },
@@ -74,7 +73,7 @@ export default {
       }, 10000)
     },
   },
-}
+})
 </script>
 
 <style lang="postcss" scoped>

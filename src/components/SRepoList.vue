@@ -21,10 +21,11 @@
 </template>
 
 <script>
+import { defineComponent } from "vue"
 import SRepoListItem from "/@/components/SRepoListItem.vue"
 import SRepoListSkeleton from "/@/components/SRepoListSkeleton.vue"
 
-export default {
+export default defineComponent({
   components: { SRepoListItem, SRepoListSkeleton },
 
   props: {
@@ -35,27 +36,27 @@ export default {
     busy: Boolean,
   },
 
-  data: function () {
-    return { shortHomepageUrls: {} }
-  },
+  setup() {
+    const shortHomepageUrls = {}
 
-  methods: {
-    shorten(input) {
+    const shorten = (input) => {
       if (!input) {
         return null
       }
 
-      if (this.shortHomepageUrls[input]) {
-        return this.shortHomepageUrls[input]
+      if (shortHomepageUrls[input]) {
+        return shortHomepageUrls[input]
       }
 
       let output = input.replace(/^https?:\/\/(www.)?/, "")
       output = output.length > 30 ? `${output.substring(0, 30)}...` : output
 
-      this.shortHomepageUrls[input] = output
+      shortHomepageUrls[input] = output
 
       return output
-    },
+    }
+
+    return { shorten }
   },
-}
+})
 </script>

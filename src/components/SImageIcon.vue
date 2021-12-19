@@ -9,7 +9,9 @@
 </template>
 
 <script>
-export default {
+import { defineComponent } from "vue"
+
+export default defineComponent({
   props: {
     src: {
       type: String,
@@ -32,5 +34,5 @@ export default {
       default: "rounded-full",
     },
   },
-}
+})
 </script>

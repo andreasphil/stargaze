@@ -13,7 +13,6 @@
       duration-150
     "
     :role="role"
-    @click="$emit('click')"
   >
     <slot />
     <span>{{ label }}</span>
@@ -21,7 +20,9 @@
 </template>
 
 <script>
-export default {
+import { defineComponent } from "vue"
+
+export default defineComponent({
   props: {
     label: {
       type: String,
@@ -32,8 +33,7 @@ export default {
       default: "button",
     },
   },
-  emits: ["click"],
-}
+})
 </script>
 
 <style lang="postcss" scoped>

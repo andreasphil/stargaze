@@ -12,12 +12,15 @@
 </template>
 
 <script>
+import { defineComponent } from "vue"
 import GithubSvg from "/@/assets/github.svg"
 import SButton from "/@/components/SButton.vue"
 import SLayout from "/@/components/SLayout.vue"
 import { getSignInUrl, getState } from "/@/utils/auth.js"
 
-export default {
+export default defineComponent({
+  name: "HomePage",
+
   components: {
     SButton,
     GithubSvg,
@@ -39,5 +42,5 @@ export default {
       )
     },
   },
-}
+})
 </script>

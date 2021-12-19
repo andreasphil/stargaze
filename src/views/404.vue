@@ -25,6 +25,8 @@ import SEmptyState from "/@/components/SEmptyState.vue"
 import SLayout from "/@/components/SLayout.vue"
 
 export default defineComponent({
+  name: "ErrorPage",
+
   components: { SEmptyState, ExclamationSvg, SLayout, SButton },
 })
 </script>

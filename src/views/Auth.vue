@@ -22,6 +22,7 @@
 </template>
 
 <script>
+import { defineComponent } from "vue"
 import SearchCircleSvg from "/@/assets/search-circle.svg"
 import SInput from "/@/components/SInput.vue"
 import SLayout from "/@/components/SLayout.vue"
@@ -29,7 +30,9 @@ import SRepoList from "/@/components/SRepoList.vue"
 import SToolbar from "/@/components/SToolbar.vue"
 import { fetchLoginToken, setLoginToken } from "/@/utils/auth"
 
-export default {
+export default defineComponent({
+  name: "AuthPage",
+
   components: { SRepoList, SInput, SToolbar, SLayout, SearchCircleSvg },
 
   async mounted() {
@@ -57,5 +60,5 @@ export default {
       this.$router.replace({ name: "Home" })
     }
   },
-}
+})
 </script>

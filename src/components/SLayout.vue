@@ -13,11 +13,12 @@
 </template>
 
 <script>
+import { defineComponent } from "vue"
 import SFooter from "/@/components/SFooter.vue"
 
-export default {
+export default defineComponent({
   components: {
     SFooter,
   },
-}
+})
 </script>

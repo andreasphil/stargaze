@@ -54,9 +54,10 @@
 </template>
 
 <script>
+import { defineComponent } from "vue"
 import SImageIcon from "/@/components/SImageIcon.vue"
 
-export default {
+export default defineComponent({
   components: {
     SImageIcon,
   },
@@ -95,7 +96,7 @@ export default {
       default: null,
     },
   },
-}
+})
 </script>
 
 <style lang="postcss" scoped>

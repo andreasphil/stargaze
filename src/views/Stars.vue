@@ -9,10 +9,7 @@
             alt="Your GitHub avatar"
             :src="viewer.avatarUrl"
           />
-          <div
-            v-else
-            class="shrink-0 w-10 h-10 bg-gray-100 rounded-full"
-          ></div>
+          <div v-else class="shrink-0 w-10 h-10 bg-gray-100 rounded-full"></div>
 
           <s-input
             ref="search"
@@ -68,6 +65,7 @@
 </template>
 
 <script>
+import { defineComponent } from "vue"
 import EmojiSadSvg from "/@/assets/emoji-sad.svg"
 import LogoutSvg from "/@/assets/logout.svg"
 import SearchCircleSvg from "/@/assets/search-circle.svg"
@@ -83,7 +81,9 @@ import { config as apiConfig, getStars, getViewer } from "/@/utils/api"
 import { logout } from "/@/utils/auth"
 import initSearch from "/@/utils/search"
 
-export default {
+export default defineComponent({
+  name: "StarsPage",
+
   components: {
     SRepoList,
     SButton,
@@ -224,5 +224,5 @@ export default {
       }
     },
   },
-}
+})
 </script>

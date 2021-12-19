@@ -4,11 +4,12 @@
 </template>
 
 <script>
+import { defineComponent } from "vue"
 import SToaster from "/@/components/SToaster.vue"
 
-export default {
+export default defineComponent({
   components: { SToaster },
-}
+})
 </script>
 
 <style lang="postcss">

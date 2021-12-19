@@ -13,27 +13,25 @@
 </template>
 
 <script>
-export default {
-  data() {
-    return {
-      floating: this.updateFloatingState(),
+import { defineComponent, onBeforeUnmount, onMounted, ref } from "vue"
+
+export default defineComponent({
+  setup() {
+    const floating = ref(false)
+
+    const updateFloatingState = () => {
+      floating.value = window.scrollY > 48
     }
-  },
 
-  mounted() {
-    document.addEventListener("scroll", this.updateFloatingState)
-  },
+    onMounted(() => {
+      document.addEventListener("scroll", updateFloatingState)
+    })
 
-  beforeUnmount() {
-    document.removeEventListener("scroll", this.updateFloatingState)
+    onBeforeUnmount(() => {
+      document.removeEventListener("scroll", updateFloatingState)
+    })
   },
-
-  methods: {
-    updateFloatingState() {
-      this.floating = window.scrollY > 48
-    },
-  },
-}
+})
 </script>
 
 <style lang="postcss" scoped>

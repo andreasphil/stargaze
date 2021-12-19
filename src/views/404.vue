@@ -19,8 +19,8 @@
 
 <script>
 import { defineComponent } from "@vue/runtime-core"
-import SButton from "../components/SButton.vue"
 import ExclamationSvg from "/@/assets/exclamation.svg"
+import SButton from "/@/components/SButton.vue"
 import SEmptyState from "/@/components/SEmptyState.vue"
 import SLayout from "/@/components/SLayout.vue"
 

@@ -1,4 +1,4 @@
-import { loginTokenExists } from "/@/utils/auth"
+import { isLoggedIn } from "/@/utils/api"
 
 /**
  * Checks whether an active session exists and redirects the user based on the route's meta
@@ -11,13 +11,13 @@ import { loginTokenExists } from "/@/utils/auth"
 export default function requireLogin(to, _, next) {
   if (
     to.matched.some((route) => route.meta.requireLogin) &&
-    !loginTokenExists()
+    !isLoggedIn()
   ) {
     // Login is required but no token exists
     next({ name: "Home" })
   } else if (
     to.matched.some((route) => route.meta.redirectWhenLoggedIn) &&
-    loginTokenExists()
+    isLoggedIn()
   ) {
     // Page is set to redirect somewhere else if a login token exists
     const redirect = to.matched

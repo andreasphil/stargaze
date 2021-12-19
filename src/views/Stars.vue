@@ -77,8 +77,7 @@ import SInput from "/@/components/SInput.vue"
 import SLayout from "/@/components/SLayout.vue"
 import SRepoList from "/@/components/SRepoList.vue"
 import SToolbar from "/@/components/SToolbar.vue"
-import { config as apiConfig, getStars, getViewer } from "/@/utils/api"
-import { logout } from "/@/utils/auth"
+import { config as apiConfig, logout } from "/@/utils/api"
 import initSearch from "/@/utils/search"
 
 export default defineComponent({
@@ -193,8 +192,8 @@ export default defineComponent({
     /**
      * Clean up local user data and redirect back to the home page.
      */
-    signOut() {
-      logout()
+    async signOut() {
+      await logout()
       this.$router.push({ name: "Home" })
     },
 
@@ -203,8 +202,12 @@ export default defineComponent({
      */
     async hydrate() {
       try {
-        this.viewer = await getViewer()
-        this.stars = await getStars()
+        this.viewer = await fetch(apiConfig.viewerUrl).then((response) =>
+          response.json()
+        )
+        this.stars = await fetch(apiConfig.starsUrl).then((response) =>
+          response.json()
+        )
       } catch (err) {
         if (err === apiConfig.notLoggedIn || apiConfig.notAuthorized) {
           this.$toast(

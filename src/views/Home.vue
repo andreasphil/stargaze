@@ -5,7 +5,13 @@
       A faster way of browsing and searching your starred repositories on GitHub
     </h2>
 
-    <s-button label="Sign in with GitHub" primary large @click="signIn">
+    <s-button
+      :href="signInUrl"
+      label="Sign in with GitHub"
+      large
+      primary
+      tag="a"
+    >
       <github-svg />
     </s-button>
   </s-layout>
@@ -16,7 +22,7 @@ import { defineComponent } from "vue"
 import GithubSvg from "/@/assets/github.svg"
 import SButton from "/@/components/SButton.vue"
 import SLayout from "/@/components/SLayout.vue"
-import { getSignInUrl, getState } from "/@/utils/auth.js"
+import { getSignInUrl, getState } from "/@/utils/api"
 
 export default defineComponent({
   name: "HomePage",
@@ -27,20 +33,14 @@ export default defineComponent({
     SLayout,
   },
 
-  methods: {
-    /**
-     * Initiates the OAuth flow by generating the auth page URL and redirecting the user there.
-     */
-    signIn() {
-      window.open(
-        getSignInUrl({
-          state: getState(),
-          clientId: import.meta.env.VITE_APP_AUTH_CLIENT_ID,
-          redirectTo: `${window.location.origin}/auth`,
-        }),
-        "_self"
-      )
-    },
+  setup() {
+    const signInUrl = getSignInUrl({
+      state: getState(),
+      clientId: import.meta.env.VITE_APP_AUTH_CLIENT_ID,
+      redirectTo: `${window.location.origin}/auth`,
+    })
+
+    return { signInUrl }
   },
 })
 </script>

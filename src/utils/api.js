@@ -1,9 +1,9 @@
-import { getLoginToken, loginTokenExists } from "/@/utils/auth"
-
 export const config = {
-  endpointUrl: "https://api.github.com/graphql",
   oauthStartUrl: "https://github.com/login/oauth/authorize",
-  tokenUrl: (code) => `/.netlify/functions/token?code=${code}`,
+  loginUrl: (code) => `/.netlify/functions/login?code=${code}`,
+  logoutUrl: "/.netlify/functions/logout",
+  viewerUrl: "/.netlify/functions/viewer",
+  starsUrl: "/.netlify/functions/stars",
 
   notAuthorized: "Not authorized",
   notLoggedIn: "Not logged in",
@@ -11,127 +11,74 @@ export const config = {
 }
 
 /**
- * Creates a query for the current user.
+ * Generates a somewhat random string of numbers that can be used for
+ * validating OAuth authorizations.
+ *
+ * See https://developer.github.com/apps/building-oauth-apps/authorizing-oauth-apps/
  *
  * @returns {string}
  */
-function viewerQuery() {
-  return JSON.stringify({
-    query: `
-      query {
-        viewer {
-          name
-          avatarUrl
-        }
-      }
-    `,
-  })
+export const getState = () => {
+  return Math.round(Math.random() * 10 ** 16).toString()
 }
 
 /**
- * Creates a query for a list of starred repositories.
+ * Returns the URL of a page where the user can authorize the application.
  *
- * @param {string} cursor Position of the start of the list
+ * @param {object} options Parameters for constructing the URL
+ * @param {string} options.state
+ * @param {string} options.clientId
+ * @param {string} options.redirectTo
  * @returns {string}
  */
-function starsQuery(cursor) {
-  return JSON.stringify({
-    query: `
-      query {
-        viewer {
-          starredRepositories(
-            after: ${cursor ? `"${cursor}"` : null}
-            orderBy: { direction: DESC, field: STARRED_AT }
-          ) {
-            pageInfo {
-              hasNextPage
-              endCursor
-            }
-            edges {
-              node {
-                id
-                name
-                owner {
-                  avatarUrl
-                  login
-                  url
-                }
-                description
-                descriptionHTML
-                url
-                homepageUrl
-                primaryLanguage {
-                  name
-                }
-              }
-            }
-          }
-        }
-      }
-    `,
-  })
+export const getSignInUrl = ({ state, clientId, redirectTo }) => {
+  const url = new URL(config.oauthStartUrl)
+  url.searchParams.append("state", state)
+  url.searchParams.append("client_id", clientId)
+  url.searchParams.append("scope", "read:user")
+  url.searchParams.append("redirect_uri", redirectTo)
+
+  return url.toString()
 }
 
 /**
- * Posts a GraphQL query to the API.
+ * Checks if a login token exists in local storage. Note that this says nothing
+ * about the validity of the token.
  *
- * @param {string} query
- * @returns {Promise}
+ * @returns {boolean}
  */
-async function post(query) {
-  if (!loginTokenExists()) {
-    throw new Error(config.notLoggedIn)
-  }
+export function isLoggedIn() {
+  return localStorage.getItem("logged_in") === "true"
+}
 
-  const response = await fetch(config.endpointUrl, {
-    method: "POST",
-    body: query,
-    headers: {
-      Authorization: `bearer ${getLoginToken()}`,
-    },
-  })
+/**
+ * Returns an access token that can be used for authenticating API requests.
+ *
+ * @param {string} code The code obtained during the OAuth flow
+ * @returns {Promise<string>} A promise of a string token
+ */
+export async function login(code) {
+  const response = await fetch(config.loginUrl(code))
 
   if (!response.ok) {
-    throw new Error(
-      response.status === 401 ? config.notAuthorized : config.otherError
-    )
+    throw new Error()
   }
 
-  return response.json()
+  localStorage.setItem("logged_in", "true")
 }
 
 /**
- * Fetches the current viewer.
- *
- * @returns {Promise}
+ * Removes the login token and all locally saved data of the current session.
  */
-export async function getViewer() {
-  const response = await post(viewerQuery())
-  return response.data.viewer
-}
-
-/**
- * Fetches a list of all stars. If the user has starred more repositories than
- * the API returns in one batch, keeps fetching until the list is complete.
- * This is because the API currently offers no way of filtering stars on the
- * backend side, so we're going to need the complete set and implement it
- * in the frontend.
- *
- * @returns {Promise}
- */
-export async function getStars() {
-  const allStars = []
-  let hasNext = true
-  let cursor = undefined
-
-  while (hasNext) {
-    const response = await post(starsQuery(cursor))
-
-    allStars.push(...response.data.viewer.starredRepositories.edges)
-
-    hasNext = response?.data?.viewer?.starredRepositories?.pageInfo?.hasNextPage
-    cursor = response?.data?.viewer?.starredRepositories?.pageInfo?.endCursor
+export async function logout() {
+  try {
+    const response = await fetch(config.logoutUrl)
+    if (!response.ok) {
+      throw new Error()
+    }
+  } catch {
+    // Serverside-logout failed, log out locally anyways
+  } finally {
+    localStorage.clear()
   }
-
-  return allStars
 }

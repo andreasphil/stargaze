@@ -28,7 +28,7 @@ import SInput from "/@/components/SInput.vue"
 import SLayout from "/@/components/SLayout.vue"
 import SRepoList from "/@/components/SRepoList.vue"
 import SToolbar from "/@/components/SToolbar.vue"
-import { fetchLoginToken, setLoginToken } from "/@/utils/auth"
+import { login } from "/@/utils/api"
 
 export default defineComponent({
   name: "AuthPage",
@@ -46,8 +46,7 @@ export default defineComponent({
 
     // Grab and save the token
     try {
-      const token = await fetchLoginToken(code)
-      setLoginToken(token)
+      await login(code)
 
       // Redirect to the actual app
       this.$router.replace({ name: "Stars" })

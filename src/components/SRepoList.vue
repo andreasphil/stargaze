@@ -50,7 +50,6 @@ export default defineComponent({
 
       let output = input.replace(/^https?:\/\/(www.)?/, "")
       output = output.length > 30 ? `${output.substring(0, 30)}...` : output
-
       shortHomepageUrls[input] = output
 
       return output

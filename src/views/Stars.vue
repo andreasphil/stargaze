@@ -65,7 +65,7 @@
 </template>
 
 <script>
-import { defineComponent } from "vue"
+import { defineComponent, inject } from "vue"
 import EmojiSadSvg from "/@/assets/emoji-sad.svg"
 import LogoutSvg from "/@/assets/logout.svg"
 import SearchCircleSvg from "/@/assets/search-circle.svg"
@@ -95,6 +95,11 @@ export default defineComponent({
     SImageIcon,
     SLayout,
     SEmptyState,
+  },
+
+  setup() {
+    const toast = inject("toast", () => undefined)
+    return { toast }
   },
 
   data() {
@@ -201,30 +206,39 @@ export default defineComponent({
      * Fetch viewer and stars data from the API.
      */
     async hydrate() {
-      try {
-        this.viewer = await fetch(apiConfig.viewerUrl).then((response) =>
-          response.json()
-        )
-        this.stars = await fetch(apiConfig.starsUrl).then((response) =>
-          response.json()
-        )
-      } catch (err) {
-        if (err === apiConfig.notLoggedIn || apiConfig.notAuthorized) {
-          this.$toast(
-            "Looks like your session expired. Please sign in again.",
-            {
+      return Promise.all([
+        fetch(apiConfig.viewerUrl)
+          .then((response) => {
+            if (!response.ok) throw response.status
+            return response.json()
+          })
+          .then((viewer) => (this.viewer = viewer)),
+        fetch(apiConfig.starsUrl)
+          .then((response) => {
+            if (!response.ok) throw response.status
+            return response.json()
+          })
+          .then((stars) => (this.stars = stars)),
+      ])
+        .catch((e) => {
+          if (e === 401) {
+            this.toast(
+              "Looks like your session expired. Please sign in again.",
+              {
+                type: "warning",
+              }
+            )
+            this.signOut()
+          } else {
+            this.toast("Something went wrong while loading your data.", {
               type: "warning",
-            }
-          )
-
-          this.signOut()
-        } else {
-          this.$toast(err, { type: "warning" })
-        }
-      } finally {
-        this.loading = false
-        this.search = initSearch(this.stars)
-      }
+            })
+          }
+        })
+        .finally(() => {
+          this.loading = false
+          this.search = initSearch(this.stars)
+        })
     },
   },
 })

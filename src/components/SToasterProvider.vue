@@ -17,53 +17,67 @@
       </transition-group>
     </div>
   </div>
+  <slot />
 </template>
 
 <script>
-import { defineComponent } from "vue"
+import { defineComponent, onUnmounted, provide, ref } from "vue"
 import ExclamationSvg from "/@/assets/exclamation.svg"
+
+/**
+ * Specifies properties of a toast.
+ *
+ * @typedef {Object} ToastOptions
+ * @property {string} type The icon of the toast
+ */
+
+/** @type {ToastOptions} */
+const defaultOpts = {}
 
 export default defineComponent({
   components: {
     ExclamationSvg,
   },
 
-  data() {
-    return {
-      toasts: [],
-    }
-  },
+  setup() {
+    const toasts = ref([])
+    const timeouts = new Set()
 
-  mounted() {
-    // Subscribe to new toasts
-    this.$toastOn(this.handleToast)
-  },
-
-  beforeUnmount() {
-    // Clean up toast subscription
-    this.$toastOff(this.handleToast)
-  },
-
-  methods: {
-    /**
-     * Displays a toast message.
-     *
-     * @param {string} text The text of the toast message
-     * @param {ToastOptions} options Additional options of the toast message
-     */
-    handleToast(text, options) {
+    const handleToast = (text, options) => {
       // Prepend the toast to the list
-      this.toasts.unshift({
+      toasts.value.unshift({
         ...options,
         text,
         id: Date.now(),
       })
 
       // Schedule removing it from the list again
-      setTimeout(() => {
-        this.toasts.pop()
+      const scheduledRemoval = setTimeout(() => {
+        toasts.value.pop()
+        timeouts.delete(scheduledRemoval)
       }, 10000)
-    },
+
+      timeouts.add(scheduledRemoval)
+    }
+
+    onUnmounted(() => timeouts.forEach((timeout) => clearTimeout(timeout)))
+
+    provide(
+      "toast",
+
+      /**
+       * Broadcast a toast message.
+       *
+       * @param {string} text The text of the message
+       * @param {ToastOptions} options Additional payload of the message
+       */
+      (text, options) => {
+        const opts = { ...defaultOpts, ...options }
+        handleToast(text, opts)
+      }
+    )
+
+    return { toasts }
   },
 })
 </script>

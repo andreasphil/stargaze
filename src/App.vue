@@ -1,14 +1,15 @@
 <template>
-  <s-toaster />
-  <router-view />
+  <s-toaster-provider>
+    <router-view />
+  </s-toaster-provider>
 </template>
 
 <script>
 import { defineComponent } from "vue"
-import SToaster from "/@/components/SToaster.vue"
+import SToasterProvider from "./components/SToasterProvider.vue"
 
 export default defineComponent({
-  components: { SToaster },
+  components: { SToasterProvider },
 })
 </script>
 

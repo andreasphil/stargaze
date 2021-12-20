@@ -4,10 +4,6 @@ export const config = {
   logoutUrl: "/.netlify/functions/logout",
   viewerUrl: "/.netlify/functions/viewer",
   starsUrl: "/.netlify/functions/stars",
-
-  notAuthorized: "Not authorized",
-  notLoggedIn: "Not logged in",
-  otherError: "Something went wrong when requesting data from GitHub",
 }
 
 /**
@@ -61,7 +57,8 @@ export async function login(code) {
   const response = await fetch(config.loginUrl(code))
 
   if (!response.ok) {
-    throw new Error()
+    localStorage.removeItem("logged_in")
+    throw new Error(response.status)
   }
 
   localStorage.setItem("logged_in", "true")
@@ -74,7 +71,7 @@ export async function logout() {
   try {
     const response = await fetch(config.logoutUrl)
     if (!response.ok) {
-      throw new Error()
+      throw new Error(response.status)
     }
   } catch {
     // Serverside-logout failed, log out locally anyways

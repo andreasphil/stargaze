@@ -22,7 +22,8 @@
 </template>
 
 <script>
-import { defineComponent } from "vue"
+import { defineComponent, onMounted, inject } from "vue"
+import { useRouter } from "vue-router"
 import SearchCircleSvg from "/@/assets/search-circle.svg"
 import SInput from "/@/components/SInput.vue"
 import SLayout from "/@/components/SLayout.vue"
@@ -35,29 +36,30 @@ export default defineComponent({
 
   components: { SRepoList, SInput, SToolbar, SLayout, SearchCircleSvg },
 
-  async mounted() {
-    const { code } = this.$route.query
+  setup() {
+    const router = useRouter()
+    const toast = inject("toast", () => undefined)
+    const { code } = router.currentRoute.value.query
 
-    // If there's no code, it's likely that the user ended up on this page by
-    // mistake. Redirect back to home.
-    if (!code) {
-      this.$router.replace({ name: "Home" })
-    }
+    onMounted(() => {
+      // If there's no code, it's likely that the user ended up on this page by
+      // mistake. Redirect back to home.
+      if (!code) {
+        router.replace({ name: "Home" })
+      }
 
-    // Grab and save the token
-    try {
-      await login(code)
+      // Grab and save the token
+      login(code)
+        .then(() => router.replace({ name: "Stars" }))
+        .catch(() => {
+          toast(
+            "Something went wrong while signing you in. Please try again.",
+            { type: "warning" }
+          )
 
-      // Redirect to the actual app
-      this.$router.replace({ name: "Stars" })
-    } catch {
-      this.$toast(
-        "Something went wrong while signing you in. Please try again.",
-        { type: "warning" }
-      )
-
-      this.$router.replace({ name: "Home" })
-    }
+          router.replace({ name: "Home" })
+        })
+    })
   },
 })
 </script>

@@ -1,5 +1,8 @@
 <template>
-  <div class="fixed z-20 inset-x-0 top-0 bg-white shadow-sm">
+  <div
+    class="fixed z-20 inset-x-0 top-0 bg-white transition-shadow duration-300 bg-opacity-75 backdrop-blur-md"
+    :class="{ 'shadow-lg': floating }"
+  >
     <nav class="container flex mx-auto p-4 h-20">
       <div v-if="$slots.left" class="nav-section">
         <slot name="left" />
@@ -30,6 +33,8 @@ export default defineComponent({
     onBeforeUnmount(() => {
       document.removeEventListener("scroll", updateFloatingState)
     })
+
+    return { floating }
   },
 })
 </script>

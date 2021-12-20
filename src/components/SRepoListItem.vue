@@ -1,19 +1,10 @@
 <template>
   <li
-    class="
-      relative
-      flex
-      items-center
-      px-4
-      h-24
-      hover:bg-gray-100
-      normal:rounded-lg
-      space-x-3
-    "
+    class="relative flex items-center px-4 h-24 hover:bg-gray-100 normal:rounded-lg space-x-3 group"
   >
     <!-- Icon -->
     <s-image-icon
-      class="flex-none"
+      class="flex-none group-hover:bg-white"
       width="w-14"
       height="h-14"
       :src="icon"
@@ -102,7 +93,7 @@ export default defineComponent({
 <style lang="postcss" scoped>
 li,
 li * {
-  @apply transition-all duration-100;
+  @apply transition-all duration-150;
 }
 
 a {

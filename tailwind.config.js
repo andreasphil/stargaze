@@ -15,6 +15,9 @@ module.exports = {
         "text-4": "1em",
         "text-5": "1.25em",
       },
+      boxShadow: {
+        lg: "0px 0px 24px -8px rgba(0,0,0,0.1)",
+      },
     },
     colors: {
       black: colors.black,

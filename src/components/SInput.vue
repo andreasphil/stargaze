@@ -6,24 +6,7 @@
     <input
       ref="input"
       v-model="localValue"
-      class="
-        placeholder-gray-600
-        px-4
-        py-2
-        w-full
-        leading-normal
-        bg-gray-100
-        focus:bg-white
-        border
-        focus:border-primary-500
-        border-transparent
-        rounded
-        outline-none
-        disabled:opacity-50
-        transition-all
-        duration-150
-        focus:ring-4 focus:ring-primary-200
-      "
+      class="placeholder-gray-600 px-4 py-2 w-full leading-normal bg-gray-100 focus:bg-white border focus:border-primary-500 border-transparent rounded outline-none disabled:opacity-50 transition-all duration-150 focus:ring-4 focus:ring-primary-200"
       :class="{ 'pl-10': !!$slots.icon }"
       :placeholder="placeholder"
       :disabled="disabled"

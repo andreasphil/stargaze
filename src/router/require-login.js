@@ -9,10 +9,7 @@ import { isLoggedIn } from "/@/utils/api"
  * @param {Function} next Callback when the guard has finished
  */
 export default function requireLogin(to, _, next) {
-  if (
-    to.matched.some((route) => route.meta.requireLogin) &&
-    !isLoggedIn()
-  ) {
+  if (to.matched.some((route) => route.meta.requireLogin) && !isLoggedIn()) {
     // Login is required but no token exists
     next({ name: "Home" })
   } else if (

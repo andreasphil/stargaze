@@ -1,4 +1,8 @@
-import { default as initSearchDep, fullWordSplit } from "js-inverted-index"
+import {
+  default as initSearchDep,
+  fullWordSplit,
+  idProp,
+} from "js-inverted-index"
 
 /**
  * Build a search index for a list of starred repositories.
@@ -9,7 +13,7 @@ export default function initSearch(documents) {
   const { search, add } = initSearchDep({
     fields: ["name", "owner.login", "description", "primaryLanguage.name"],
 
-    identifier: (i) => i.id,
+    identifier: idProp("id"),
 
     // Tokenize words as the word itself as well as anything that would return
     // true if used with `startsWith`, e.g. for dog, return d, do, and dog.

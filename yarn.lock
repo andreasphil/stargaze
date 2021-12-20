@@ -5663,7 +5663,7 @@ jest-worker@^26.2.1:
 
 "js-inverted-index@github:andreasphil/js-inverted-index":
   version "1.0.0"
-  resolved "https://codeload.github.com/andreasphil/js-inverted-index/tar.gz/fd1f075c92d5bd4db1b1892ad1aad7645fbc45c2"
+  resolved "https://codeload.github.com/andreasphil/js-inverted-index/tar.gz/09d0c0b32ebb395836a52bf0e9e4a8633046b748"
 
 js-string-escape@^1.0.1:
   version "1.0.1"

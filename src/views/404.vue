@@ -7,10 +7,11 @@
       <template #message>
         This page doesn't exist.
         <s-button
+          :to="{ name: 'Home' }"
           class="ml-2"
-          label="Back"
           inverted
-          @click="$router.push({ name: 'Home' })"
+          label="Back"
+          tag="router-link"
         />
       </template>
     </s-empty-state>

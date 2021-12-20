@@ -1,5 +1,5 @@
 <script>
-import { defineComponent, h } from "vue"
+import { defineComponent, h, resolveComponent } from "vue"
 
 export default defineComponent({
   props: {
@@ -20,13 +20,20 @@ export default defineComponent({
   setup(props, { slots }) {
     return () =>
       h(
-        props.tag,
+        props.tag === "router-link"
+          ? resolveComponent("router-link")
+          : props.tag,
         {
           role: props.role,
           class:
             "inline-flex items-center px-4 py-3 leading-none hover:bg-gray-100 rounded space-x-2 transition-all duration-150 no-underline",
         },
-        [slots.default && slots.default(), h("span", props.label)]
+        {
+          default: () => [
+            slots.default && slots.default(),
+            h("span", props.label),
+          ],
+        }
       )
   },
 })

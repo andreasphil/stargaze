@@ -224,9 +224,7 @@ export default defineComponent({
           if (e === 401) {
             this.toast(
               "Looks like your session expired. Please sign in again.",
-              {
-                type: "warning",
-              }
+              { type: "warning" }
             )
             this.signOut()
           } else {

@@ -14,7 +14,6 @@ const routes = [
     component: Home,
     meta: {
       redirectWhenLoggedIn: "Stars",
-      title: metadata.title(),
     },
   },
   {
@@ -48,6 +47,8 @@ const router = createRouter({
 })
 
 router.beforeEach(requireLogin)
-router.afterEach((to) => updateHead({ title: to?.meta?.title }))
+router.afterEach((to) =>
+  updateHead({ title: to?.meta?.title ?? metadata.title() })
+)
 
 export default router

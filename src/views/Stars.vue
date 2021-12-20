@@ -34,8 +34,17 @@
       </s-toolbar>
     </template>
 
-    <h1 class="mb-4 text-primary-500 text-sm font-bold uppercase">
+    <h1 class="mb-4 text-primary-500 text-sm font-bold uppercase flex items-center h-6 gap-2">
       {{ isSearching ? `Results for "${searchString}"` : "Recently starred" }}
+      <span
+        v-if="loading"
+        class="inline-flex items-center text-xs uppercase font-bold bg-primary-100 pl-1 pr-2 py-1 rounded-full shadow-md text-white bg-gradient-to-br from-gray-700 to-gray-900"
+      >
+        <span
+          class="border-2 border-gray-600 border-t-gray-100 rounded-full w-4 h-4 inline-block mr-2 animate-spin"
+        ></span>
+        Updating ...</span
+      >
     </h1>
 
     <s-repo-list

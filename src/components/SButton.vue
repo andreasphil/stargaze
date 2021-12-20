@@ -41,7 +41,7 @@ export default defineComponent({
 
 <style lang="postcss" scoped>
 [primary] {
-  @apply text-white font-semibold bg-primary-500 shadow-lg;
+  @apply text-white font-semibold bg-gradient-to-br from-primary-400 to-primary-700 shadow-lg;
 }
 
 [primary]:hover {

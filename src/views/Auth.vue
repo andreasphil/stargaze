@@ -4,7 +4,7 @@
       <s-toolbar>
         <template #left>
           <div class="shrink-0 w-10 h-10 bg-gray-100 rounded-full"></div>
-          <s-input block disabled class="ml-4" placeholder="Filter...">
+          <s-input block disabled class="ml-3 w-full" placeholder="Filter...">
             <template #icon>
               <search-circle-svg />
             </template>
@@ -16,6 +16,8 @@
         </template>
       </s-toolbar>
     </template>
+
+    <div class="mb-4 h-6 bg-gray-100 rounded w-1/4"></div>
 
     <s-repo-list :busy="true" />
   </s-layout>

@@ -3,7 +3,7 @@
     class="flex items-center px-4 h-24 normal:border border-transparent space-x-3"
   >
     <!-- Icon -->
-    <div class="skeleton w-14 h-14"></div>
+    <div class="skeleton skeleton--icon w-14 h-14"></div>
 
     <div class="title-width flex-1 space-y-2">
       <!-- Author and name -->
@@ -25,5 +25,9 @@
 
 .skeleton--text {
   @apply h-4;
+}
+
+.skeleton--icon {
+  @apply rounded-full;
 }
 </style>

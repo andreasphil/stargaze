@@ -2,15 +2,15 @@
   <ol class="-mx-4">
     <s-repo-list-item
       v-for="repository in repositories"
-      :key="repository.node.id"
-      :name="repository.node.name"
-      :url="repository.node.url"
-      :author="repository.node.owner.login"
-      :author-url="repository.node.owner.url"
-      :icon="repository.node.owner.avatarUrl"
-      :description="repository.node.description"
-      :homepage="repository.node.homepageUrl"
-      :homepage-title="shorten(repository.node.homepageUrl)"
+      :key="repository.id"
+      :name="repository.name"
+      :url="repository.url"
+      :author="repository.owner.login"
+      :author-url="repository.owner.url"
+      :icon="repository.owner.avatarUrl"
+      :description="repository.description"
+      :homepage="repository.homepageUrl"
+      :homepage-title="shorten(repository.homepageUrl)"
     />
 
     <!-- Skeleton items while the list is loading -->

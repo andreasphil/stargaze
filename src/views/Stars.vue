@@ -132,7 +132,7 @@ export default defineComponent({
 
       if (this.isSearching) {
         const result = this.search(this.searchString)
-        return this.stars.filter((star) => result.has(star.node.id))
+        return this.stars.filter((star) => result.has(star.id))
       }
 
       return this.stars.slice(0, Math.min(this.stars.length, 20))

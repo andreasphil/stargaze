@@ -101,5 +101,5 @@ export const getStars = async (bearer: string): Promise<any> => {
     cursor = response?.data?.viewer?.starredRepositories?.pageInfo?.endCursor
   }
 
-  return allStars
+  return allStars.map((star) => ({ ...star.node }))
 }

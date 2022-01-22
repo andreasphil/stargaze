@@ -5,7 +5,7 @@
 </template>
 
 <script setup lang="ts">
-import SToasterProvider from "./components/SToasterProvider.vue"
+import SToasterProvider from "./components/SToasterProvider.vue";
 </script>
 
 <style lang="postcss">

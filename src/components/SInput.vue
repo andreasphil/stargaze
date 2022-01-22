@@ -17,7 +17,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed, ref } from "vue"
+import { computed, ref } from "vue";
 
 const props = defineProps({
   modelValue: { type: String, default: "" },
@@ -25,30 +25,30 @@ const props = defineProps({
   title: { type: String, default: null },
   spellcheck: { type: Boolean, default: true },
   disabled: Boolean,
-})
+});
 
-const emit = defineEmits(["update:modelValue"])
+const emit = defineEmits(["update:modelValue"]);
 
-const inputEl = ref<HTMLInputElement>()
+const inputEl = ref<HTMLInputElement>();
 
 const localModelValue = computed({
   get() {
-    return props.modelValue
+    return props.modelValue;
   },
   set(value: string) {
-    emit("update:modelValue", value)
+    emit("update:modelValue", value);
   },
-})
+});
 
 const focus = () => {
-  inputEl.value?.focus()
-}
+  inputEl.value?.focus();
+};
 
 const focused = () => {
-  return document.activeElement === inputEl.value
-}
+  return document.activeElement === inputEl.value;
+};
 
-defineExpose({ focus, focused })
+defineExpose({ focus, focused });
 </script>
 
 <style lang="postcss" scoped>

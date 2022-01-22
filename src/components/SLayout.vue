@@ -13,5 +13,5 @@
 </template>
 
 <script setup lang="ts">
-import SFooter from "/@/components/SFooter.vue"
+import SFooter from "/@/components/SFooter.vue";
 </script>

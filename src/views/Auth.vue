@@ -24,25 +24,25 @@
 </template>
 
 <script lang="ts" setup>
-import { inject, onMounted } from "vue"
-import { useRouter } from "vue-router"
-import SearchCircleSvg from "/@/assets/search-circle.svg?component"
-import SInput from "/@/components/SInput.vue"
-import SLayout from "/@/components/SLayout.vue"
-import SRepoList from "/@/components/SRepoList.vue"
-import SToolbar from "/@/components/SToolbar.vue"
-import { login } from "/@/utils/api"
-import { ToasterProvider } from "/@/utils/types"
+import { inject, onMounted } from "vue";
+import { useRouter } from "vue-router";
+import SearchCircleSvg from "/@/assets/search-circle.svg?component";
+import SInput from "/@/components/SInput.vue";
+import SLayout from "/@/components/SLayout.vue";
+import SRepoList from "/@/components/SRepoList.vue";
+import SToolbar from "/@/components/SToolbar.vue";
+import { login } from "/@/utils/api";
+import { ToasterProvider } from "/@/utils/types";
 
-const router = useRouter()
-const toast = inject(ToasterProvider, () => undefined)
-const { code } = router.currentRoute.value.query
+const router = useRouter();
+const toast = inject(ToasterProvider, () => undefined);
+const { code } = router.currentRoute.value.query;
 
 onMounted(() => {
   // If there's no code, it's likely that the user ended up on this page by
   // mistake. Redirect back to home.
   if (!code) {
-    router.replace({ name: "Home" })
+    router.replace({ name: "Home" });
     return;
   }
 
@@ -52,9 +52,9 @@ onMounted(() => {
     .catch(() => {
       toast("Something went wrong while signing you in. Please try again.", {
         type: "warning",
-      })
+      });
 
-      router.replace({ name: "Home" })
-    })
-})
+      router.replace({ name: "Home" });
+    });
+});
 </script>

@@ -45,18 +45,18 @@
 </template>
 
 <script setup lang="ts">
-import SImageIcon from "/@/components/SImageIcon.vue"
+import SImageIcon from "/@/components/SImageIcon.vue";
 
 defineProps<{
-  name: string
-  description?: string
-  url: string
-  icon: string
-  author: string
-  authorUrl: string
-  homepage?: string
-  homepageTitle?: string
-}>()
+  name: string;
+  description?: string;
+  url: string;
+  icon: string;
+  author: string;
+  authorUrl: string;
+  homepage?: string;
+  homepageTitle?: string;
+}>();
 </script>
 
 <style lang="postcss" scoped>

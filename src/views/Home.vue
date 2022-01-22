@@ -18,14 +18,14 @@
 </template>
 
 <script setup lang="ts">
-import GithubSvg from "/@/assets/github.svg?component"
-import SButton from "/@/components/SButton.vue"
-import SLayout from "/@/components/SLayout.vue"
-import { getSignInUrl, getState } from "/@/utils/api"
+import GithubSvg from "/@/assets/github.svg?component";
+import SButton from "/@/components/SButton.vue";
+import SLayout from "/@/components/SLayout.vue";
+import { getSignInUrl, getState } from "/@/utils/api";
 
 const signInUrl = getSignInUrl({
   state: getState(),
   clientId: import.meta.env.VITE_APP_AUTH_CLIENT_ID?.toString() ?? "",
   redirectTo: `${window.location.origin}/auth`,
-})
+});
 </script>

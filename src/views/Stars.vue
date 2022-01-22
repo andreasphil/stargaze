@@ -84,95 +84,95 @@ import {
   onMounted,
   ref,
   watch,
-} from "vue"
-import { useRouter } from "vue-router"
-import { Repository, ToasterProvider } from "../utils/types"
-import EmojiSadSvg from "/@/assets/emoji-sad.svg?component"
-import LogoutSvg from "/@/assets/logout.svg?component"
-import SearchCircleSvg from "/@/assets/search-circle.svg?component"
-import StarSvg from "/@/assets/star.svg?component"
-import SButton from "/@/components/SButton.vue"
-import SEmptyState from "/@/components/SEmptyState.vue"
-import SImageIcon from "/@/components/SImageIcon.vue"
-import SInput from "/@/components/SInput.vue"
-import SLayout from "/@/components/SLayout.vue"
-import SRepoList from "/@/components/SRepoList.vue"
-import SToolbar from "/@/components/SToolbar.vue"
-import { config as apiConfig, logout } from "/@/utils/api"
-import initSearch from "/@/utils/search"
+} from "vue";
+import { useRouter } from "vue-router";
+import { Repository, ToasterProvider } from "../utils/types";
+import EmojiSadSvg from "/@/assets/emoji-sad.svg?component";
+import LogoutSvg from "/@/assets/logout.svg?component";
+import SearchCircleSvg from "/@/assets/search-circle.svg?component";
+import StarSvg from "/@/assets/star.svg?component";
+import SButton from "/@/components/SButton.vue";
+import SEmptyState from "/@/components/SEmptyState.vue";
+import SImageIcon from "/@/components/SImageIcon.vue";
+import SInput from "/@/components/SInput.vue";
+import SLayout from "/@/components/SLayout.vue";
+import SRepoList from "/@/components/SRepoList.vue";
+import SToolbar from "/@/components/SToolbar.vue";
+import { config as apiConfig, logout } from "/@/utils/api";
+import initSearch from "/@/utils/search";
 
 /* -------------------------------------------------- *
  * General page stuff                                 *
  * -------------------------------------------------- */
 
-const toast = inject(ToasterProvider, () => undefined)
-const router = useRouter()
-const loading = ref(false)
+const toast = inject(ToasterProvider, () => undefined);
+const router = useRouter();
+const loading = ref(false);
 
 async function signOut() {
-  await logout()
-  router.push({ name: "Home" })
+  await logout();
+  router.push({ name: "Home" });
 }
 
 /* -------------------------------------------------- *
  * Search                                             *
  * -------------------------------------------------- */
 
-const searchEl = ref<ComponentPublicInstance<typeof SInput>>()
-const searchString = ref("")
+const searchEl = ref<ComponentPublicInstance<typeof SInput>>();
+const searchString = ref("");
 
 // This will be replaced by the search function once we have it populated
-let searchFn = ref<(value: string) => Set<String>>(() => new Set())
+let searchFn = ref<(value: string) => Set<String>>(() => new Set());
 
 const isSearching = computed(
   () => searchString.value && searchString.value.trim().length
-)
+);
 
 const focusSearchHotkey = (event: KeyboardEvent) => {
   if (!searchEl.value || searchEl.value.focused()) {
-    return
+    return;
   }
 
-  const { key, altKey } = event
+  const { key, altKey } = event;
 
   // If the event key is a single word character (0-9, a-z) and the search
   // field is not focused yet, treat the input as an input to the search
   // field
   if (key.match(/^[\w/]$/)) {
-    searchString.value += key
-    searchEl.value.focus()
+    searchString.value += key;
+    searchEl.value.focus();
   } else if (key === "Backspace") {
     if (altKey) {
-      searchString.value = ""
+      searchString.value = "";
     } else {
       searchString.value = searchString.value.substring(
         0,
         Math.max(searchString.value.length - 1, 0)
-      )
+      );
     }
 
-    searchEl.value.focus()
+    searchEl.value.focus();
   }
-}
+};
 
-onMounted(() => document.addEventListener("keyup", focusSearchHotkey))
-onBeforeUnmount(() => document.removeEventListener("keyup", focusSearchHotkey))
+onMounted(() => document.addEventListener("keyup", focusSearchHotkey));
+onBeforeUnmount(() => document.removeEventListener("keyup", focusSearchHotkey));
 
 /* -------------------------------------------------- *
  * View content                                       *
  * -------------------------------------------------- */
 
-const viewer = ref(JSON.parse(localStorage.getItem("viewer") || "{}"))
+const viewer = ref(JSON.parse(localStorage.getItem("viewer") || "{}"));
 watch(viewer, (newValue) => {
-  localStorage.setItem("viewer", JSON.stringify(newValue))
-})
+  localStorage.setItem("viewer", JSON.stringify(newValue));
+});
 
 const stars = ref<Repository[]>(
   JSON.parse(localStorage.getItem("stars") || "[]")
-)
+);
 watch(stars, (newValue) => {
-  localStorage.setItem("stars", JSON.stringify(newValue))
-})
+  localStorage.setItem("stars", JSON.stringify(newValue));
+});
 
 /**
  * Returns an array of starred repositories to be displayed in the UI.
@@ -181,30 +181,30 @@ watch(stars, (newValue) => {
  */
 const listed = computed(() => {
   if (isSearching.value) {
-    const result = searchFn.value(searchString.value)
-    return stars.value.filter((star) => result.has(star.id))
+    const result = searchFn.value(searchString.value);
+    return stars.value.filter((star) => result.has(star.id));
   }
 
-  return stars.value.slice(0, Math.min(stars.value.length, 20))
-})
+  return stars.value.slice(0, Math.min(stars.value.length, 20));
+});
 
 /**
  * Fetch viewer and stars data from the API.
  */
 async function hydrate() {
-  loading.value = true
+  loading.value = true;
 
   return Promise.all([
     fetch(apiConfig.viewerUrl)
       .then((response) => {
-        if (!response.ok) throw response.status
-        return response.json()
+        if (!response.ok) throw response.status;
+        return response.json();
       })
       .then((result) => (viewer.value = result)),
     fetch(apiConfig.starsUrl)
       .then((response) => {
-        if (!response.ok) throw response.status
-        return response.json()
+        if (!response.ok) throw response.status;
+        return response.json();
       })
       .then((result) => (stars.value = result)),
   ])
@@ -212,18 +212,18 @@ async function hydrate() {
       if (e === 401) {
         toast("Looks like your session expired. Please sign in again.", {
           type: "warning",
-        })
-        signOut()
+        });
+        signOut();
       } else {
         toast("Something went wrong while loading your data.", {
           type: "warning",
-        })
+        });
       }
     })
     .finally(() => {
-      loading.value = false
-      searchFn.value = initSearch(stars.value)
-    })
+      loading.value = false;
+      searchFn.value = initSearch(stars.value);
+    });
 }
-onMounted(() => hydrate())
+onMounted(() => hydrate());
 </script>

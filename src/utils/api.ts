@@ -4,7 +4,7 @@ export const config = {
   logoutUrl: "/.netlify/functions/logout",
   viewerUrl: "/.netlify/functions/viewer",
   starsUrl: "/.netlify/functions/stars",
-}
+};
 
 /**
  * Generates a somewhat random string of numbers that can be used for
@@ -15,8 +15,8 @@ export const config = {
  * @returns {string}
  */
 export const getState = () => {
-  return Math.round(Math.random() * 10 ** 16).toString()
-}
+  return Math.round(Math.random() * 10 ** 16).toString();
+};
 
 /**
  * Returns the URL of a page where the user can authorize the application.
@@ -26,39 +26,39 @@ export const getSignInUrl = ({
   clientId,
   redirectTo,
 }: {
-  state: string
-  clientId: string
-  redirectTo: string
+  state: string;
+  clientId: string;
+  redirectTo: string;
 }) => {
-  const url = new URL(config.oauthStartUrl)
-  url.searchParams.append("state", state)
-  url.searchParams.append("client_id", clientId)
-  url.searchParams.append("scope", "read:user")
-  url.searchParams.append("redirect_uri", redirectTo)
+  const url = new URL(config.oauthStartUrl);
+  url.searchParams.append("state", state);
+  url.searchParams.append("client_id", clientId);
+  url.searchParams.append("scope", "read:user");
+  url.searchParams.append("redirect_uri", redirectTo);
 
-  return url.toString()
-}
+  return url.toString();
+};
 
 /**
  * Checks if a login token exists in local storage. Note that this says nothing
  * about the validity of the token.
  */
 export function isLoggedIn() {
-  return localStorage.getItem("logged_in") === "true"
+  return localStorage.getItem("logged_in") === "true";
 }
 
 /**
  * Returns an access token that can be used for authenticating API requests.
  */
 export async function login(code: string) {
-  const response = await fetch(config.loginUrl(code))
+  const response = await fetch(config.loginUrl(code));
 
   if (!response.ok) {
-    localStorage.removeItem("logged_in")
-    throw response.status
+    localStorage.removeItem("logged_in");
+    throw response.status;
   }
 
-  localStorage.setItem("logged_in", "true")
+  localStorage.setItem("logged_in", "true");
 }
 
 /**
@@ -66,13 +66,13 @@ export async function login(code: string) {
  */
 export async function logout() {
   try {
-    const response = await fetch(config.logoutUrl)
+    const response = await fetch(config.logoutUrl);
     if (!response.ok) {
-      throw response.status
+      throw response.status;
     }
   } catch {
     // Serverside-logout failed, log out locally anyways
   } finally {
-    localStorage.clear()
+    localStorage.clear();
   }
 }

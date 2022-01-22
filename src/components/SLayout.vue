@@ -8,17 +8,10 @@
     <main class="container flex-1 px-4 py-10 normal:py-20" v-bind="$attrs">
       <slot />
     </main>
-    <s-footer class="flex-none" />
+    <SFooter class="flex-none" />
   </div>
 </template>
 
-<script>
-import { defineComponent } from "vue"
+<script setup lang="ts">
 import SFooter from "/@/components/SFooter.vue"
-
-export default defineComponent({
-  components: {
-    SFooter,
-  },
-})
 </script>

@@ -4,66 +4,51 @@
       <slot name="icon" />
     </span>
     <input
-      ref="input"
-      v-model="localValue"
-      class="placeholder-gray-600 px-4 py-2 w-full leading-normal bg-gray-100 focus:bg-white border focus:border-primary-500 border-transparent rounded outline-none disabled:opacity-50 transition-all duration-150 focus:ring-4 focus:ring-primary-200"
+      ref="inputEl"
+      v-model="localModelValue"
       :class="{ 'pl-10': !!$slots.icon }"
-      :placeholder="placeholder"
       :disabled="disabled"
+      :placeholder="placeholder"
       :spellcheck="spellcheck"
       :title="title"
+      class="placeholder-gray-600 px-4 py-2 w-full leading-normal bg-gray-100 focus:bg-white border focus:border-primary-500 border-transparent rounded outline-none disabled:opacity-50 transition-all duration-150 focus:ring-4 focus:ring-primary-200"
     />
   </div>
 </template>
 
-<script>
-export default {
-  props: {
-    modelValue: {
-      type: String,
-      default: "",
-    },
-    placeholder: {
-      type: String,
-      default: null,
-    },
-    title: {
-      type: String,
-      default: null,
-    },
-    spellcheck: {
-      type: Boolean,
-      default: true,
-    },
-    disabled: Boolean,
+<script setup lang="ts">
+import { computed, ref } from "vue"
+
+const props = defineProps({
+  modelValue: { type: String, default: "" },
+  placeholder: { type: String, default: null },
+  title: { type: String, default: null },
+  spellcheck: { type: Boolean, default: true },
+  disabled: Boolean,
+})
+
+const emit = defineEmits(["update:modelValue"])
+
+const inputEl = ref<HTMLInputElement>()
+
+const localModelValue = computed({
+  get() {
+    return props.modelValue
   },
-
-  emits: ["update:modelValue"],
-
-  computed: {
-    /**
-     * Value bindings for v-model.
-     */
-    localValue: {
-      get() {
-        return this.modelValue
-      },
-      set(value) {
-        this.$emit("update:modelValue", value)
-      },
-    },
+  set(value: string) {
+    emit("update:modelValue", value)
   },
+})
 
-  methods: {
-    focus() {
-      this.$refs.input.focus()
-    },
-
-    focused() {
-      return document.activeElement === this.$refs.input
-    },
-  },
+const focus = () => {
+  inputEl.value?.focus()
 }
+
+const focused = () => {
+  return document.activeElement === inputEl.value
+}
+
+defineExpose({ focus, focused })
 </script>
 
 <style lang="postcss" scoped>

@@ -8,7 +8,7 @@
           class="flex mx-4 text-gray-100 bg-gradient-to-br from-gray-700 to-gray-900 rounded-lg shadow-md overflow-hidden"
         >
           <span v-if="toast.type" class="flex items-center p-4 bg-gray-900">
-            <exclamation-svg v-if="toast.type === 'warning'" />
+            <ExclamationSvg v-if="toast.type === 'warning'" />
           </span>
           <span class="p-4">
             {{ toast.text }}
@@ -20,65 +20,36 @@
   <slot />
 </template>
 
-<script>
-import { defineComponent, onUnmounted, provide, ref } from "vue"
-import ExclamationSvg from "/@/assets/exclamation.svg"
+<script lang="ts" setup>
+import { onUnmounted, provide, ref } from "vue"
+import ExclamationSvg from "/@/assets/exclamation.svg?component"
+import { Toast, ToasterProvider, ToastOptions } from "/@/utils/types"
 
-/**
- * Specifies properties of a toast.
- *
- * @typedef {Object} ToastOptions
- * @property {string} type The icon of the toast
- */
+const defaultOpts: ToastOptions = {
+  type: "warning",
+}
 
-/** @type {ToastOptions} */
-const defaultOpts = {}
+const toasts = ref<Toast[]>([])
 
-export default defineComponent({
-  components: {
-    ExclamationSvg,
-  },
+const timeouts = new Set<ReturnType<typeof setTimeout>>()
+onUnmounted(() => timeouts.forEach((timeout) => clearTimeout(timeout)))
 
-  setup() {
-    const toasts = ref([])
-    const timeouts = new Set()
+const handleToast = (text: string, options: ToastOptions) => {
+  // Prepend the toast to the list
+  toasts.value.unshift({ ...options, text, id: Date.now() })
 
-    const handleToast = (text, options) => {
-      // Prepend the toast to the list
-      toasts.value.unshift({
-        ...options,
-        text,
-        id: Date.now(),
-      })
+  // Schedule removing it from the list again
+  const scheduledRemoval = setTimeout(() => {
+    toasts.value.pop()
+    timeouts.delete(scheduledRemoval)
+  }, 10000)
 
-      // Schedule removing it from the list again
-      const scheduledRemoval = setTimeout(() => {
-        toasts.value.pop()
-        timeouts.delete(scheduledRemoval)
-      }, 10000)
+  timeouts.add(scheduledRemoval)
+}
 
-      timeouts.add(scheduledRemoval)
-    }
-
-    onUnmounted(() => timeouts.forEach((timeout) => clearTimeout(timeout)))
-
-    provide(
-      "toast",
-
-      /**
-       * Broadcast a toast message.
-       *
-       * @param {string} text The text of the message
-       * @param {ToastOptions} options Additional payload of the message
-       */
-      (text, options) => {
-        const opts = { ...defaultOpts, ...options }
-        handleToast(text, opts)
-      }
-    )
-
-    return { toasts }
-  },
+provide(ToasterProvider, (text, options) => {
+  const opts = { ...defaultOpts, ...options }
+  handleToast(text, opts)
 })
 </script>
 

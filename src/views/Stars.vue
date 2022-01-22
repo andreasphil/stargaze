@@ -1,9 +1,9 @@
 <template>
-  <s-layout>
+  <SLayout>
     <template #toolbar>
-      <s-toolbar>
+      <SToolbar>
         <template #left>
-          <s-image-icon
+          <SImageIcon
             v-if="viewer && viewer.avatarUrl"
             class="shrink-0"
             alt="Your GitHub avatar"
@@ -11,8 +11,8 @@
           />
           <div v-else class="shrink-0 w-10 h-10 bg-gray-100 rounded-full"></div>
 
-          <s-input
-            ref="search"
+          <SInput
+            ref="searchEl"
             v-model="searchString"
             icon="search"
             class="ml-3 w-full"
@@ -21,20 +21,22 @@
             :spellcheck="false"
           >
             <template #icon>
-              <search-circle-svg />
+              <SearchCircleSvg />
             </template>
-          </s-input>
+          </SInput>
         </template>
 
         <template #right>
-          <s-button label="Sign out" tabindex="-1" @click="signOut">
-            <logout-svg />
-          </s-button>
+          <SButton label="Sign out" tabindex="-1" @click="signOut">
+            <LogoutSvg />
+          </SButton>
         </template>
-      </s-toolbar>
+      </SToolbar>
     </template>
 
-    <h1 class="mb-4 text-primary-500 text-sm font-bold uppercase flex items-center h-6 gap-2">
+    <h1
+      class="mb-4 text-primary-500 text-sm font-bold uppercase flex items-center h-6 gap-2"
+    >
       {{ isSearching ? `Results for "${searchString}"` : "Recently starred" }}
       <span
         v-if="loading"
@@ -47,38 +49,48 @@
       >
     </h1>
 
-    <s-repo-list
+    <SRepoList
       v-if="listed.length || loading"
       :repositories="listed"
       :busy="loading && !listed.length"
     />
 
     <!-- No starred repositories -->
-    <s-empty-state v-if="!(isSearching || loading || listed.length)">
+    <SEmptyState v-if="!(isSearching || loading || listed.length)">
       <template #icon>
-        <star-svg class="h-6" />
+        <StarSvg class="h-6" />
       </template>
       <template #message>You haven't starred any repositories yet.</template>
-    </s-empty-state>
+    </SEmptyState>
 
     <!-- No search results -->
-    <s-empty-state v-if="isSearching && !(loading || listed.length)">
+    <SEmptyState v-if="isSearching && !(loading || listed.length)">
       <template #icon>
-        <emoji-sad-svg class="h-6" />
+        <EmojiSadSvg class="h-6" />
       </template>
       <template #message>
         Nothing found when searching for "{{ searchString }}".
       </template>
-    </s-empty-state>
-  </s-layout>
+    </SEmptyState>
+  </SLayout>
 </template>
 
-<script>
-import { defineComponent, inject } from "vue"
-import EmojiSadSvg from "/@/assets/emoji-sad.svg"
-import LogoutSvg from "/@/assets/logout.svg"
-import SearchCircleSvg from "/@/assets/search-circle.svg"
-import StarSvg from "/@/assets/star.svg"
+<script setup lang="ts">
+import {
+  ComponentPublicInstance,
+  computed,
+  inject,
+  onBeforeUnmount,
+  onMounted,
+  ref,
+  watch,
+} from "vue"
+import { useRouter } from "vue-router"
+import { Repository, ToasterProvider } from "../utils/types"
+import EmojiSadSvg from "/@/assets/emoji-sad.svg?component"
+import LogoutSvg from "/@/assets/logout.svg?component"
+import SearchCircleSvg from "/@/assets/search-circle.svg?component"
+import StarSvg from "/@/assets/star.svg?component"
 import SButton from "/@/components/SButton.vue"
 import SEmptyState from "/@/components/SEmptyState.vue"
 import SImageIcon from "/@/components/SImageIcon.vue"
@@ -89,164 +101,129 @@ import SToolbar from "/@/components/SToolbar.vue"
 import { config as apiConfig, logout } from "/@/utils/api"
 import initSearch from "/@/utils/search"
 
-export default defineComponent({
-  name: "StarsPage",
+/* -------------------------------------------------- *
+ * General page stuff                                 *
+ * -------------------------------------------------- */
 
-  components: {
-    SRepoList,
-    SButton,
-    SInput,
-    SToolbar,
-    EmojiSadSvg,
-    LogoutSvg,
-    StarSvg,
-    SearchCircleSvg,
-    SImageIcon,
-    SLayout,
-    SEmptyState,
-  },
+const toast = inject(ToasterProvider, () => undefined)
+const router = useRouter()
+const loading = ref(false)
 
-  setup() {
-    const toast = inject("toast", () => undefined)
-    return { toast }
-  },
+async function signOut() {
+  await logout()
+  router.push({ name: "Home" })
+}
 
-  data() {
-    return {
-      searchString: "",
-      search: () => new Set(),
-      loading: true,
-      viewer: JSON.parse(localStorage.getItem("viewer") || "{}"),
-      stars: JSON.parse(localStorage.getItem("stars") || "[]"),
+/* -------------------------------------------------- *
+ * Search                                             *
+ * -------------------------------------------------- */
+
+const searchEl = ref<ComponentPublicInstance<typeof SInput>>()
+const searchString = ref("")
+
+// This will be replaced by the search function once we have it populated
+let searchFn = ref<(value: string) => Set<String>>(() => new Set())
+
+const isSearching = computed(
+  () => searchString.value && searchString.value.trim().length
+)
+
+const focusSearchHotkey = (event: KeyboardEvent) => {
+  if (!searchEl.value || searchEl.value.focused()) {
+    return
+  }
+
+  const { key, altKey } = event
+
+  // If the event key is a single word character (0-9, a-z) and the search
+  // field is not focused yet, treat the input as an input to the search
+  // field
+  if (key.match(/^[\w/]$/)) {
+    searchString.value += key
+    searchEl.value.focus()
+  } else if (key === "Backspace") {
+    if (altKey) {
+      searchString.value = ""
+    } else {
+      searchString.value = searchString.value.substring(
+        0,
+        Math.max(searchString.value.length - 1, 0)
+      )
     }
-  },
 
-  computed: {
-    /**
-     * Returns whether there is an active search filter. This is considered to
-     * be the case when the search string is set and not all whitespace.
-     *
-     * @returns {boolean} True if search is active
-     */
-    isSearching() {
-      return this.searchString && this.searchString.trim().length
-    },
+    searchEl.value.focus()
+  }
+}
 
-    /**
-     * Returns an array of starred repositories to be displayed in the UI.
-     * If a search term is set, these are the search results. Otherwise it's
-     * a list of the most recently starred repositories.
-     *
-     * @returns {Array} Filtered repositories
-     */
-    listed() {
-      if (!this.stars?.length > 0) {
-        return []
-      }
+onMounted(() => document.addEventListener("keyup", focusSearchHotkey))
+onBeforeUnmount(() => document.removeEventListener("keyup", focusSearchHotkey))
 
-      if (this.isSearching) {
-        const result = this.search(this.searchString)
-        return this.stars.filter((star) => result.has(star.id))
-      }
+/* -------------------------------------------------- *
+ * View content                                       *
+ * -------------------------------------------------- */
 
-      return this.stars.slice(0, Math.min(this.stars.length, 20))
-    },
-  },
-
-  watch: {
-    viewer: function (newValue) {
-      localStorage.setItem("viewer", JSON.stringify(newValue))
-    },
-
-    stars: function (newValue) {
-      localStorage.setItem("stars", JSON.stringify(newValue))
-    },
-  },
-
-  async mounted() {
-    // Set up search hotkey
-    document.addEventListener("keyup", this.focusSearchHotkey)
-
-    this.hydrate()
-  },
-
-  beforeUnmount() {
-    // Remove search hotkey
-    document.removeEventListener("keyup", this.focusSearchHotkey)
-  },
-
-  methods: {
-    focusSearchHotkey(event) {
-      if (this.$refs.search.focused()) {
-        return
-      }
-
-      const { key, altKey } = event
-
-      // If the event key is a single word character (0-9, a-z) and the search
-      // field is not focused yet, treat the input as an input to the search
-      // field
-      if (key.match(/^[\w/]$/)) {
-        this.searchString += key
-        this.$refs.search.focus()
-      } else if (key === "Backspace") {
-        if (altKey) {
-          this.searchString = ""
-        } else {
-          this.searchString = this.searchString.substring(
-            0,
-            Math.max(this.searchString.length - 1, 0)
-          )
-        }
-
-        this.$refs.search.focus()
-      }
-    },
-
-    /**
-     * Clean up local user data and redirect back to the home page.
-     */
-    async signOut() {
-      await logout()
-      this.$router.push({ name: "Home" })
-    },
-
-    /**
-     * Fetch viewer and stars data from the API.
-     */
-    async hydrate() {
-      return Promise.all([
-        fetch(apiConfig.viewerUrl)
-          .then((response) => {
-            if (!response.ok) throw response.status
-            return response.json()
-          })
-          .then((viewer) => (this.viewer = viewer)),
-        fetch(apiConfig.starsUrl)
-          .then((response) => {
-            if (!response.ok) throw response.status
-            return response.json()
-          })
-          .then((stars) => (this.stars = stars)),
-      ])
-        .catch((e) => {
-          if (e === 401) {
-            this.toast(
-              "Looks like your session expired. Please sign in again.",
-              { type: "warning" }
-            )
-            this.signOut()
-          } else {
-            this.toast("Something went wrong while loading your data.", {
-              type: "warning",
-            })
-          }
-        })
-        .finally(() => {
-          this.loading = false
-          this.search = initSearch(this.stars)
-        })
-    },
-  },
+const viewer = ref(JSON.parse(localStorage.getItem("viewer") || "{}"))
+watch(viewer, (newValue) => {
+  localStorage.setItem("viewer", JSON.stringify(newValue))
 })
+
+const stars = ref<Repository[]>(
+  JSON.parse(localStorage.getItem("stars") || "[]")
+)
+watch(stars, (newValue) => {
+  localStorage.setItem("stars", JSON.stringify(newValue))
+})
+
+/**
+ * Returns an array of starred repositories to be displayed in the UI.
+ * If a search term is set, these are the search results. Otherwise it's
+ * a list of the most recently starred repositories.
+ */
+const listed = computed(() => {
+  if (isSearching.value) {
+    const result = searchFn.value(searchString.value)
+    return stars.value.filter((star) => result.has(star.id))
+  }
+
+  return stars.value.slice(0, Math.min(stars.value.length, 20))
+})
+
+/**
+ * Fetch viewer and stars data from the API.
+ */
+async function hydrate() {
+  loading.value = true
+
+  return Promise.all([
+    fetch(apiConfig.viewerUrl)
+      .then((response) => {
+        if (!response.ok) throw response.status
+        return response.json()
+      })
+      .then((result) => (viewer.value = result)),
+    fetch(apiConfig.starsUrl)
+      .then((response) => {
+        if (!response.ok) throw response.status
+        return response.json()
+      })
+      .then((result) => (stars.value = result)),
+  ])
+    .catch((e) => {
+      if (e === 401) {
+        toast("Looks like your session expired. Please sign in again.", {
+          type: "warning",
+        })
+        signOut()
+      } else {
+        toast("Something went wrong while loading your data.", {
+          type: "warning",
+        })
+      }
+    })
+    .finally(() => {
+      loading.value = false
+      searchFn.value = initSearch(stars.value)
+    })
+}
+onMounted(() => hydrate())
 </script>

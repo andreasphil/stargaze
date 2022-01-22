@@ -1,67 +1,60 @@
 <template>
-  <s-layout>
+  <SLayout>
     <template #toolbar>
-      <s-toolbar>
+      <SToolbar>
         <template #left>
           <div class="shrink-0 w-10 h-10 bg-gray-100 rounded-full"></div>
-          <s-input block disabled class="ml-3 w-full" placeholder="Filter...">
+          <SInput block disabled class="ml-3 w-full" placeholder="Filter...">
             <template #icon>
-              <search-circle-svg />
+              <SearchCircleSvg />
             </template>
-          </s-input>
+          </SInput>
         </template>
 
         <template #right>
           <div></div>
         </template>
-      </s-toolbar>
+      </SToolbar>
     </template>
 
     <div class="mb-4 h-6 bg-gray-100 rounded w-1/4"></div>
 
-    <s-repo-list :busy="true" />
-  </s-layout>
+    <SRepoList :busy="true" />
+  </SLayout>
 </template>
 
-<script>
-import { defineComponent, onMounted, inject } from "vue"
+<script lang="ts" setup>
+import { inject, onMounted } from "vue"
 import { useRouter } from "vue-router"
-import SearchCircleSvg from "/@/assets/search-circle.svg"
+import SearchCircleSvg from "/@/assets/search-circle.svg?component"
 import SInput from "/@/components/SInput.vue"
 import SLayout from "/@/components/SLayout.vue"
 import SRepoList from "/@/components/SRepoList.vue"
 import SToolbar from "/@/components/SToolbar.vue"
 import { login } from "/@/utils/api"
+import { ToasterProvider } from "/@/utils/types"
 
-export default defineComponent({
-  name: "AuthPage",
+const router = useRouter()
+const toast = inject(ToasterProvider, () => undefined)
+const { code } = router.currentRoute.value.query
 
-  components: { SRepoList, SInput, SToolbar, SLayout, SearchCircleSvg },
+onMounted(() => {
+  // If there's no code, it's likely that the user ended up on this page by
+  // mistake. Redirect back to home.
+  if (!code) {
+    router.replace({ name: "Home" })
+    return;
+  }
 
-  setup() {
-    const router = useRouter()
-    const toast = inject("toast", () => undefined)
-    const { code } = router.currentRoute.value.query
+  // Grab and save the token
+  login(code.toString())
+    .then(() => router.replace({ name: "Stars" }))
+    .catch(() => {
+      toast("Something went wrong while signing you in. Please try again.", {
+        type: "warning",
+      })
 
-    onMounted(() => {
-      // If there's no code, it's likely that the user ended up on this page by
-      // mistake. Redirect back to home.
-      if (!code) {
-        router.replace({ name: "Home" })
-      }
-
-      // Grab and save the token
-      login(code)
-        .then(() => router.replace({ name: "Stars" }))
-        .catch(() => {
-          toast(
-            "Something went wrong while signing you in. Please try again.",
-            { type: "warning" }
-          )
-
-          router.replace({ name: "Home" })
-        })
+      router.replace({ name: "Home" })
     })
-  },
 })
 </script>

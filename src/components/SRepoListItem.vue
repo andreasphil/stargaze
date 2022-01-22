@@ -3,7 +3,7 @@
     class="relative flex items-center px-4 h-24 hover:bg-gray-100 normal:rounded-lg space-x-3 group"
   >
     <!-- Icon -->
-    <s-image-icon
+    <SImageIcon
       class="flex-none group-hover:bg-white"
       width="w-14"
       height="h-14"
@@ -44,50 +44,19 @@
   </li>
 </template>
 
-<script>
-import { defineComponent } from "vue"
+<script setup lang="ts">
 import SImageIcon from "/@/components/SImageIcon.vue"
 
-export default defineComponent({
-  components: {
-    SImageIcon,
-  },
-
-  props: {
-    name: {
-      type: String,
-      required: true,
-    },
-    description: {
-      type: String,
-      default: null,
-    },
-    url: {
-      type: String,
-      required: true,
-    },
-    icon: {
-      type: String,
-      required: true,
-    },
-    author: {
-      type: String,
-      default: null,
-    },
-    authorUrl: {
-      type: String,
-      default: null,
-    },
-    homepage: {
-      type: String,
-      default: null,
-    },
-    homepageTitle: {
-      type: String,
-      default: null,
-    },
-  },
-})
+defineProps<{
+  name: string
+  description?: string
+  url: string
+  icon: string
+  author: string
+  authorUrl: string
+  homepage?: string
+  homepageTitle?: string
+}>()
 </script>
 
 <style lang="postcss" scoped>

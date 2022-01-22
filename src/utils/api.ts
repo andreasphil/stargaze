@@ -1,6 +1,6 @@
 export const config = {
   oauthStartUrl: "https://github.com/login/oauth/authorize",
-  loginUrl: (code) => `/.netlify/functions/login?code=${code}`,
+  loginUrl: (code: string) => `/.netlify/functions/login?code=${code}`,
   logoutUrl: "/.netlify/functions/logout",
   viewerUrl: "/.netlify/functions/viewer",
   starsUrl: "/.netlify/functions/stars",
@@ -20,14 +20,16 @@ export const getState = () => {
 
 /**
  * Returns the URL of a page where the user can authorize the application.
- *
- * @param {object} options Parameters for constructing the URL
- * @param {string} options.state
- * @param {string} options.clientId
- * @param {string} options.redirectTo
- * @returns {string}
  */
-export const getSignInUrl = ({ state, clientId, redirectTo }) => {
+export const getSignInUrl = ({
+  state,
+  clientId,
+  redirectTo,
+}: {
+  state: string
+  clientId: string
+  redirectTo: string
+}) => {
   const url = new URL(config.oauthStartUrl)
   url.searchParams.append("state", state)
   url.searchParams.append("client_id", clientId)
@@ -40,8 +42,6 @@ export const getSignInUrl = ({ state, clientId, redirectTo }) => {
 /**
  * Checks if a login token exists in local storage. Note that this says nothing
  * about the validity of the token.
- *
- * @returns {boolean}
  */
 export function isLoggedIn() {
   return localStorage.getItem("logged_in") === "true"
@@ -49,16 +49,13 @@ export function isLoggedIn() {
 
 /**
  * Returns an access token that can be used for authenticating API requests.
- *
- * @param {string} code The code obtained during the OAuth flow
- * @returns {Promise<string>} A promise of a string token
  */
-export async function login(code) {
+export async function login(code: string) {
   const response = await fetch(config.loginUrl(code))
 
   if (!response.ok) {
     localStorage.removeItem("logged_in")
-    throw new Error(response.status)
+    throw response.status
   }
 
   localStorage.setItem("logged_in", "true")
@@ -71,7 +68,7 @@ export async function logout() {
   try {
     const response = await fetch(config.logoutUrl)
     if (!response.ok) {
-      throw new Error(response.status)
+      throw response.status
     }
   } catch {
     // Serverside-logout failed, log out locally anyways

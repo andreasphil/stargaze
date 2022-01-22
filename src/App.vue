@@ -1,16 +1,11 @@
 <template>
-  <s-toaster-provider>
+  <SToasterProvider>
     <router-view />
-  </s-toaster-provider>
+  </SToasterProvider>
 </template>
 
-<script>
-import { defineComponent } from "vue"
+<script setup lang="ts">
 import SToasterProvider from "./components/SToasterProvider.vue"
-
-export default defineComponent({
-  components: { SToasterProvider },
-})
 </script>
 
 <style lang="postcss">

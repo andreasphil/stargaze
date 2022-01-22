@@ -15,27 +15,21 @@
   </div>
 </template>
 
-<script>
-import { defineComponent, onBeforeUnmount, onMounted, ref } from "vue"
+<script lang="ts" setup>
+import { onBeforeUnmount, onMounted, ref } from "vue"
 
-export default defineComponent({
-  setup() {
-    const floating = ref(false)
+const floating = ref(false)
 
-    const updateFloatingState = () => {
-      floating.value = window.scrollY > 48
-    }
+const updateFloatingState = () => {
+  floating.value = window.scrollY > 48
+}
 
-    onMounted(() => {
-      document.addEventListener("scroll", updateFloatingState)
-    })
+onMounted(() => {
+  document.addEventListener("scroll", updateFloatingState, { passive: true })
+})
 
-    onBeforeUnmount(() => {
-      document.removeEventListener("scroll", updateFloatingState)
-    })
-
-    return { floating }
-  },
+onBeforeUnmount(() => {
+  document.removeEventListener("scroll", updateFloatingState)
 })
 </script>
 

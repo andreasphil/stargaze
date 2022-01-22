@@ -16,21 +16,21 @@
 </template>
 
 <script lang="ts" setup>
-import { onBeforeUnmount, onMounted, ref } from "vue"
+import { onBeforeUnmount, onMounted, ref } from "vue";
 
-const floating = ref(false)
+const floating = ref(false);
 
 const updateFloatingState = () => {
-  floating.value = window.scrollY > 48
-}
+  floating.value = window.scrollY > 48;
+};
 
 onMounted(() => {
-  document.addEventListener("scroll", updateFloatingState, { passive: true })
-})
+  document.addEventListener("scroll", updateFloatingState, { passive: true });
+});
 
 onBeforeUnmount(() => {
-  document.removeEventListener("scroll", updateFloatingState)
-})
+  document.removeEventListener("scroll", updateFloatingState);
+});
 </script>
 
 <style lang="postcss" scoped>

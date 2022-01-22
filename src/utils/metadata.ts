@@ -8,4 +8,4 @@ export default {
    * only the app name is returned.
    */
   title: (page?: string) => `${page ? `${page} | ` : ""}Stargaze`,
-}
+};

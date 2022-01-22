@@ -15,5 +15,5 @@ defineProps({
   width: { type: String, default: "w-10" },
   height: { type: String, default: "h-10" },
   rounded: { type: String, default: "rounded-full" },
-})
+});
 </script>

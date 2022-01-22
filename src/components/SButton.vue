@@ -14,7 +14,7 @@ defineProps({
   label: { type: String, required: true },
   role: { type: String, default: "button" },
   tag: { type: String, default: "button" },
-})
+});
 </script>
 
 <style lang="postcss" scoped>

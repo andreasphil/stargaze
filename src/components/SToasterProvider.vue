@@ -21,36 +21,36 @@
 </template>
 
 <script lang="ts" setup>
-import { onUnmounted, provide, ref } from "vue"
-import ExclamationSvg from "/@/assets/exclamation.svg?component"
-import { Toast, ToasterProvider, ToastOptions } from "/@/utils/types"
+import { onUnmounted, provide, ref } from "vue";
+import ExclamationSvg from "/@/assets/exclamation.svg?component";
+import { Toast, ToasterProvider, ToastOptions } from "/@/utils/types";
 
 const defaultOpts: ToastOptions = {
   type: "warning",
-}
+};
 
-const toasts = ref<Toast[]>([])
+const toasts = ref<Toast[]>([]);
 
-const timeouts = new Set<ReturnType<typeof setTimeout>>()
-onUnmounted(() => timeouts.forEach((timeout) => clearTimeout(timeout)))
+const timeouts = new Set<ReturnType<typeof setTimeout>>();
+onUnmounted(() => timeouts.forEach((timeout) => clearTimeout(timeout)));
 
 const handleToast = (text: string, options: ToastOptions) => {
   // Prepend the toast to the list
-  toasts.value.unshift({ ...options, text, id: Date.now() })
+  toasts.value.unshift({ ...options, text, id: Date.now() });
 
   // Schedule removing it from the list again
   const scheduledRemoval = setTimeout(() => {
-    toasts.value.pop()
-    timeouts.delete(scheduledRemoval)
-  }, 10000)
+    toasts.value.pop();
+    timeouts.delete(scheduledRemoval);
+  }, 10000);
 
-  timeouts.add(scheduledRemoval)
-}
+  timeouts.add(scheduledRemoval);
+};
 
 provide(ToasterProvider, (text, options) => {
-  const opts = { ...defaultOpts, ...options }
-  handleToast(text, opts)
-})
+  const opts = { ...defaultOpts, ...options };
+  handleToast(text, opts);
+});
 </script>
 
 <style lang="postcss" scoped>

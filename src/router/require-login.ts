@@ -1,5 +1,5 @@
-import { isLoggedIn } from "/@/utils/api"
-import type { NavigationGuard } from "vue-router"
+import { isLoggedIn } from "/@/utils/api";
+import type { NavigationGuard } from "vue-router";
 
 /**
  * Checks whether an active session exists and redirects the user based
@@ -8,7 +8,7 @@ import type { NavigationGuard } from "vue-router"
 const requireLogin: NavigationGuard = (to, _, next) => {
   if (to.matched.some((route) => route.meta.requireLogin) && !isLoggedIn()) {
     // Login is required but no token exists
-    next({ name: "Home" })
+    next({ name: "Home" });
   } else if (
     to.matched.some((route) => route.meta.redirectWhenLoggedIn) &&
     isLoggedIn()
@@ -16,17 +16,17 @@ const requireLogin: NavigationGuard = (to, _, next) => {
     // Page is set to redirect somewhere else if a login token exists
     const redirect = to.matched
       .map((route) => route.meta)
-      .find((routeMeta) => !!routeMeta.redirectWhenLoggedIn)
+      .find((routeMeta) => !!routeMeta.redirectWhenLoggedIn);
 
     if (redirect && redirect.redirectWhenLoggedIn) {
-      next({ name: redirect.redirectWhenLoggedIn })
+      next({ name: redirect.redirectWhenLoggedIn });
     } else {
-      next()
+      next();
     }
   } else {
     // Normal navigation
-    next()
+    next();
   }
-}
+};
 
-export default requireLogin
+export default requireLogin;

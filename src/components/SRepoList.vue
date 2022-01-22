@@ -21,31 +21,31 @@
 </template>
 
 <script setup lang="ts">
-import { PropType } from "vue"
-import SRepoListItem from "/@/components/SRepoListItem.vue"
-import SRepoListSkeleton from "/@/components/SRepoListSkeleton.vue"
-import type { Repository } from "/@/utils/types"
+import { PropType } from "vue";
+import SRepoListItem from "/@/components/SRepoListItem.vue";
+import SRepoListSkeleton from "/@/components/SRepoListSkeleton.vue";
+import type { Repository } from "/@/utils/types";
 
 defineProps({
   repositories: { type: Array as PropType<Repository[]>, default: () => [] },
   busy: { type: Boolean, default: false },
-})
+});
 
-const shortHomepageUrls: Record<string, string> = {}
+const shortHomepageUrls: Record<string, string> = {};
 
 const shorten = (input: string) => {
   if (!input) {
-    return null
+    return null;
   }
 
   if (shortHomepageUrls[input]) {
-    return shortHomepageUrls[input]
+    return shortHomepageUrls[input];
   }
 
-  let output = input.replace(/^https?:\/\/(www.)?/, "")
-  output = output.length > 30 ? `${output.substring(0, 30)}...` : output
-  shortHomepageUrls[input] = output
+  let output = input.replace(/^https?:\/\/(www.)?/, "");
+  output = output.length > 30 ? `${output.substring(0, 30)}...` : output;
+  shortHomepageUrls[input] = output;
 
-  return output
-}
+  return output;
+};
 </script>

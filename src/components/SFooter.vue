@@ -9,5 +9,5 @@
 </template>
 
 <script setup lang="ts">
-import meta from "/@/utils/metadata"
+import meta from "/@/utils/metadata";
 </script>

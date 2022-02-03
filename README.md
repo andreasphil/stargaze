@@ -1,5 +1,5 @@
 <h1 align="center">
-  Stargaze 🌟
+  Stargaze ✨
 </h1>
 
 <p align="center">
@@ -12,10 +12,10 @@
   </a>
 </p>
 
-- View your most recently starred repositories
-- Start typing anywhere to filter all repositories by name, description, author, and language
-- Quickly access the repository, the website, or the author's GitHub profile
-- No tracking and only requires reading permissions to your account
+- 👀 View your most recently starred repositories
+- ⚡️ Start typing anywhere to filter all repositories by name, description, author, and language
+- 🌍 Quickly access the repository, the website, or the author's GitHub profile
+- 🤝 Zero tracking and only requires reading permissions to your account
 
 ## Development
 

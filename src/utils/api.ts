@@ -18,9 +18,7 @@ export const getState = () => {
   return Math.round(Math.random() * 10 ** 16).toString();
 };
 
-/**
- * Returns the URL of a page where the user can authorize the application.
- */
+/** Returns the URL of a page where the user can authorize the application. */
 export const getSignInUrl = ({
   state,
   clientId,

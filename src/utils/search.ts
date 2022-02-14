@@ -1,7 +1,6 @@
 import {
   default as initSearchDep,
   fullWordSplit,
-  idProp,
   // @ts-expect-error Need to add type declarations
 } from "js-inverted-index";
 
@@ -11,8 +10,6 @@ import {
 export default function initSearch(documents: Array<unknown>) {
   const { search, add } = initSearchDep({
     fields: ["name", "owner.login", "description", "primaryLanguage.name"],
-
-    identifier: idProp("id"),
 
     // Tokenize words as the word itself as well as anything that would return
     // true if used with `startsWith`, e.g. for dog, return d, do, and dog.

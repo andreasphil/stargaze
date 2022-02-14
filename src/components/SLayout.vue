@@ -1,17 +1,16 @@
+<script setup lang="ts">
+import SFooter from "/@/components/SFooter.vue";
+</script>
+
 <template>
   <slot name="toolbar" />
-
   <div
+    :f-fixed-nav="$slots.toolbar ? true : null"
     class="flex flex-col items-stretch min-h-screen"
-    :class="{ 'pt-20': !!$slots.toolbar }"
   >
-    <main class="container flex-1 px-4 py-10 normal:py-20" v-bind="$attrs">
+    <main v-bind="$attrs" f-container class="flex-1 w-full">
       <slot />
     </main>
     <SFooter class="flex-none" />
   </div>
 </template>
-
-<script setup lang="ts">
-import SFooter from "/@/components/SFooter.vue";
-</script>

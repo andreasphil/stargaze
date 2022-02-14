@@ -21,7 +21,7 @@
 
 The app is built on [Vue 3](https://v3.vuejs.org) with [Vite](https://vitejs.dev), run by [Netlify Dev](https://www.netlify.com/products/dev/) to enable local development and testing of serverless functions.
 
-To get started, install dependencies using `yarn install`. Because Stargaze relies on GitHub's GraphQL API and OAuth flow, you'll also need to [create an OAuth app](https://docs.github.com/en/developers/apps/creating-an-oauth-app) in the developer section in your profile settings. For local development, the following settings should work:
+To get started, install dependencies using `npm install`. Because Stargaze relies on GitHub's GraphQL API and OAuth flow, you'll also need to [create an OAuth app](https://docs.github.com/en/developers/apps/creating-an-oauth-app) in the developer section in your profile settings. For local development, the following settings should work:
 
 - Homepage URL: `http://localhost:1234`
 - Authorization Callback URL: `http://localhost:1234`
@@ -36,9 +36,9 @@ AUTH_CLIENT_SECRET=<GitHub app secret>
 
 Once all is set up, you have the following npm scripts available to run common development tasks:
 
-- Compile and start dev server: `yarn start`
-- Build for production: `yarn build`
-- Lint files: `yarn lint` (fix issues automatically: `yarn lint:fix`)
+- Compile and start dev server: `npm start`
+- Build for production: `npm run build`
+- Lint files: `npm run lint` (fix issues automatically: `npm run lint:fix`)
 
 ## Deploy to Netlify
 

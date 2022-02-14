@@ -6,27 +6,24 @@
     "dev": "vite",
     "build": "vite build",
     "serve": "vite preview",
-    "lint": "eslint src/; prettier -c src/",
-    "lint:fix": "eslint --fix src/; prettier -cw src/"
+    "lint": "prettier -c src/",
+    "lint:fix": "prettier -cw src/"
   },
   "dependencies": {
     "cookie": "^0.4.1",
-    "js-inverted-index": "github:andreasphil/js-inverted-index",
+    "finecss": "github:andreasphil/fine#v0.0.1-alpha.11",
+    "js-inverted-index": "github:andreasphil/js-inverted-index#v1.1.0",
     "node-fetch": "^2.6.1",
     "vue": "^3.0.5",
     "vue-router": "^4.0.4"
   },
   "devDependencies": {
-    "@netlify/functions": "^0.10.0",
+    "@netlify/functions": "^1.0.0",
     "@vitejs/plugin-vue": "^2.0.1",
     "@vue/compiler-sfc": "^3.0.5",
-    "autoprefixer": "^10.2.4",
-    "postcss": "^8.2.6",
-    "tailwindcss": "^3.0.7",
     "vite": "^2.0.1",
-    "vite-svg-loader": "^3.1.1"
-  },
-  "peerDependencies": {
-    "netlify-cli": "^8.13.0"
+    "vite-plugin-windicss": "^1.7.0",
+    "vite-svg-loader": "^3.1.1",
+    "windicss": "^3.4.3"
   }
 }

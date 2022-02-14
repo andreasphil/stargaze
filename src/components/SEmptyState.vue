@@ -1,11 +1,9 @@
 <template>
   <div
-    class="flex -mx-4 text-gray-100 bg-gradient-to-br from-gray-700 to-gray-900 normal:rounded-lg overflow-hidden"
+    class="flex flex-col rounded-$large-border-radius border-dashed border-2 border-$c-border py-10 px-6 w-full"
   >
-    <span class="flex items-center p-4 bg-gray-900">
-      <slot name="icon" />
-    </span>
-    <span class="p-4">
+    <slot name="icon" />
+    <span class="mt-2 text-center text-$c-fg-variant">
       <slot name="message" />
     </span>
   </div>

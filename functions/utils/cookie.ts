@@ -1,4 +1,4 @@
-import { parse, serialize } from "cookie"
+import { parse, serialize } from "cookie";
 
 /** Returns the cookie header with the auth token for a response */
 export const setLoginCookie = (token: string) => {
@@ -7,17 +7,22 @@ export const setLoginCookie = (token: string) => {
       ? serialize("Authorization", `bearer ${token}`, {
           httpOnly: true,
           maxAge: 604800,
+          sameSite: "strict",
         })
-      : serialize("Authorization", "", { maxAge: 0, httpOnly: true }),
-  }
-}
+      : serialize("Authorization", "false", {
+          httpOnly: true,
+          maxAge: 0,
+          sameSite: "strict",
+        }),
+  };
+};
 
 /** Extracts the auth token from a request header */
 export const getLoginCookie = (headers: { cookie?: string }) => {
   if (!headers.cookie) {
-    return undefined
+    return undefined;
   }
 
-  const cookies = parse(headers.cookie)
-  return cookies.Authorization
-}
+  const cookies = parse(headers.cookie);
+  return cookies.Authorization;
+};

@@ -1,80 +1,3 @@
-<template>
-  <SLayout>
-    <template #toolbar>
-      <SToolbar>
-        <template #left>
-          <SImageIcon
-            v-if="viewer && viewer.avatarUrl"
-            class="shrink-0"
-            alt="Your GitHub avatar"
-            :src="viewer.avatarUrl"
-          />
-          <div v-else class="shrink-0 w-10 h-10 bg-gray-100 rounded-full"></div>
-
-          <SInput
-            ref="searchEl"
-            v-model="searchString"
-            icon="search"
-            class="ml-3 w-full"
-            placeholder="Filter..."
-            title="Tip: Type anywhere to start filtering!"
-            :spellcheck="false"
-          >
-            <template #icon>
-              <SearchCircleSvg />
-            </template>
-          </SInput>
-        </template>
-
-        <template #right>
-          <SButton label="Sign out" tabindex="-1" @click="signOut">
-            <LogoutSvg />
-          </SButton>
-        </template>
-      </SToolbar>
-    </template>
-
-    <h1
-      class="mb-4 text-primary-500 text-sm font-bold uppercase flex items-center h-6 gap-2"
-    >
-      {{ isSearching ? `Results for "${searchString}"` : "Recently starred" }}
-      <span
-        v-if="loading"
-        class="inline-flex items-center text-xs uppercase font-bold bg-primary-100 pl-1 pr-2 py-1 rounded-full shadow-md text-white bg-gradient-to-br from-gray-700 to-gray-900"
-      >
-        <span
-          class="border-2 border-gray-600 border-t-gray-100 rounded-full w-4 h-4 inline-block mr-2 animate-spin"
-        ></span>
-        Updating ...</span
-      >
-    </h1>
-
-    <SRepoList
-      v-if="listed.length || loading"
-      :repositories="listed"
-      :busy="loading && !listed.length"
-    />
-
-    <!-- No starred repositories -->
-    <SEmptyState v-if="!(isSearching || loading || listed.length)">
-      <template #icon>
-        <StarSvg class="h-6" />
-      </template>
-      <template #message>You haven't starred any repositories yet.</template>
-    </SEmptyState>
-
-    <!-- No search results -->
-    <SEmptyState v-if="isSearching && !(loading || listed.length)">
-      <template #icon>
-        <EmojiSadSvg class="h-6" />
-      </template>
-      <template #message>
-        Nothing found when searching for "{{ searchString }}".
-      </template>
-    </SEmptyState>
-  </SLayout>
-</template>
-
 <script setup lang="ts">
 import {
   ComponentPublicInstance,
@@ -179,18 +102,11 @@ watch(stars, (newValue) => {
  * If a search term is set, these are the search results. Otherwise it's
  * a list of the most recently starred repositories.
  */
-const listed = computed(() => {
-  if (isSearching.value) {
-    const result = searchFn.value(searchString.value);
-    return stars.value.filter((star) => result.has(star.id));
-  }
+const listed = computed(() =>
+  isSearching.value ? searchFn.value(searchString.value) : stars.value
+);
 
-  return stars.value.slice(0, Math.min(stars.value.length, 20));
-});
-
-/**
- * Fetch viewer and stars data from the API.
- */
+/** Fetch viewer and stars data from the API */
 async function hydrate() {
   loading.value = true;
 
@@ -225,5 +141,82 @@ async function hydrate() {
       searchFn.value = initSearch(stars.value);
     });
 }
+
 onMounted(() => hydrate());
 </script>
+
+<template>
+  <SLayout class="pt-20">
+    <template #toolbar>
+      <SToolbar>
+        <template #left>
+          <SImageIcon
+            v-if="viewer && viewer.avatarUrl"
+            :src="viewer.avatarUrl"
+            alt="Your GitHub avatar"
+            class="shrink-0"
+            height="40"
+            width="40"
+          />
+          <div v-else class="shrink-0 w-10 h-10 bg-gray-100 rounded-full"></div>
+          <SInput
+            v-model="searchString"
+            :spellcheck="false"
+            class="ml-3"
+            icon="search"
+            placeholder="Filter..."
+            ref="searchEl"
+            title="Tip: Type anywhere to start filtering!"
+          >
+            <template #icon>
+              <SearchCircleSvg />
+            </template>
+          </SInput>
+        </template>
+        <template #right>
+          <span
+            v-if="loading && listed.length > 0"
+            aria-busy="true"
+            class="text-$c-primary"
+          ></span>
+          <SButton
+            @click="signOut"
+            class="w-auto text-$c-fg -mr-4 ml-2"
+            f-ghost
+            label="Sign out"
+            tabindex="-1"
+          >
+            <LogoutSvg />
+          </SButton>
+        </template>
+      </SToolbar>
+    </template>
+
+    <div
+      v-if="loading && listed.length === 0"
+      class="text-center text-$c-primary"
+    >
+      <span aria-busy="true"></span>
+    </div>
+
+    <SRepoList v-else-if="listed.length > 0" :repositories="listed" />
+
+    <!-- No starred repositories -->
+    <SEmptyState v-else-if="!isSearching && listed.length === 0">
+      <template #icon>
+        <StarSvg class="h-6" />
+      </template>
+      <template #message>You haven't starred any repositories yet.</template>
+    </SEmptyState>
+
+    <!-- No search results -->
+    <SEmptyState v-else-if="isSearching && listed.length === 0">
+      <template #icon>
+        <EmojiSadSvg class="h-6" />
+      </template>
+      <template #message>
+        Nothing found when searching for "{{ searchString }}".
+      </template>
+    </SEmptyState>
+  </SLayout>
+</template>

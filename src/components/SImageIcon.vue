@@ -1,19 +1,22 @@
+<script setup lang="ts">
+defineProps({
+  alt: { type: String, default: null },
+  height: { type: String, required: true },
+  rounded: { type: String, default: "rounded-full" },
+  src: { type: String, required: true },
+  width: { type: String, required: true },
+});
+</script>
+
 <template>
   <img
     :alt="alt"
-    :class="[rounded, width, height]"
+    :class="[rounded]"
+    :height="height"
     :src="src"
-    class="p-1 bg-gray-100"
+    :width="width"
+    class="p-0.5 bg-$c-surface-variant-bg"
+    f-transition
     loading="lazy"
   />
 </template>
-
-<script setup lang="ts">
-defineProps({
-  src: { type: String, required: true },
-  alt: { type: String, default: null },
-  width: { type: String, default: "w-10" },
-  height: { type: String, default: "h-10" },
-  rounded: { type: String, default: "rounded-full" },
-});
-</script>

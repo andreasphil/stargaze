@@ -45,7 +45,7 @@ const searchEl = ref<ComponentPublicInstance<typeof SInput>>();
 const searchString = ref("");
 
 // This will be replaced by the search function once we have it populated
-let searchFn = ref<(value: string) => Set<String>>(() => new Set());
+let searchFn = ref<(value: string) => Set<Repository>>(() => new Set());
 
 const isSearching = computed(
   () => searchString.value && searchString.value.trim().length
@@ -103,7 +103,9 @@ watch(stars, (newValue) => {
  * a list of the most recently starred repositories.
  */
 const listed = computed(() =>
-  isSearching.value ? searchFn.value(searchString.value) : stars.value
+  isSearching.value
+    ? Array.from(searchFn.value(searchString.value))
+    : stars.value
 );
 
 /** Fetch viewer and stars data from the API */

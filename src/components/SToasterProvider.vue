@@ -39,7 +39,7 @@ provide(ToasterProvider, (text, options) => {
       <div
         v-for="toast in toasts"
         :key="toast.id"
-        class="flex items-center gap-4 mx-4 p-4 rounded-$border-radius shadow-high"
+        class="bg-$c-fg flex gap-4 items-center mx-4 p-4 rounded-$border-radius shadow-high text-$c-bg"
       >
         <ExclamationSvg v-if="toast.type === 'warning'" />
         {{ toast.text }}

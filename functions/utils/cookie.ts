@@ -1,12 +1,12 @@
 import { parse, serialize } from "cookie";
 
 /** Returns the cookie header with the auth token for a response */
-export const setLoginCookie = (token: string) => {
+export const setLoginCookie = (token?: string) => {
   return {
     "Set-Cookie": token
       ? serialize("Authorization", `bearer ${token}`, {
           httpOnly: true,
-          maxAge: 604800,
+          maxAge: 31536000, // ~ 1 year
           sameSite: "strict",
         })
       : serialize("Authorization", "false", {

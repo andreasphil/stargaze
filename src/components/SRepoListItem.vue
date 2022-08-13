@@ -12,7 +12,7 @@ defineProps<{
 </script>
 
 <template>
-  <li class="list-none m-0">
+  <div class="m-0">
     <a
       :href="url"
       :title="`Visit ${name} on GitHub`"
@@ -22,13 +22,13 @@ defineProps<{
       <SImageIcon
         :alt="author ? `GitHub avatar of ${author}` : ''"
         :src="icon"
-        height="40"
-        width="40"
+        height="56"
+        width="56"
       />
-      <span class="line-clamp-1 text-$c-fg-variant">
-        <strong class="text-$c-primary">@{{ author }}/{{ name }}</strong>
-        <span v-if="description"> - {{ description }}</span>
+      <span class="text-$c-fg-variant">
+        <strong class="text-$c-primary block line-clamp-1">@{{ author }}/{{ name }}</strong>
+        <small class="block line-clamp-1" v-if="description">{{ description }}</small>
       </span>
     </a>
-  </li>
+  </div>
 </template>

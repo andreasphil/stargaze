@@ -15,7 +15,8 @@
     "js-inverted-index": "github:andreasphil/js-inverted-index#v1.1.0",
     "node-fetch": "^3.2.6",
     "vue": "^3.2.37",
-    "vue-router": "^4.1.1"
+    "vue-router": "^4.1.1",
+    "vue-virtual-scroller": "^2.0.0-alpha.1"
   },
   "devDependencies": {
     "@netlify/functions": "^1.0.0",

@@ -1,5 +1,7 @@
 <script setup lang="ts">
 import { PropType } from "vue";
+import { RecycleScroller } from "vue-virtual-scroller";
+import "vue-virtual-scroller/dist/vue-virtual-scroller.css";
 import SRepoListItem from "/@/components/SRepoListItem.vue";
 import type { Repository } from "/@/utils/types";
 
@@ -9,16 +11,21 @@ defineProps({
 </script>
 
 <template>
-  <ol class="p-0 my-0 -mx-4">
+  <RecycleScroller
+    :item-size="76"
+    :items="repositories"
+    class="p-0 my-0 -mx-4"
+    key-field="url"
+    v-slot="{ item }"
+  >
     <SRepoListItem
-      v-for="repository in repositories"
-      :author="repository.owner.login"
-      :description="repository.description"
-      :homepage="repository.homepageUrl"
-      :icon="repository.owner.avatarUrl"
-      :key="repository.id"
-      :name="repository.name"
-      :url="repository.url"
+      :author="item.owner.login"
+      :description="item.description"
+      :homepage="item.homepageUrl"
+      :icon="item.owner.avatarUrl"
+      :key="item.id"
+      :name="item.name"
+      :url="item.url"
     />
-  </ol>
+  </RecycleScroller>
 </template>

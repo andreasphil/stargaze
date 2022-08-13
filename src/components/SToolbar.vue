@@ -1,6 +1,6 @@
 <template>
   <header
-    class="fixed top-0 left-0 right-0 h-20 flex items-center px-4 shadow-medium bg-$c-surface-bg"
+    class="fixed top-0 left-0 right-0 z-10 h-20 flex items-center px-4 shadow-medium bg-$c-surface-bg"
     f-transition
   >
     <nav f-container class="w-full flex-nowrap">

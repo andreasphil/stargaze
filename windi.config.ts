@@ -9,9 +9,9 @@ export default defineConfig({
   theme: {
     screens: { normal: "800px" },
     boxShadow: {
-      high: "var(--high-shadow-elevation)",
-      medium: "var(--medium-shadow-elevation)",
-      low: "var(--low-shadow-elevation)",
+      high: "var(--shadow-elevation-high)",
+      medium: "var(--shadow-elevation-medium)",
+      low: "var(--shadow-elevation-low)",
     },
   },
   plugins: [lineClamp],

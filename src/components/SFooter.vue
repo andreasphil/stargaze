@@ -6,7 +6,7 @@ import GithubSvg from "/@/assets/github.svg?component";
 <template>
   <footer
     class="w-full text-$c-fg-variant py-20 flex justify-between items-center"
-    f-container
+    data-fine-container
   >
     <small>
       A thing made by <a :href="meta.authorWebsite">{{ meta.author }}.</a>

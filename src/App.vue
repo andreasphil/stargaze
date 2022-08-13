@@ -13,13 +13,7 @@ import SToasterProvider from "./components/SToasterProvider.vue";
 <style>
 :root {
   --body-padding-y: 0;
-  --button-padding-x: 1rem;
-  --button-padding-y: 0.5rem;
-  --h1-font-size: 2.25rem;
-  --input-padding-x: var(--button-padding-x);
-  --input-padding-y: var(--button-padding-y);
   --rem-base: 16px;
-
   --c-primary: hsl(var(--tint), 90%, 70%);
   --tint: 240;
 }

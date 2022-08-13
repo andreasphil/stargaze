@@ -184,7 +184,7 @@ onMounted(() => hydrate());
           <SButton
             @click="signOut"
             class="w-auto text-$c-fg -mr-4 ml-2"
-            f-ghost
+            data-fine-button="ghost"
             label="Sign out"
             tabindex="-1"
           >

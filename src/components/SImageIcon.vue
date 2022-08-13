@@ -16,7 +16,7 @@ defineProps({
     :src="src"
     :width="width"
     class="p-0.5 bg-$c-surface-variant-bg"
-    f-transition
+    data-fine-transition
     loading="lazy"
   />
 </template>

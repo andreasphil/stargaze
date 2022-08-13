@@ -11,7 +11,7 @@
   },
   "dependencies": {
     "cookie": "^0.5.0",
-    "finecss": "github:andreasphil/fine#v0.0.1-alpha.11",
+    "finecss": "github:andreasphil/fine#v0.3.0",
     "js-inverted-index": "github:andreasphil/js-inverted-index#v1.1.0",
     "node-fetch": "^3.2.6",
     "vue": "^3.2.37",

@@ -45,7 +45,7 @@ onMounted(() => {
     <h1 class="font-bold text-$c-primary uppercase my-0">
       <small class="block">Stargaze</small>
     </h1>
-    <h2 class="mt-4 mb-16 text-size-$h1-font-size max-w-[36rem]">
+    <h2 class="mt-4 mb-16 text-size-$font-size-h1 max-w-[36rem]">
       A faster way of browsing and searching your starred repositories on GitHub
     </h2>
     <SButton

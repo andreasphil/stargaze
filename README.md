@@ -49,6 +49,6 @@ Deployment to Netlify is configured in the [netlify.toml file](netlify.toml) and
 Apart from the open source packages listed in [package.json](package.json), Stargaze uses:
 
 - Icons from [Heroicons](https://heroicons.com) and [Feather](https://feathericons.com)
-- Favicons generated with [favicon.io](https://favicon.io)
+- Favicons generated with [IconKitchen](https://icon.kitchen/)
 
 Thanks 🙏

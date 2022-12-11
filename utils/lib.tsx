@@ -47,7 +47,6 @@ export function withLayout(children: ComponentChildren) {
       <Head>
         <title>{META.title}</title>
         <meta name="viewport" content="width=device-width,initial-scale=1" />
-        <meta name="theme-color" content="hsl(240 90% 70%)" />
         <link rel="icon" href="/favicon.ico" sizes="any" />
         <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
         <link rel="stylesheet" href="/style.css" />

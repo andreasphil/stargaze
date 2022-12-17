@@ -24,7 +24,6 @@ export function useConfig() {
       oauthSuccessUrl: "/login",
       loginRedirect: "/stars",
     },
-    host: Deno.env.get("HOSTED_ON") ?? "http://localhost:8000",
   };
 }
 

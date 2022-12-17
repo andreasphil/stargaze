@@ -46,13 +46,7 @@ Once all is set up, run `deno task start` to boot the dev server.
 ## Deployment
 
 Deployment should work out of the box on Deno deploy once you've set the
-environment variables:
-
-```bash
-API_CLIENT_ID=<GitHub app ID>
-API_SECRET=<GitHub app secret>
-HOSTED_ON=<app URL, default: http://localhost:8000>
-```
+environment variables.
 
 ## Credits
 

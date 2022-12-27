@@ -1,10 +1,9 @@
-@import url(./vendor/fine@0.6.0.css) layer(fine);
+@import url(./vendor/fine@0.7.0.css) layer(fine);
 
 :root {
   /* Calculated with https://clamping.andreasphil.com */
   --body-padding-y: clamp(2rem, 8.972vw - 0.125rem, 5rem);
   --theme-primary: 240 90% 70%;
-  --theme-saturate: 0.7;
   --theme-tint: 240;
 }
 
@@ -74,7 +73,7 @@
 .star {
   align-items: center;
   border-radius: var(--border-radius-large);
-  border: 2px solid transparent;
+  border: var(--border-width-large) solid transparent;
   display: flex;
   gap: 1rem;
   margin: 0 -0.5rem;

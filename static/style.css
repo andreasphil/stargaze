@@ -1,10 +1,10 @@
-@import url(./vendor/fine@0.7.0.css) layer(fine);
+@import url(./vendor/fine@v0.8.0.css) layer(fine);
 
 :root {
   /* Calculated with https://clamping.andreasphil.com */
   --body-padding-y: clamp(2rem, 8.972vw - 0.125rem, 5rem);
-  --theme-primary: 240 90% 70%;
-  --theme-tint: 240;
+  --theme-primary: 239 84% 67%;
+  --theme-tint: 239;
 }
 
 /* -------------------------------------------------- *
@@ -39,6 +39,7 @@
 }
 
 .stars__header {
+  box-shadow: var(--shadow-elevation-medium);
   flex-wrap: nowrap;
 }
 

@@ -52,6 +52,7 @@ export const handler: Handlers<HomePageProps["data"]> = {
 export default function Home({ data }: HomePageProps) {
   return withLayout(
     <div data-trim="both" className="home">
+      <img width="64px" height="64px" src="/icon-192.png" />
       <hgroup className="home__title">
         <h1>Stargaze</h1>
         <p>

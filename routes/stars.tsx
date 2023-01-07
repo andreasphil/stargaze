@@ -2,8 +2,10 @@ import StarsList from "$/islands/starsList.tsx";
 import { getStars, getViewer, type Star, type Viewer } from "$/utils/api.ts";
 import { useError, withLayout } from "$/utils/lib.tsx";
 import { Handlers, PageProps } from "$fresh/server.ts";
-import createSearch, { startsWith } from "js-inverted-index/index.ts";
-import { SearchIndexDump } from "js-inverted-index/types.ts";
+import createSearch, {
+  type SearchIndexDump,
+  startsWith,
+} from "js-inverted-index/mod.ts";
 import { getCookies } from "std/http/cookie.ts";
 
 type StarsPageProps = PageProps<{

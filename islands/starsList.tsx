@@ -1,6 +1,5 @@
 import { Star } from "$/utils/api.ts";
-import createSearch from "js-inverted-index/index.ts";
-import { SearchIndexDump } from "js-inverted-index/types.ts";
+import createSearch, { type SearchIndexDump } from "js-inverted-index/mod.ts";
 import { RenderableProps } from "preact";
 import { useEffect, useMemo, useRef, useState } from "preact/hooks";
 

@@ -4,7 +4,7 @@
     "$fresh/": "https://deno.land/x/fresh@1.1.2/",
     "@preact/signals": "https://esm.sh/*@preact/signals@1.0.3",
     "@preact/signals-core": "https://esm.sh/*@preact/signals-core@1.0.1",
-    "js-inverted-index/": "https://cdn.jsdelivr.net/gh/andreasphil/js-inverted-index@v1.2.0/src/",
+    "js-inverted-index/": "https://cdn.jsdelivr.net/gh/andreasphil/js-inverted-index@v1.3.0/",
     "ofetch": "https://esm.sh/ofetch@1.0.0",
     "preact": "https://esm.sh/preact@10.11.0",
     "preact-render-to-string": "https://esm.sh/*preact-render-to-string@5.2.4",

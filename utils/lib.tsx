@@ -9,7 +9,7 @@ import "std/dotenv/load.ts";
 export const META = {
   title: "Stargaze",
   authorName: "Andreas Philippi",
-  authorWebsite: "https://andreasphil.com",
+  authorWebsite: "https://a13i.dev",
   repository: "https://github.com/andreasphil/stargaze",
 } as const;
 

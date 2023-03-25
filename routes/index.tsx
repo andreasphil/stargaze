@@ -60,7 +60,7 @@ export default function Home({ data }: HomePageProps) {
           GitHub.
         </p>
       </hgroup>
-      <a href={data.signInUrl} role="button" data-variant="outline">
+      <a href={data.signInUrl} role="button">
         🐱 Sign in with GitHub
       </a>
     </div>,

@@ -1,4 +1,4 @@
-@import url(./vendor/fine@v0.8.0.css) layer(fine);
+@import url(./vendor/fine@v0.9.1.css) layer(fine);
 
 :root {
   /* Calculated with https://clamping.andreasphil.com */

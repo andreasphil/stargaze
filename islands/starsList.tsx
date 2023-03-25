@@ -102,7 +102,7 @@ export default function StarsList(props: StarsProps) {
             />
             <a
               className="stars__sign-out-btn"
-              data-variant="outline"
+              data-variant="muted"
               href="/logout"
               role="button"
             >

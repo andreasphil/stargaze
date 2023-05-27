@@ -1,0 +1,18 @@
+{
+  "name": "stargaze-vue",
+  "private": true,
+  "version": "2.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@vitejs/plugin-vue": "^4.1.0",
+    "finecss": "github:andreasphil/fine#v0.13.0",
+    "fuse.js": "^6.6.2",
+    "vite": "^4.3.2",
+    "vue": "^3.2.47"
+  }
+}

@@ -1,0 +1,6 @@
+@import "finecss/dist/index.min.css" layer(fine);
+
+:root {
+  --theme-primary: 239 84% 67%;
+  --theme-tint: 239;
+}

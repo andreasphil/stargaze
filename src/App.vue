@@ -1,7 +1,6 @@
 <script setup>
-import { refreshThemeColor, useThemeColor } from "finecss";
+import { useThemeColor } from "finecss";
 import { onMounted } from "vue";
-import { META } from "./lib/config";
 import { useStargazeStorage } from "./lib/data";
 import SHome from "./pages/SHome.vue";
 import SList from "./pages/SList.vue";
@@ -10,13 +9,6 @@ const { username, restoreSession } = useStargazeStorage();
 
 onMounted(() => {
   useThemeColor();
-
-  document.querySelectorAll("link[rel=stylesheet]").forEach((stylesheet) => {
-    stylesheet.addEventListener("load", () => {
-      refreshThemeColor();
-    });
-  });
-
   restoreSession();
 });
 </script>
@@ -25,13 +17,6 @@ onMounted(() => {
   <!-- Page content -->
   <SHome v-if="!username" />
   <SList v-else />
-
-  <footer data-container className="footer">
-    <small>
-      A thing made by <a :href="META.authorWebsite">{{ META.authorName }}</a
-      >. 🐱 <a :href="META.repository">View source</a>.
-    </small>
-  </footer>
 </template>
 
 <style scoped>

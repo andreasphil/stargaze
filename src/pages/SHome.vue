@@ -1,6 +1,5 @@
 <script setup>
 import { ref } from "vue";
-import SLogo from "../components/SLogo.vue";
 import { useStargazeStorage } from "../lib/data";
 
 const { username } = useStargazeStorage();
@@ -13,7 +12,12 @@ function browseStars() {
 
 <template>
   <main :class="[$style.home]" data-container>
-    <SLogo :class="[$style.logo]" />
+    <img
+      :class="[$style.logo]"
+      src="/icon-192.png"
+      width="72"
+      height="72"
+    />
     <hgroup>
       <h1>Stargaze</h1>
       <p>
@@ -77,7 +81,7 @@ function browseStars() {
   box-shadow: var(--shadow-elevation-low);
   display: flex;
   gap: 0.75rem;
-  margin: 1.5rem auto var(--body-padding-y);
+  margin: 1.5rem auto 0;
   max-width: 26rem;
   padding: 0.625rem 1rem;
   text-align: left;

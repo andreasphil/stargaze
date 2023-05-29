@@ -33,6 +33,9 @@ Deployment should work out of the box when linking the repository to a project o
 
 ## Credits
 
-Apart from the open source packages listed in [package.json](package.json), Stargaze uses favicons generated with [IconKitchen](https://icon.kitchen/)
+Apart from the open source packages listed in [package.json](package.json), Stargaze uses:
+
+- Icons from [Lucide](https://lucide.dev)
+- Favicons generated with [IconKitchen](https://icon.kitchen)
 
 Thanks 🙏

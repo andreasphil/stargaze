@@ -1,5 +1,5 @@
 <script setup>
-import { useThemeColor } from "finecss";
+import { refreshThemeColor, useThemeColor } from "finecss";
 import { onMounted } from "vue";
 import { META } from "./lib/config";
 import { useStargazeStorage } from "./lib/data";
@@ -10,6 +10,13 @@ const { username, restoreSession } = useStargazeStorage();
 
 onMounted(() => {
   useThemeColor();
+
+  document.querySelectorAll("link[rel=stylesheet]").forEach((stylesheet) => {
+    stylesheet.addEventListener("load", () => {
+      refreshThemeColor();
+    });
+  });
+
   restoreSession();
 });
 </script>

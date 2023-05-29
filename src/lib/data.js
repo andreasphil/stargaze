@@ -16,8 +16,6 @@ import { computed, ref, watch } from "vue";
  */
 
 export function createStargazeStorage() {
-  console.log("create");
-
   /* -------------------------------------------------- *
    * User                                               *
    * -------------------------------------------------- */

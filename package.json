@@ -9,10 +9,10 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@vitejs/plugin-vue": "^4.5.2",
-    "finecss": "github:andreasphil/fine#v0.20.0",
-    "fuse.js": "^6.6.2",
-    "vite": "^5.0.10",
-    "vue": "^3.3.13"
+    "@vitejs/plugin-vue": "^5.0.4",
+    "finecss": "github:andreasphil/fine#v0.21.0",
+    "fuse.js": "^7.0.0",
+    "vite": "^5.1.5",
+    "vue": "^3.4.21"
   }
 }

@@ -1,5 +1,5 @@
 <script setup>
-import { useThemeColor } from "finecss";
+import { useThemeColor } from "@andreasphil/design-system/scripts/utils";
 import { onMounted } from "vue";
 import { useStargazeStorage } from "./lib/data";
 import SHome from "./pages/SHome.vue";

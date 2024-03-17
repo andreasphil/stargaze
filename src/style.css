@@ -1,4 +1,4 @@
-@import "finecss/dist/index.min.css" layer(fine);
+@import "@andreasphil/design-system/dist/index.min.css" layer(theme);
 
 :root {
   --theme-primary: 240 90% 70%;

@@ -1,0 +1,10 @@
+@import url("https://esm.sh/gh/andreasphil/design-system@v0.25.0/dist/index.min.css")
+layer(theme);
+
+@import url("./home.css");
+@import url("./list.css");
+
+:root {
+  --theme-primary: 240 90% 70%;
+  --theme-tint: 240;
+}

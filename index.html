@@ -3,12 +3,31 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="icon" href="/favicon.ico" sizes="any" />
-    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="apple-touch-icon" href="./assets/apple-touch-icon.png" />
+    <link rel="icon" href="./assets/favicon.ico" sizes="any" />
     <title>Stargaze</title>
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="./styles/styles.css" />
+
+    <!-- External dependencies and aliases -->
+    <script type="importmap">
+      {
+        "imports": {
+          "@/": "./scripts/",
+          "vue": "https://esm.sh/vue@3/dist/vue.esm-browser.js",
+          "@andreasphil/design-system": "https://esm.sh/gh/andreasphil/design-system@v0.25.0",
+          "@andreasphil/js-inverted-index": "https://esm.sh/gh/andreasphil/js-inverted-index@v1.4.1",
+          "@andreasphil/vue-use-async-task": "https://esm.sh/gh/andreasphil/vue-use-async-task@0.2.0"
+        }
+      }
+    </script>
+
+    <!-- App scripts -->
+    <script async type="module" src="./scripts/app.js"></script>
   </head>
+
   <body>
     <div id="app"></div>
-    <script type="module" src="/src/main.js"></script>
   </body>
 </html>

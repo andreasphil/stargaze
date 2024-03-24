@@ -1,5 +1,9 @@
 import { computed, ref, watch } from "vue";
 
+function isDev() {
+  return window.location.hostname === "localhost";
+}
+
 /**
  * @typedef {Object} StarredRepository
  * @prop {string} id
@@ -33,8 +37,8 @@ export function createStargazeStorage() {
    * Starred repositories                               *
    * -------------------------------------------------- */
 
-  /** @type {import("vue").Ref<StarredRepository[]>} */
   const starredRepositories = ref([]);
+
   watch(starredRepositories, (value) => {
     value && value.length
       ? localStorage.setItem("starred", JSON.stringify(value))
@@ -47,7 +51,7 @@ export function createStargazeStorage() {
   async function fetchStarredRepositories() {
     if (!username.value) return;
 
-    if (import.meta.env.DEV && starredRepositories.value?.length > 0) {
+    if (isDev() && starredRepositories.value?.length > 0) {
       console.warn(
         "During development we only fetch stars if no data exists locally in order to avoid getting rate limited by GitHub. Delete `starred` from localStorage and reload the page to fetch new data."
       );

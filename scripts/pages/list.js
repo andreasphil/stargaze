@@ -1,5 +1,6 @@
 import { useStargazeStorage } from "@/data.js";
 import { useFilteredStars } from "@/search.js";
+import { useAsyncTask } from "@andreasphil/vue-use-async-task";
 import { computed, defineComponent, onMounted, onUnmounted, ref } from "vue";
 
 export const List = defineComponent({
@@ -10,13 +11,13 @@ export const List = defineComponent({
 
     const {
       avatarUrl,
-      fetchStarredRepositories,
-      hasError,
-      isLoading,
+      fetchStarredRepositories: load,
       signOut,
     } = useStargazeStorage();
 
-    onMounted(() => fetchStarredRepositories());
+    const { run: runLoad, isLoading, hasError } = useAsyncTask(load);
+
+    onMounted(() => runLoad());
 
     /* -------------------------------------------------- *
      * Searching                                          *

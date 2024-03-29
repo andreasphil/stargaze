@@ -25,6 +25,7 @@ export function createStargazeStorage() {
    * -------------------------------------------------- */
 
   const username = ref("");
+
   watch(username, (value) =>
     value
       ? localStorage.setItem("username", value)
@@ -45,9 +46,6 @@ export function createStargazeStorage() {
       : localStorage.removeItem("starred");
   });
 
-  const hasError = ref(false);
-  const isLoading = ref(false);
-
   async function fetchStarredRepositories() {
     if (!username.value) return;
 
@@ -62,25 +60,17 @@ export function createStargazeStorage() {
     let results = [];
     let pageSize = 100;
     let page = 1;
-    hasError.value = false;
-    isLoading.value = true;
 
-    try {
-      while (!done) {
-        const response = await fetch(
-          `https://api.github.com/users/${username.value}/starred?per_page=${pageSize}&page=${page}`
-        );
+    while (!done) {
+      const response = await fetch(
+        `https://api.github.com/users/${username.value}/starred?per_page=${pageSize}&page=${page}`
+      );
 
-        if (!response.ok) throw new Error();
-        const data = await response.json();
-        done = !data || data.length < pageSize;
-        if (data?.length) results.push(...data);
-        page += 1;
-      }
-    } catch {
-      hasError.value = true;
-    } finally {
-      isLoading.value = false;
+      if (!response.ok) throw new Error();
+      const data = await response.json();
+      done = !data || data.length < pageSize;
+      if (data?.length) results.push(...data);
+      page += 1;
     }
 
     starredRepositories.value = results;
@@ -109,16 +99,12 @@ export function createStargazeStorage() {
 
   return function useStargazeStorage() {
     return {
-      username,
       avatarUrl,
-
       fetchStarredRepositories,
-      hasError,
-      isLoading,
-      starredRepositories,
-
       restoreSession,
       signOut,
+      starredRepositories,
+      username,
     };
   };
 }

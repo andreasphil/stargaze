@@ -16,9 +16,9 @@
         "imports": {
           "@/": "./scripts/",
           "vue": "https://esm.sh/vue@3/dist/vue.esm-browser.js",
-          "@andreasphil/design-system": "https://esm.sh/gh/andreasphil/design-system@v0.25.0",
+          "@andreasphil/design-system": "https://esm.sh/gh/andreasphil/design-system@v0.26.0",
           "@andreasphil/js-inverted-index": "https://esm.sh/gh/andreasphil/js-inverted-index@v1.4.1",
-          "@andreasphil/vue-use-async-task": "https://esm.sh/gh/andreasphil/vue-use-async-task@v0.2.0?external=vue"
+          "@andreasphil/vue-use-async-task": "https://esm.sh/gh/andreasphil/vue-use-async-task@v0.3.0?external=vue"
         }
       }
     </script>
@@ -28,6 +28,13 @@
   </head>
 
   <body>
-    <div id="app"></div>
+    <div data-with-fallback>
+      <div id="app"></div>
+
+      <!-- Show a loading state while the app is starting -->
+      <div data-when="empty">
+        <p aria-busy="true"><small>Loading ...</small></p>
+      </div>
+    </div>
   </body>
 </html>

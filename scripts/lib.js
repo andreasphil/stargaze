@@ -1,8 +1,17 @@
+import createSearch, { startsWith } from "@andreasphil/js-inverted-index";
 import { computed, ref, watch } from "vue";
+
+/* -------------------------------------------------- *
+ * Utilities                                          *
+ * -------------------------------------------------- */
 
 function isDev() {
   return window.location.hostname === "localhost";
 }
+
+/* -------------------------------------------------- *
+ * Data fetching and storage                          *
+ * -------------------------------------------------- */
 
 /**
  * @typedef {Object} StarredRepository
@@ -110,3 +119,36 @@ export function createStargazeStorage() {
 }
 
 export const useStargazeStorage = createStargazeStorage();
+
+/* -------------------------------------------------- *
+ * Search                                             *
+ * -------------------------------------------------- */
+
+export function useFilteredStars(searchTerm) {
+  const { starredRepositories } = useStargazeStorage();
+
+  const searchFn = ref(() => []);
+
+  watch(
+    starredRepositories,
+    (vals) => {
+      const { search, add } = createSearch({
+        fields: ["description", "full_name", "language", "homepage", "topics"],
+        tokenizer: startsWith,
+      });
+
+      add(vals);
+
+      searchFn.value = search;
+    },
+    { immediate: true }
+  );
+
+  const results = computed(() =>
+    searchTerm.value
+      ? searchFn.value(searchTerm.value)
+      : starredRepositories.value
+  );
+
+  return results;
+}

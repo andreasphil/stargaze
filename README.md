@@ -15,7 +15,7 @@
 - 👀 View your most recently starred repositories
 - ⚡️ Filter repositories by name, description, author, and language
 - 🌍 Quickly access the repository or the website (coming soon!)
-- 🤝 Zero tracking and only requires reading permissions to your account
+- 🤝 No login or account access needed
 
 ## Development
 

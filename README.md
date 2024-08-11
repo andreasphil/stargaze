@@ -17,9 +17,13 @@
 - 🌍 Quickly access the repository or the website (coming soon!)
 - 🤝 No login or account access needed
 
+## Usage
+
+Find the app at <https://stargaze.a13i.dev>.
+
 ## Development
 
-The site is a [Vue 3](https://vuejs.org) app based on my [Unbuild](https://github.com/andreasphil/unbuild) template. The setup doesn't use any build steps or package management. You'll need a HTTP server for serving the project during development, since features such as JavaScript modules are not supported by the file protocol. Any server will do. I like [`servor`](https://github.com/lukejacksonn/servor):
+Stargaze is a [Vue 3](https://vuejs.org) app based on the [Unbuild](https://github.com/andreasphil/unbuild) template. The setup doesn't use any build steps or package management. You'll need a HTTP server for serving the project during development, since features such as JavaScript modules are not supported by the file protocol. Any server will do. I like [`servor`](https://github.com/lukejacksonn/servor):
 
 ```sh
 # --browse launches a browser, --reload reloads when files change
@@ -32,6 +36,6 @@ Deployment should work out of the box when linking the repository to a project o
 
 ## Credits
 
-Stargaze uses open source packages listed in [index.html](index.html).
+This app uses a number of open source packages listed in [index.html](index.html).
 
 Thanks 🙏

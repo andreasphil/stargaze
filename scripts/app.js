@@ -27,7 +27,7 @@ export const Home = defineComponent({
   },
 
   template: /* html */ `
-    <main class="home" data-container>
+    <main class="home">
       <img class="logo" src="./assets/icon-192.png" width="72" height="72" />
       <hgroup>
         <h1>Stargaze</h1>

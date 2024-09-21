@@ -12,6 +12,10 @@ layer(theme);
 
 .home {
   text-align: center;
+
+  hgroup {
+    margin-bottom: var(--body-padding-y);
+  }
 }
 
 .logo {
@@ -23,7 +27,7 @@ layer(theme);
 .usernameForm {
   display: flex;
   gap: 0.75rem;
-  margin: var(--body-padding-y) auto 1.5rem;
+  margin: 1.5rem auto;
   max-width: 26rem;
 }
 

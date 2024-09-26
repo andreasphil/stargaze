@@ -37,7 +37,7 @@ export const Home = defineComponent({
         </p>
       </hgroup>
 
-      <form class="usernameForm" @submit.prevent="browseStars()">
+      <form class="username-form" @submit.prevent="browseStars()">
         <label for="ghUsername" data-hidden>Your GitHub username</label>
         <input
           autofocus
@@ -46,14 +46,14 @@ export const Home = defineComponent({
           type="text"
           v-model="usernameModel"
         />
-        <button class="usernameSubmit" data-variant="outline" type="submit">
+        <button class="username-submit" data-variant="outline" type="submit">
           🐱 Browse stars
         </button>
       </form>
 
       <div class="callout">
         <div class="calloutIcon">💡</div>
-        <p class="calloutText">
+        <p class="callout-text">
           This uses GitHub&rsquo;s public API and doesn&rsquo;t require you to sign
           in. Because we rely on public information, Stargaze won&rsquo;t work with
           private profiles.
@@ -143,7 +143,7 @@ export const List = defineComponent({
           <input
             @keydown.enter.stop="jumpToFirstResult($event.metaKey)"
             aria-label="Search"
-            class="searchInput"
+            class="search-input"
             placeholder="Search ..."
             ref="inputEl"
             type="search"
@@ -152,7 +152,7 @@ export const List = defineComponent({
 
           <button
             @click="signOut()"
-            class="signOutBtn"
+            class="sign-out-btn"
             data-variant="muted"
             type="button"
           >
@@ -164,11 +164,11 @@ export const List = defineComponent({
       <!-- Stars list -->
       <main data-with-fallback>
         <div>
-          <ul v-if="starredRepositories?.length" class="starsList">
+          <ul v-if="starredRepositories?.length" class="stars-list">
             <li
               v-for="(s, i) in starredRepositories"
               :key="s.id"
-              class="starsListItem"
+              class="stars-list-item"
             >
               <a
                 :href="s.html_url"
@@ -178,14 +178,14 @@ export const List = defineComponent({
                 <img
                   :src="s.owner.avatar_url"
                   alt=""
-                  class="starIcon"
+                  class="star-icon"
                   height="56"
                   loading="lazy"
                   width="56"
                 />
                 <span>
-                  <strong class="starName">@{{ s.full_name }}</strong>
-                  <small class="starDescription">{{
+                  <strong class="starName" data-clamp="1">@{{ s.full_name }}</strong>
+                  <small class="star-description" data-clamp="1">{{
                     s.description
                   }}</small>
                 </span>
@@ -202,14 +202,15 @@ export const List = defineComponent({
       </main>
 
       <!-- Status notification -->
-      <div class="statusLayout">
+      <div class="status-layout">
         <Transition name="slide">
           <div
             v-if="isLoading || hasError"
-            :aria-busy="isLoading"
+            aria-busy="true"
             class="status"
+            data-color-scheme="inverted"
           >
-            <small class="statusLabel">
+            <small class="status-label">
               <template v-if="!hasError">Fetching your stuff ...</template>
               <template v-else>🚨 Couldn&rsquo;t fetch your stars!</template>
             </small>

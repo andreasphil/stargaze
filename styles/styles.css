@@ -1,4 +1,4 @@
-@import url("https://esm.sh/gh/andreasphil/design-system@v0.34.0/dist/index.min.css")
+@import url("https://esm.sh/gh/andreasphil/design-system@v0.35.0/dist/index.min.css")
 layer(theme);
 
 :root {
@@ -21,17 +21,18 @@ layer(theme);
 .logo {
   border-radius: calc(var(--border-radius-large) * 2);
   box-shadow: var(--shadow-elevation-high);
+  display: block;
   margin: 0 auto;
 }
 
-.usernameForm {
+.username-form {
   display: flex;
   gap: 0.75rem;
   margin: 1.5rem auto;
   max-width: 26rem;
 }
 
-.usernameSubmit {
+.username-submit {
   flex: 0 0 auto;
 }
 
@@ -47,7 +48,7 @@ layer(theme);
   text-align: left;
 }
 
-.calloutText {
+.callout-text {
   color: var(--c-fg-variant);
   font-size: var(--font-size-small);
   margin: 0.15rem 0;
@@ -66,12 +67,12 @@ layer(theme);
   width: 3rem;
 }
 
-.searchInput {
+.search-input {
   width: initial;
   min-width: 6rem;
 }
 
-.signOutBtn {
+.sign-out-btn {
   flex: none;
 }
 
@@ -79,12 +80,12 @@ layer(theme);
  * List of starred repositories                       *
  * -------------------------------------------------- */
 
-.starsList {
+.stars-list {
   padding: 0;
   margin: 0;
 }
 
-.starsListItem {
+.stars-list-item {
   list-style-type: none;
 }
 
@@ -96,6 +97,7 @@ layer(theme);
   gap: 1rem;
   margin: 0 -0.5rem;
   outline: none;
+  overflow: hidden;
   padding: 0.5rem;
   text-decoration: none;
   transition: var(--transition);
@@ -114,7 +116,7 @@ layer(theme);
   }
 }
 
-.starIcon {
+.star-icon {
   background: var(--c-surface-variant-bg);
   border-radius: 100%;
   flex: none;
@@ -124,20 +126,7 @@ layer(theme);
   width: 3.5rem;
 }
 
-.starName {
-  display: block;
-  display: -webkit-box;
-  -webkit-box-orient: vertical;
-  -webkit-line-clamp: 1;
-  overflow: hidden;
-}
-
-.starDescription {
-  display: block;
-  display: -webkit-box;
-  -webkit-box-orient: vertical;
-  -webkit-line-clamp: 1;
-  overflow: hidden;
+.star-description {
   color: var(--c-fg-variant);
 }
 
@@ -145,7 +134,7 @@ layer(theme);
  * Fetch status                                       *
  * -------------------------------------------------- */
 
-.statusLayout {
+.status-layout {
   bottom: var(--body-padding-y);
   display: flex;
   justify-content: center;
@@ -158,13 +147,12 @@ layer(theme);
 .status {
   background: var(--c-surface-bg);
   border-radius: 9999px;
-  box-shadow: var(--shadow-elevation-high);
   color: var(--primary);
   padding: 0.75rem 1.125rem;
   pointer-events: auto;
 }
 
-.statusLabel {
+.status-label {
   color: var(--c-surface-fg);
   font-weight: var(--font-weight-medium);
 }

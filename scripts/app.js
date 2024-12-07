@@ -26,41 +26,39 @@ export const Home = defineComponent({
     return { browseStars, usernameModel };
   },
 
-  template: /* html */ `
-    <main class="home">
+  template: html`<main>
+    <hgroup class="home">
       <img class="logo" src="./assets/icon-192.png" width="72" height="72" />
-      <hgroup>
-        <h1>Stargaze</h1>
-        <p>
-          A faster way of browsing and searching your starred repositories on
-          GitHub.
-        </p>
-      </hgroup>
+      <h1>Stargaze</h1>
+      <p>
+        A faster way of browsing and searching your starred repositories on
+        GitHub.
+      </p>
+    </hgroup>
 
-      <form class="username-form" @submit.prevent="browseStars()">
-        <label for="ghUsername" data-hidden>Your GitHub username</label>
-        <input
-          autofocus
-          id="ghUsername"
-          placeholder="Your GitHub username"
-          type="text"
-          v-model="usernameModel"
-        />
-        <button class="username-submit" data-variant="outline" type="submit">
-          🐱 Browse stars
-        </button>
-      </form>
+    <form class="username-form" @submit.prevent="browseStars()">
+      <label for="ghUsername" data-hidden>Your GitHub username</label>
+      <input
+        autofocus
+        id="ghUsername"
+        placeholder="Your GitHub username"
+        type="text"
+        v-model="usernameModel"
+      />
+      <button class="username-submit" data-variant="outline" type="submit">
+        🐱 Browse stars
+      </button>
+    </form>
 
-      <div class="callout">
-        <div class="calloutIcon">💡</div>
-        <p class="callout-text">
-          This uses GitHub&rsquo;s public API and doesn&rsquo;t require you to sign
-          in. Because we rely on public information, Stargaze won&rsquo;t work with
-          private profiles.
-        </p>
-      </div>
-    </main>
-  `,
+    <div class="callout">
+      <div class="calloutIcon">💡</div>
+      <p class="callout-text">
+        This uses GitHub&rsquo;s public API and doesn&rsquo;t require you to
+        sign in. Because we rely on public information, Stargaze won&rsquo;t
+        work with private profiles.
+      </p>
+    </div>
+  </main>`,
 });
 
 /* -------------------------------------------------- *
@@ -127,97 +125,96 @@ export const List = defineComponent({
     };
   },
 
-  template: /* html */ `
-    <div data-nav="fixed">
-      <header>
-        <nav data-variant="fixed" class="header">
+  template: html`<div data-nav="fixed">
+    <header>
+      <nav data-variant="fixed" class="header">
+        <strong>
           <img
-            v-if="avatarUrl"
-            :src="avatarUrl"
+            src="./assets/icon-192.png"
+            class="logo"
+            width="36"
+            height="36"
             alt=""
-            class="avatar"
-            height="48"
-            width="48"
-          />
+          />Stargaze
+        </strong>
 
-          <input
-            @keydown.enter.stop="jumpToFirstResult($event.metaKey)"
-            aria-label="Search"
-            class="search-input"
-            placeholder="Search ..."
-            ref="inputEl"
-            type="search"
-            v-model="searchTerm"
-          />
+        <input
+          @keydown.enter.stop="jumpToFirstResult($event.metaKey)"
+          aria-label="Search"
+          class="search-input"
+          placeholder="Search..."
+          ref="inputEl"
+          type="search"
+          v-model="searchTerm"
+        />
 
-          <button
-            @click="signOut()"
-            class="sign-out-btn"
-            data-variant="muted"
-            type="button"
-          >
-            👋 Leave
-          </button>
-        </nav>
-      </header>
+        <button
+          @click="signOut()"
+          class="sign-out-btn"
+          data-variant="muted"
+          type="button"
+        >
+          <img :src="avatarUrl" alt="" class="avatar" />
+          Leave
+        </button>
+      </nav>
+    </header>
 
-      <!-- Stars list -->
-      <main data-with-fallback>
-        <div>
-          <ul v-if="starredRepositories?.length" class="stars-list">
-            <li
-              v-for="(s, i) in starredRepositories"
-              :key="s.id"
-              class="stars-list-item"
+    <!-- Stars list -->
+    <main data-with-fallback>
+      <div>
+        <ul v-if="starredRepositories?.length" class="stars">
+          <li v-for="(s, i) in starredRepositories" :key="s.id" class="star">
+            <a
+              :href="s.html_url"
+              :ref="(el) => i === 0 && (firstResult = el)"
+              :title="s.full_name"
             >
-              <a
-                :href="s.html_url"
-                :ref="(el) => i === 0 && (firstResult = el)"
-                class="star"
+              <img
+                :src="s.owner.avatar_url"
+                alt=""
+                class="star-icon"
+                loading="lazy"
+              />
+              <strong class="star-title" data-clamp="1">
+                @{{ s.full_name }}
+              </strong>
+              <small
+                v-if="s.description"
+                class="star-description"
+                data-clamp="2"
               >
-                <img
-                  :src="s.owner.avatar_url"
-                  alt=""
-                  class="star-icon"
-                  height="56"
-                  loading="lazy"
-                  width="56"
-                />
-                <span>
-                  <strong class="starName" data-clamp="1">@{{ s.full_name }}</strong>
-                  <small class="star-description" data-clamp="1">{{
-                    s.description
-                  }}</small>
-                </span>
-              </a>
-            </li>
-          </ul>
-        </div>
-
-        <!-- Empty state -->
-        <div data-when="empty">
-          <p>😵‍💫</p>
-          <p>Sorry, couldn&rsquo;t find anything.</p>
-        </div>
-      </main>
-
-      <!-- Status notification -->
-      <div class="status-layout">
-        <Transition name="slide">
-          <div
-            v-if="isLoading || hasError"
-            aria-busy="true"
-            class="status"
-            data-color-scheme="inverted"
-          >
-            <small class="status-label">
-              <template v-if="!hasError">Fetching your stuff ...</template>
-              <template v-else>🚨 Couldn&rsquo;t fetch your stars!</template>
-            </small>
-          </div>
-        </Transition>
+                {{ s.description }}
+              </small>
+            </a>
+          </li>
+        </ul>
       </div>
-    </div>`,
+
+      <!-- Empty state -->
+      <div data-when="empty">
+        <p>😵‍💫</p>
+        <p>Sorry, couldn&rsquo;t find anything.</p>
+      </div>
+    </main>
+
+    <!-- Status notification -->
+    <div class="status-layout">
+      <Transition name="slide">
+        <div
+          v-if="isLoading || hasError"
+          aria-busy="true"
+          class="status"
+          data-color-scheme="inverted"
+        >
+          <small class="status-label">
+            <template v-if="!hasError">Fetching your stuff ...</template>
+            <template v-else>🚨 Couldn&rsquo;t fetch your stars!</template>
+          </small>
+        </div>
+      </Transition>
+    </div>
+  </div>`,
 });
 
 /* -------------------------------------------------- *
@@ -238,7 +235,7 @@ const App = defineComponent({
 
   components: { Home, List },
 
-  template: /* html */ `
+  template: html`
     <!-- Page content -->
     <Home v-if="!username" />
     <List v-else />

@@ -12,17 +12,17 @@ layer(theme);
 
 .home {
   text-align: center;
+  margin-bottom: var(--body-padding-y);
 
-  hgroup {
-    margin-bottom: var(--body-padding-y);
+  img {
+    display: block;
+    margin: auto;
   }
 }
 
 .logo {
-  border-radius: calc(var(--border-radius-large) * 2);
+  border-radius: 30%;
   box-shadow: var(--shadow-elevation-high);
-  display: block;
-  margin: 0 auto;
 }
 
 .username-form {
@@ -62,9 +62,8 @@ layer(theme);
   background: var(--c-surface-variant-bg);
   border-radius: 100%;
   flex: none;
-  height: 3rem;
-  padding: 2px;
-  width: 3rem;
+  height: 1.5rem;
+  width: 1.5rem;
 }
 
 .search-input {
@@ -80,54 +79,65 @@ layer(theme);
  * List of starred repositories                       *
  * -------------------------------------------------- */
 
-.stars-list {
-  padding: 0;
+.stars {
+  display: grid;
+  gap: 1.5rem;
+  grid-auto-rows: 1fr;
+  grid-template-columns: repeat(auto-fill, minmax(14rem, 1fr));
+  list-style-type: none;
   margin: 0;
+  padding: 0;
 }
 
-.stars-list-item {
-  list-style-type: none;
+:root:has(.stars) {
+  --body-width: 92rem;
 }
 
 .star {
-  align-items: center;
-  border-radius: var(--border-radius-large);
-  border: var(--border-width-large) solid transparent;
-  display: flex;
-  gap: 1rem;
-  margin: 0 -0.5rem;
-  outline: none;
-  overflow: hidden;
-  padding: 0.5rem;
-  text-decoration: none;
-  transition: var(--transition);
-  transition-property: background-color, color;
+  height: 100%;
+  margin: 0;
 
-  &:hover {
-    background: var(--c-surface-variant-bg);
-  }
+  a {
+    background-color: var(--c-surface-bg);
+    border-radius: var(--border-radius);
+    border: var(--border-width-large) solid transparent;
+    box-shadow: var(--shadow-elevation-low);
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    height: 100%;
+    padding: 1rem 1.125rem;
+    text-decoration: none;
+    transition-property: border-color, color, background-color;
 
-  &:focus {
-    border-color: var(--primary);
-  }
-
-  &:focus:hover {
-    background: var(--primary-50);
+    &:hover,
+    &:focus-visible {
+      border-color: var(--primary);
+      outline: none;
+    }
   }
 }
 
 .star-icon {
   background: var(--c-surface-variant-bg);
   border-radius: 100%;
-  flex: none;
-  height: 3.5rem;
-  overflow: clip;
-  padding: 2px;
-  width: 3.5rem;
+  height: 3rem;
+  margin-bottom: 1.5rem;
+  position: relative;
+  width: 3rem;
+}
+
+.star-title {
+  font-weight: var(--font-weight-medium);
+  line-height: 1.25;
+  margin-top: auto;
 }
 
 .star-description {
   color: var(--c-fg-variant);
+  font-size: var(--font-size-small);
+  font-weight: var(--font-weight-medium);
+  line-height: 1.25;
 }
 
 /* -------------------------------------------------- *

@@ -6,12 +6,6 @@
   <strong>A faster way of browsing and searching your starred repositories on GitHub</strong>
 </p>
 
-<p align="center">
-<a href="https://app.netlify.com/sites/andreasphil-stargaze/deploys">
-   <img src="https://api.netlify.com/api/v1/badges/2995cd1d-4c6a-422d-a6ca-d1d7ccd41119/deploy-status" alt="Netlify Status" />
-</a>
-</p>
-
 - 👀 View your most recently starred repositories
 - ⚡️ Filter repositories by name, description, author, and language
 - 🌍 Quickly access the repository or the website (coming soon!)
@@ -19,7 +13,7 @@
 
 ## Usage
 
-Find the app at <https://stargaze.a13i.dev>.
+Find the app at <https://andreasphil.github.io/stargaze/>.
 
 ## Development
 
@@ -32,10 +26,10 @@ npx servor --browse --reload
 
 ## Deployment
 
-Deployment should work out of the box when linking the repository to a project on [Netlify](https://netlify.com).
+Deployment should work out of the box on GitHub Pages.
 
 ## Credits
 
-This app uses a number of open source packages listed in [index.html](index.html).
+This app uses a number of open source packages found in [`vendor`](./vendor).
 
 Thanks 🙏

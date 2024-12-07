@@ -1,9 +1,9 @@
-@import url("https://esm.sh/gh/andreasphil/design-system@v0.35.0/dist/index.min.css")
+@import url("../vendor/andreasphil/design-system@v0.39.0/dist/index.min.css")
 layer(theme);
 
 :root {
-  --theme-primary: 240 90% 70%;
-  --theme-tint: 240;
+  --theme-tint: 280;
+  --theme-primary: 70% 0.2 280;
 }
 
 /* -------------------------------------------------- *

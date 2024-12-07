@@ -1,9 +1,13 @@
 {
   "compilerOptions": {
     "checkJs": true,
-    "paths": { "@/*": ["./scripts/*"] },
-    "target": "es2022",
+    "target": "es2023",
     "moduleResolution": "bundler",
-    "module": "ES2022"
+    "module": "es2022",
+    "paths": {
+      "@/*": ["./scripts/*"],
+      "@vendor/*": ["./vendor/*"],
+      "vue": ["./vendor/vue@3.5.13/dist/vue.esm-browser.prod.js"]
+    }
   }
 }

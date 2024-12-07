@@ -1,4 +1,6 @@
-import createSearch, { startsWith } from "@andreasphil/js-inverted-index";
+import createSearch, {
+  startsWith,
+} from "@vendor/andreasphil/js-inverted-index@v1.7.0/dist/lib.js";
 import { computed, ref, watch } from "vue";
 
 /* -------------------------------------------------- *

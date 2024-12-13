@@ -79,6 +79,22 @@ layer(theme);
  * List of starred repositories                       *
  * -------------------------------------------------- */
 
+.stars-header {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 2rem;
+
+  span {
+    color: var(--primary);
+    font-weight: var(--font-weight-medium);
+    font-size: var(--font-size-small);
+  }
+
+  label {
+    margin-left: auto;
+  }
+}
+
 .stars {
   display: grid;
   gap: 1.5rem;

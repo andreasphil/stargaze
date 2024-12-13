@@ -8,6 +8,8 @@ import {
   onMounted,
   onUnmounted,
   ref,
+  useTemplateRef,
+  watch,
 } from "vue";
 
 /* -------------------------------------------------- *
@@ -110,6 +112,16 @@ export const List = defineComponent({
     }
 
     /* -------------------------------------------------- *
+     * Website links                                      *
+     * -------------------------------------------------- */
+
+    const preferWebsite = ref(localStorage.getItem("prefer-website") === "true");
+
+    watch(preferWebsite, (is) => {
+      localStorage.setItem("prefer-website", is.toString());
+    });
+
+    /* -------------------------------------------------- *
      * Component scope                                    *
      * -------------------------------------------------- */
 
@@ -122,11 +134,11 @@ export const List = defineComponent({
       searchTerm,
       signOut,
       starredRepositories,
+      preferWebsite,
     };
   },
 
-  template: html`<div data-nav="fixed">
-    <header>
+  template: html`<header>
       <nav data-variant="fixed" class="header">
         <strong>
           <img
@@ -163,38 +175,51 @@ export const List = defineComponent({
     <!-- Stars list -->
     <main data-with-fallback>
       <div>
-        <ul v-if="starredRepositories?.length" class="stars">
-          <li v-for="(s, i) in starredRepositories" :key="s.id" class="star">
-            <a
-              :href="s.html_url"
-              :ref="(el) => i === 0 && (firstResult = el)"
-              :title="s.full_name"
+        <template v-if="starredRepositories?.length">
+          <div class="stars-header">
+            <span>{{ starredRepositories.length }} items</span>
+            <label
+              ><input
+                role="switch"
+                type="checkbox"
+                v-model="preferWebsite"
+              />Prefer website</label
             >
-              <img
-                :src="s.owner.avatar_url"
-                alt=""
-                class="star-icon"
-                loading="lazy"
-              />
-              <strong class="star-title" data-clamp="1">
-                @{{ s.full_name }}
-              </strong>
-              <small
-                v-if="s.description"
-                class="star-description"
-                data-clamp="2"
+          </div>
+
+          <ul class="stars">
+            <li v-for="(s, i) in starredRepositories" :key="s.id" class="star">
+              <a
+                :href="preferWebsite && s.homepage ? s.homepage : s.html_url"
+                :ref="(el) => i === 0 && (firstResult = el)"
+                :title="s.full_name"
               >
-                {{ s.description }}
-              </small>
-            </a>
-          </li>
-        </ul>
+                <img
+                  :src="s.owner.avatar_url"
+                  alt=""
+                  class="star-icon"
+                  loading="lazy"
+                />
+                <strong class="star-title" data-clamp="1">
+                  @{{ s.full_name }}
+                </strong>
+                <small
+                  v-if="s.description"
+                  class="star-description"
+                  data-clamp="2"
+                >
+                  {{ s.description }}
+                </small>
+              </a>
+            </li>
+          </ul>
+        </template>
       </div>
 
       <!-- Empty state -->
       <div data-when="empty">
-        <p>😵‍💫</p>
-        <p>Sorry, couldn&rsquo;t find anything.</p>
+        <p>🫣</p>
+        <p>Nothing to see here.</p>
       </div>
     </main>
 

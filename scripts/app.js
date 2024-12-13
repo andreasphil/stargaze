@@ -81,7 +81,15 @@ export const List = defineComponent({
 
     const { run: runLoad, isLoading, hasError } = useAsyncTask(load);
 
-    onMounted(() => runLoad());
+    onMounted(async () => {
+      notificationEl.value?.showPopover();
+      const [, error] = await runLoad();
+      if (!error) {
+        notificationEl.value?.hidePopover();
+      }
+    });
+
+    const notificationEl = useTemplateRef("notificationEl");
 
     /* -------------------------------------------------- *
      * Searching                                          *
@@ -223,23 +231,16 @@ export const List = defineComponent({
       </div>
     </main>
 
-    <!-- Status notification -->
-    <div class="status-layout">
-      <Transition name="slide">
-        <div
-          v-if="isLoading || hasError"
-          aria-busy="true"
-          class="status"
-          data-color-scheme="inverted"
-        >
-          <small class="status-label">
-            <template v-if="!hasError">Fetching your stuff ...</template>
-            <template v-else>🚨 Couldn&rsquo;t fetch your stars!</template>
-          </small>
-        </div>
-      </Transition>
-    </div>
-  </div>`,
+    <div
+      :aria-busy="isLoading"
+      class="notification"
+      data-color-scheme="inverted"
+      popover="manual"
+      ref="notificationEl"
+    >
+      <template v-if="!hasError">Fetching your stuff ...</template>
+      <template v-else>🚨 Couldn&rsquo;t fetch your stars!</template>
+    </div>`,
 });
 
 /* -------------------------------------------------- *

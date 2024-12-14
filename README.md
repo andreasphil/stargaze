@@ -13,7 +13,7 @@
 
 ## Usage
 
-Find the app at <https://andreasphil.github.io/stargaze/>.
+Find the app at <https://stargaze.a13i.dev>.
 
 ## Development
 

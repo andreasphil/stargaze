@@ -1,6 +1,6 @@
 import { html, useFilteredStars, useStargazeStorage } from "@/lib.js";
-import { useThemeColor } from "@vendor/andreasphil/design-system@v0.39.0/scripts/utils.js";
-import { useAsyncTask } from "@vendor/andreasphil/vue-use-async-task@v0.5.0/dist/lib.js";
+import { useThemeColor } from "@vendor/andreasphil/design-system@v0.40.0/scripts/utils.js";
+import { useAsyncTask } from "@vendor/andreasphil/vue-use-async-task@v0.7.0/dist/useAsyncTask.js";
 import {
   computed,
   createApp,
@@ -123,7 +123,9 @@ export const List = defineComponent({
      * Website links                                      *
      * -------------------------------------------------- */
 
-    const preferWebsite = ref(localStorage.getItem("prefer-website") === "true");
+    const preferWebsite = ref(
+      localStorage.getItem("prefer-website") === "true"
+    );
 
     watch(preferWebsite, (is) => {
       localStorage.setItem("prefer-website", is.toString());

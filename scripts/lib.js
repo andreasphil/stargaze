@@ -3,9 +3,7 @@ import createSearch, {
 } from "@vendor/andreasphil/js-inverted-index@v1.8.0/dist/invertedIndex.js";
 import { computed, ref, watch } from "vue";
 
-/* -------------------------------------------------- *
- * Utils                                              *
- * -------------------------------------------------- */
+// Utils --------------------------------------------------
 
 /**
  * @param {TemplateStringsArray} strings
@@ -24,9 +22,7 @@ function isDev() {
   return window.location.hostname === "localhost";
 }
 
-/* -------------------------------------------------- *
- * Data fetching and storage                          *
- * -------------------------------------------------- */
+// Data fetching and storage ------------------------------
 
 /**
  * @typedef {Object} StarredRepository
@@ -44,9 +40,7 @@ function isDev() {
  */
 
 export function createStargazeStorage() {
-  /* -------------------------------------------------- *
-   * User                                               *
-   * -------------------------------------------------- */
+  // User ---------------------------------------------------
 
   const username = ref("");
 
@@ -58,9 +52,7 @@ export function createStargazeStorage() {
 
   const avatarUrl = computed(() => `https://github.com/${username.value}.png`);
 
-  /* -------------------------------------------------- *
-   * Starred repositories                               *
-   * -------------------------------------------------- */
+  // Starred repositories -----------------------------------
 
   const starredRepositories = ref([]);
 
@@ -100,9 +92,7 @@ export function createStargazeStorage() {
     starredRepositories.value = results;
   }
 
-  /* -------------------------------------------------- *
-   * Session management                                 *
-   * -------------------------------------------------- */
+  // Session management -------------------------------------
 
   function restoreSession() {
     username.value = localStorage.getItem("username") ?? "";
@@ -135,9 +125,7 @@ export function createStargazeStorage() {
 
 export const useStargazeStorage = createStargazeStorage();
 
-/* -------------------------------------------------- *
- * Search                                             *
- * -------------------------------------------------- */
+// Search -------------------------------------------------
 
 export function useFilteredStars(searchTerm) {
   const { starredRepositories } = useStargazeStorage();

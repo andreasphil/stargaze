@@ -1,4 +1,4 @@
-@import url("../vendor/andreasphil/design-system@v0.40.0/dist/design-system.min.css")
+@import url("../vendor/andreasphil/design-system@v0.43.0/dist/design-system.min.css")
 layer(theme);
 
 :root {
@@ -6,9 +6,7 @@ layer(theme);
   --theme-primary: 70% 0.2 280;
 }
 
-/* -------------------------------------------------- *
- * Home page                                          *
- * -------------------------------------------------- */
+/* Home page ------------------------------------------- */
 
 .home {
   text-align: center;
@@ -54,9 +52,7 @@ layer(theme);
   margin: 0.15rem 0;
 }
 
-/* -------------------------------------------------- *
- * Header                                             *
- * -------------------------------------------------- */
+/* Header ---------------------------------------------- */
 
 .avatar {
   background: var(--c-surface-variant-bg);
@@ -75,9 +71,7 @@ layer(theme);
   flex: none;
 }
 
-/* -------------------------------------------------- *
- * List of starred repositories                       *
- * -------------------------------------------------- */
+/* List of starred repositories ------------------------ */
 
 .stars-header {
   display: flex;
@@ -156,9 +150,7 @@ layer(theme);
   line-height: 1.25;
 }
 
-/* -------------------------------------------------- *
- * Fetch status                                       *
- * -------------------------------------------------- */
+/* Fetch status ---------------------------------------- */
 
 .notification {
   background: var(--c-surface-bg);

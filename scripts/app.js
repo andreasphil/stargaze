@@ -1,5 +1,5 @@
 import { html, useFilteredStars, useStargazeStorage } from "@/lib.js";
-import { useThemeColor } from "@vendor/andreasphil/design-system@v0.40.0/scripts/utils.js";
+import { useThemeColor } from "@vendor/andreasphil/design-system@v0.43.0/scripts/utils.js";
 import { useAsyncTask } from "@vendor/andreasphil/vue-use-async-task@v0.7.0/dist/useAsyncTask.js";
 import {
   computed,
@@ -12,9 +12,7 @@ import {
   watch,
 } from "vue";
 
-/* -------------------------------------------------- *
- * Home                                               *
- * -------------------------------------------------- */
+// Home ---------------------------------------------------
 
 export const Home = defineComponent({
   setup() {
@@ -63,15 +61,11 @@ export const Home = defineComponent({
   </main>`,
 });
 
-/* -------------------------------------------------- *
- * Stars list                                         *
- * -------------------------------------------------- */
+// Stars list ---------------------------------------------
 
 export const List = defineComponent({
   setup() {
-    /* -------------------------------------------------- *
-     * API data                                           *
-     * -------------------------------------------------- */
+    // API data -----------------------------------------------
 
     const {
       avatarUrl,
@@ -91,9 +85,7 @@ export const List = defineComponent({
 
     const notificationEl = useTemplateRef("notificationEl");
 
-    /* -------------------------------------------------- *
-     * Searching                                          *
-     * -------------------------------------------------- */
+    // Searching ----------------------------------------------
 
     const searchTerm = ref("");
     const inputEl = ref();
@@ -119,9 +111,7 @@ export const List = defineComponent({
       window.open(firstResultLink.value, targetBlank ? "_blank" : "_self");
     }
 
-    /* -------------------------------------------------- *
-     * Website links                                      *
-     * -------------------------------------------------- */
+    // Website links ------------------------------------------
 
     const preferWebsite = ref(
       localStorage.getItem("prefer-website") === "true"
@@ -131,9 +121,7 @@ export const List = defineComponent({
       localStorage.setItem("prefer-website", is.toString());
     });
 
-    /* -------------------------------------------------- *
-     * Component scope                                    *
-     * -------------------------------------------------- */
+    // Component scope ----------------------------------------
 
     return {
       avatarUrl,
@@ -245,9 +233,7 @@ export const List = defineComponent({
     </div>`,
 });
 
-/* -------------------------------------------------- *
- * App                                                *
- * -------------------------------------------------- */
+// App ----------------------------------------------------
 
 const App = defineComponent({
   setup() {

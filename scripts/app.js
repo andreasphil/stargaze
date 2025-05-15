@@ -1,5 +1,5 @@
 import { html, useFilteredStars, useStargazeStorage } from "@/lib.js";
-import { useThemeColor } from "@vendor/andreasphil/design-system@v0.43.0/scripts/utils.js";
+import { useThemeColor } from "@vendor/andreasphil/design-system@v0.45.0/scripts/utils.js";
 import { useAsyncTask } from "@vendor/andreasphil/vue-use-async-task@v0.7.0/dist/useAsyncTask.js";
 import {
   computed,
@@ -103,7 +103,7 @@ export const List = defineComponent({
     const starredRepositories = useFilteredStars(searchTerm);
 
     const firstResultLink = computed(
-      () => starredRepositories.value[0]?.html_url
+      () => starredRepositories.value[0]?.html_url,
     );
 
     function jumpToFirstResult(targetBlank) {
@@ -114,7 +114,7 @@ export const List = defineComponent({
     // Website links ------------------------------------------
 
     const preferWebsite = ref(
-      localStorage.getItem("prefer-website") === "true"
+      localStorage.getItem("prefer-website") === "true",
     );
 
     watch(preferWebsite, (is) => {

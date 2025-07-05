@@ -4,7 +4,7 @@ source vendor/andreasphil/minipack@v0.4.0/pack
 
 # Add your dependencies here
 get_from_github andreasphil/minipack v0.4.0
-get_from_github andreasphil/design-system v0.45.0 "**/{*LICENSE*,dist/*,scripts/*}"
+get_from_github andreasphil/design-system v0.49.0 "**/{*LICENSE*,dist/*,scripts/*}"
 get_from_github andreasphil/js-inverted-index v1.8.0 "**/{*LICENSE*,dist/*}"
 get_from_github andreasphil/vue-use-async-task v0.7.0 "**/{*LICENSE*,dist/*}"
 get_from_npm vue@3.5.13 "**/{*LICENSE*,dist/vue.esm-browser.*}"

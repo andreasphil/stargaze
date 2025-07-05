@@ -1,5 +1,5 @@
 import { html, useFilteredStars, useStargazeStorage } from "@/lib.js";
-import { useThemeColor } from "@vendor/andreasphil/design-system@v0.45.0/scripts/utils.js";
+import { useThemeColor } from "@vendor/andreasphil/design-system@v0.49.0/scripts/utils.js";
 import { useAsyncTask } from "@vendor/andreasphil/vue-use-async-task@v0.7.0/dist/useAsyncTask.js";
 import {
   computed,

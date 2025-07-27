@@ -2,11 +2,8 @@
 
 # Strict mode ---------------------------------------------
 
-set -u            # no unset variables
-set -e            # exit immediately on error
-set -E            # inherit -e in functions
-set -o pipefail   # return value of pipeline is rightmost return
-IFS=$'\n\t'       # only allow tab and newline as separators
+set -ueEo pipefail
+IFS=$'\n\t'
 
 # Utilities -----------------------------------------------
 
@@ -37,7 +34,7 @@ _log() {
 #   _require <command>
 _require() {
   if ! type "$1" &>/dev/null; then
-    printf "\033[0;31m\033[1mERROR\033[0m required dependency %s is missing\n" $1
+    printf "\033[0;31m\033[1mERROR\033[0m required dependency %s is missing\n" "$1"
     exit 1
   fi
 }
@@ -96,7 +93,7 @@ _download_and_unpack() {
   tar -xf "$temp.tar.gz" -C "$temp" --strip-components=1
 
   cd "$(_temp_dir)" &>/dev/null
-  fd --glob "$keep_glob" --full-path "$identifier" -x rsync -R {} ".."
+  fd --no-ignore-vcs --glob "$keep_glob" --full-path "$identifier" -x rsync -rR {} ".."
   cd - &>/dev/null
 
   _log info "successfully loaded $identifier!"

@@ -1,5 +1,5 @@
 import { html, useFilteredStars, useStargazeStorage } from "@/lib.js";
-import { useThemeColor } from "@vendor/andreasphil/design-system@v0.49.0/scripts/utils.js";
+import { useThemeColor } from "@vendor/andreasphil/design-system@v0.52.0/scripts/utils.js";
 import { useAsyncTask } from "@vendor/andreasphil/vue-use-async-task@v0.7.0/dist/useAsyncTask.js";
 import {
   computed,
@@ -26,9 +26,14 @@ export const Home = defineComponent({
     return { browseStars, usernameModel };
   },
 
-  template: html`<main>
-    <hgroup class="home">
-      <img class="logo" src="./assets/icon-192.png" width="72" height="72" />
+  template: html`<main class="trim">
+    <hgroup class="text-center margin-y-body">
+      <img
+        class="rounded-squircle shadow-high"
+        src="./assets/icon-192.png"
+        width="72"
+        height="72"
+      />
       <h1>Stargaze</h1>
       <p>
         A faster way of browsing and searching your starred repositories on
@@ -37,7 +42,9 @@ export const Home = defineComponent({
     </hgroup>
 
     <form class="username-form" @submit.prevent="browseStars()">
-      <label for="ghUsername" data-hidden>Your GitHub username</label>
+      <label for="ghUsername" class="visually-hidden"
+        >Your GitHub username</label
+      >
       <input
         autofocus
         id="ghUsername"
@@ -45,7 +52,7 @@ export const Home = defineComponent({
         type="text"
         v-model="usernameModel"
       />
-      <button class="username-submit" data-variant="outline" type="submit">
+      <button class="username-submit" variant="outline" type="submit">
         🐱 Browse stars
       </button>
     </form>
@@ -137,11 +144,11 @@ export const List = defineComponent({
   },
 
   template: html`<header>
-      <nav data-variant="fixed" class="header">
+      <nav fixed class="header">
         <strong>
           <img
             src="./assets/icon-192.png"
-            class="logo"
+            class="rounded-squircle shadow-high"
             width="36"
             height="36"
             alt=""
@@ -161,7 +168,7 @@ export const List = defineComponent({
         <button
           @click="signOut()"
           class="sign-out-btn"
-          data-variant="muted"
+          variant="muted"
           type="button"
         >
           <img :src="avatarUrl" alt="" class="avatar" />
@@ -171,11 +178,13 @@ export const List = defineComponent({
     </header>
 
     <!-- Stars list -->
-    <main data-with-fallback>
+    <main has-fallback>
       <div>
         <template v-if="starredRepositories?.length">
           <div class="stars-header">
-            <span>{{ starredRepositories.length }} items</span>
+            <small class="color-primary font-weight-medium">
+              {{ starredRepositories.length }} items
+            </small>
             <label
               ><input
                 role="switch"
@@ -198,13 +207,11 @@ export const List = defineComponent({
                   class="star-icon"
                   loading="lazy"
                 />
-                <strong class="star-title" data-clamp="1">
-                  @{{ s.full_name }}
-                </strong>
+                <strong class="star-title clamp">@{{ s.full_name }}</strong>
                 <small
                   v-if="s.description"
-                  class="star-description"
-                  data-clamp="2"
+                  class="star-description clamp"
+                  style="--clamp: 2;"
                 >
                   {{ s.description }}
                 </small>
@@ -215,7 +222,7 @@ export const List = defineComponent({
       </div>
 
       <!-- Empty state -->
-      <div data-when="empty">
+      <div fallback-for="empty">
         <p>🫣</p>
         <p>Nothing to see here.</p>
       </div>
@@ -224,7 +231,6 @@ export const List = defineComponent({
     <div
       :aria-busy="isLoading"
       class="notification"
-      data-color-scheme="inverted"
       popover="manual"
       ref="notificationEl"
     >

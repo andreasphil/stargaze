@@ -1,4 +1,4 @@
-@import url("../vendor/andreasphil/design-system@v0.49.0/dist/design-system.min.css")
+@import url("../vendor/andreasphil/design-system@v0.52.0/dist/design-system.min.css")
 layer(theme);
 
 :root {
@@ -7,21 +7,6 @@ layer(theme);
 }
 
 /* Home page ------------------------------------------- */
-
-.home {
-  text-align: center;
-  margin-bottom: var(--body-padding-y);
-
-  img {
-    display: block;
-    margin: auto;
-  }
-}
-
-.logo {
-  border-radius: 30%;
-  box-shadow: var(--shadow-elevation-high);
-}
 
 .username-form {
   display: flex;
@@ -67,22 +52,12 @@ layer(theme);
   min-width: 6rem;
 }
 
-.sign-out-btn {
-  flex: none;
-}
-
 /* List of starred repositories ------------------------ */
 
 .stars-header {
   display: flex;
   gap: 1rem;
   margin-bottom: 2rem;
-
-  span {
-    color: var(--primary);
-    font-weight: var(--font-weight-medium);
-    font-size: var(--font-size-small);
-  }
 
   label {
     margin-left: auto;
@@ -157,6 +132,7 @@ layer(theme);
   border-radius: 9999px;
   border: none;
   color: var(--c-surface-fg);
+  color-scheme: dark;
   font-size: var(--font-size-small);
   font-weight: var(--font-weight-medium);
   inset-block: auto var(--body-padding-y);
@@ -180,5 +156,9 @@ layer(theme);
 
   &[aria-busy]::before {
     color: var(--primary);
+  }
+
+  @media (prefers-color-scheme: dark) {
+    color-scheme: light;
   }
 }

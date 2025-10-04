@@ -51,7 +51,7 @@ export const Home = defineComponent({
         type="text"
         v-model="usernameModel"
       />
-      <button class="username-submit" variant="outline" type="submit">
+      <button class="username-submit" variant="secondary" type="submit">
         🐱 Browse stars
       </button>
     </form>
@@ -199,21 +199,15 @@ export const List = defineComponent({
                 :href="preferWebsite && s.homepage ? s.homepage : s.html_url"
                 :ref="(el) => i === 0 && (firstResult = el)"
                 :title="s.full_name"
+                class="card"
               >
-                <img
-                  :src="s.owner.avatar_url"
-                  alt=""
-                  class="star-icon"
-                  loading="lazy"
-                />
-                <strong class="star-title clamp">@{{ s.full_name }}</strong>
-                <small
-                  v-if="s.description"
-                  class="star-description clamp"
-                  style="--clamp: 2;"
-                >
+                <header>
+                  <img :src="s.owner.avatar_url" alt="" loading="lazy" />
+                </header>
+                <p class="clamp">@{{ s.full_name }}</p>
+                <p v-if="s.description" class="clamp" style="--clamp: 2;">
                   {{ s.description }}
-                </small>
+                </p>
               </a>
             </li>
           </ul>

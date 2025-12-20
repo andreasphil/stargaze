@@ -82,14 +82,19 @@ export const List = defineComponent({
     const { run: runLoad, isLoading, hasError } = useAsyncTask(load);
 
     onMounted(async () => {
-      notificationEl.value?.showPopover();
-      const [, error] = await runLoad();
-      if (!error) {
-        notificationEl.value?.hidePopover();
-      }
+      await runLoad();
     });
 
-    const notificationEl = useTemplateRef("notificationEl");
+    const fallbackState = computed(() => {
+      if (hasError.value) {
+        return "error";
+      } else if (!starredRepositories.value.length) {
+        if (isLoading.value) return "loading";
+        else return "empty";
+      } else {
+        return true;
+      }
+    });
 
     // Searching ----------------------------------------------
 
@@ -131,6 +136,7 @@ export const List = defineComponent({
 
     return {
       avatarUrl,
+      fallbackState,
       hasError,
       inputEl,
       isLoading,
@@ -177,20 +183,20 @@ export const List = defineComponent({
     </header>
 
     <!-- Stars list -->
-    <main has-fallback>
+    <main :has-fallback="fallbackState">
       <div>
         <template v-if="starredRepositories?.length">
           <div class="stars-header">
-            <small class="color-primary font-weight-medium">
+            <small
+              class="color-primary font-weight-medium"
+              :aria-busy="isLoading"
+            >
               {{ starredRepositories.length }} items
             </small>
-            <label
-              ><input
-                role="switch"
-                type="checkbox"
-                v-model="preferWebsite"
-              />Prefer website</label
-            >
+            <label>
+              <input role="switch" type="checkbox" v-model="preferWebsite" />
+              Prefer website
+            </label>
           </div>
 
           <ul class="stars">
@@ -214,22 +220,21 @@ export const List = defineComponent({
         </template>
       </div>
 
-      <!-- Empty state -->
       <div fallback-for="empty">
         <p>🫣</p>
         <p>Nothing to see here.</p>
       </div>
-    </main>
 
-    <div
-      :aria-busy="isLoading"
-      class="notification"
-      popover="manual"
-      ref="notificationEl"
-    >
-      <template v-if="!hasError">Fetching your stuff ...</template>
-      <template v-else>🚨 Couldn&rsquo;t fetch your stars!</template>
-    </div>`,
+      <div fallback-for="loading">
+        <div aria-busy="true"></div>
+        <p>Loading...</p>
+      </div>
+
+      <div fallback-for="error">
+        <p>😵</p>
+        <p>Failed to load your stars from GitHub.</p>
+      </div>
+    </main>`,
 });
 
 // App ----------------------------------------------------

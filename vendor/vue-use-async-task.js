@@ -19,7 +19,7 @@ import { computed, ref } from "vue";
  * @template {(...args: any[]) => Promise<any>} F
  * @template E
  * @param {F} fetcher
- * @param {Object} [shared]
+ * @param {object} [shared]
  * @param {Ref<boolean>} [shared.isLoading]
  * @param {Ref<E | undefined>} [shared.error]
  */

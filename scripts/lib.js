@@ -23,7 +23,7 @@ function isDev() {
 // Data fetching and storage ------------------------------
 
 /**
- * @typedef {Object} StarredRepository
+ * @typedef {object} StarredRepository
  * @prop {string} id
  * @prop {string} description
  * @prop {string} full_name
@@ -32,7 +32,7 @@ function isDev() {
  * @prop {string} name
  * @prop {string|undefined} homepage
  * @prop {string[]} topics
- * @prop {Object} owner
+ * @prop {object} owner
  * @prop {string} owner.avatar_url
  * @prop {string} owner.html_url
  */
@@ -45,7 +45,7 @@ export function createStargazeStorage() {
   watch(username, (value) =>
     value
       ? localStorage.setItem("username", value)
-      : localStorage.removeItem("username")
+      : localStorage.removeItem("username"),
   );
 
   const avatarUrl = computed(() => `https://github.com/${username.value}.png`);
@@ -65,7 +65,7 @@ export function createStargazeStorage() {
 
     if (isDev() && starredRepositories.value?.length > 0) {
       console.warn(
-        "During development we only fetch stars if no data exists locally in order to avoid getting rate limited by GitHub. Delete `starred` from localStorage and reload the page to fetch new data."
+        "During development we only fetch stars if no data exists locally in order to avoid getting rate limited by GitHub. Delete `starred` from localStorage and reload the page to fetch new data.",
       );
       return;
     }
@@ -77,7 +77,7 @@ export function createStargazeStorage() {
 
     while (!done) {
       const response = await fetch(
-        `https://api.github.com/users/${username.value}/starred?per_page=${pageSize}&page=${page}`
+        `https://api.github.com/users/${username.value}/starred?per_page=${pageSize}&page=${page}`,
       );
 
       if (!response.ok) throw new Error();
@@ -142,13 +142,13 @@ export function useFilteredStars(searchTerm) {
 
       searchFn.value = search;
     },
-    { immediate: true }
+    { immediate: true },
   );
 
   const results = computed(() =>
     searchTerm.value
       ? searchFn.value(searchTerm.value)
-      : starredRepositories.value
+      : starredRepositories.value,
   );
 
   return results;

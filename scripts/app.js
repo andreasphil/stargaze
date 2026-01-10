@@ -7,7 +7,6 @@ import {
   onMounted,
   onUnmounted,
   ref,
-  useTemplateRef,
   watch,
 } from "vue";
 
@@ -114,7 +113,7 @@ export const List = defineComponent({
     const starredRepositories = useFilteredStars(searchTerm);
 
     const firstResultLink = computed(
-      () => starredRepositories.value[0]?.html_url
+      () => starredRepositories.value[0]?.html_url,
     );
 
     function jumpToFirstResult(targetBlank) {
@@ -125,7 +124,7 @@ export const List = defineComponent({
     // Website links ------------------------------------------
 
     const preferWebsite = ref(
-      localStorage.getItem("prefer-website") === "true"
+      localStorage.getItem("prefer-website") === "true",
     );
 
     watch(preferWebsite, (is) => {
@@ -141,10 +140,10 @@ export const List = defineComponent({
       inputEl,
       isLoading,
       jumpToFirstResult,
+      preferWebsite,
       searchTerm,
       signOut,
       starredRepositories,
-      preferWebsite,
     };
   },
 

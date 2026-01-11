@@ -30,6 +30,6 @@ Deployment should work out of the box on GitHub Pages.
 
 ## Credits
 
-This app uses a number of open source packages found in [`vendor`](./vendor).
+This app uses a number of open source packages found in [`common`](./common).
 
 Thanks 🙏

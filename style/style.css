@@ -1,5 +1,5 @@
-@import url("../vendor/design-system.css") layer(theme);
-@import url("../vendor/design-system-utils.css");
+@import url("../common/design-system.css") layer(theme);
+@import url("../common/design-system-utils.css");
 
 :root {
   --tint: 280;

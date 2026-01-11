@@ -1,5 +1,5 @@
 import { html, useFilteredStars, useStargazeStorage } from "@/lib.js";
-import { useAsyncTask } from "@vendor/vue-use-async-task.js";
+import { useAsyncTask } from "@common/vue-use-async-task.js";
 import {
   computed,
   createApp,

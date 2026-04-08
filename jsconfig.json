@@ -11,14 +11,13 @@
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "outDir": "dist",
-    "skipLibCheck": true,
-    "strict": true,
-    "target": "esnext",
-
     "paths": {
       "@/*": ["./scripts/*"],
       "@common/*": ["./common/*"],
       "vue": ["./common/vue.esm-browser.prod.js"]
-    }
+    },
+    "skipLibCheck": true,
+    "strict": true,
+    "target": "esnext"
   }
 }

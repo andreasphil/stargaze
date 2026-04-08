@@ -11,8 +11,8 @@ import { computed, ref, watch } from "vue";
 const tag = (strings, ...values) => String.raw({ raw: strings }, ...values);
 
 /**
- * Helper for HTML template strings. The tag does nothing, but using it will
- * allow syntax highlighting and formatting if your editor supports it.
+ * Helper for HTML template strings. The tag does nothing, but using it will allow syntax
+ * highlighting and formatting if your editor supports it.
  */
 export const html = tag;
 
@@ -24,17 +24,17 @@ function isDev() {
 
 /**
  * @typedef {object} StarredRepository
- * @prop {string} id
- * @prop {string} description
- * @prop {string} full_name
- * @prop {string} html_url
- * @prop {string} language
- * @prop {string} name
- * @prop {string|undefined} homepage
- * @prop {string[]} topics
- * @prop {object} owner
- * @prop {string} owner.avatar_url
- * @prop {string} owner.html_url
+ * @property {string} id
+ * @property {string} description
+ * @property {string} full_name
+ * @property {string} html_url
+ * @property {string} language
+ * @property {string} name
+ * @property {string | undefined} homepage
+ * @property {string[]} topics
+ * @property {object} owner
+ * @property {string} owner.avatar_url
+ * @property {string} owner.html_url
  */
 
 export function createStargazeStorage() {
@@ -43,9 +43,7 @@ export function createStargazeStorage() {
   const username = ref("");
 
   watch(username, (value) =>
-    value
-      ? localStorage.setItem("username", value)
-      : localStorage.removeItem("username"),
+    value ? localStorage.setItem("username", value) : localStorage.removeItem("username"),
   );
 
   const avatarUrl = computed(() => `https://github.com/${username.value}.png`);
@@ -146,9 +144,7 @@ export function useFilteredStars(searchTerm) {
   );
 
   const results = computed(() =>
-    searchTerm.value
-      ? searchFn.value(searchTerm.value)
-      : starredRepositories.value,
+    searchTerm.value ? searchFn.value(searchTerm.value) : starredRepositories.value,
   );
 
   return results;

@@ -1,14 +1,6 @@
-import { html, useFilteredStars, useStargazeStorage } from "@/lib.js";
 import { useAsyncTask } from "@common/vue-use-async-task.js";
-import {
-  computed,
-  createApp,
-  defineComponent,
-  onMounted,
-  onUnmounted,
-  ref,
-  watch,
-} from "vue";
+import { computed, createApp, defineComponent, onMounted, onUnmounted, ref, watch } from "vue";
+import { html, useFilteredStars, useStargazeStorage } from "@/lib.js";
 
 // Home ---------------------------------------------------
 
@@ -33,16 +25,11 @@ export const Home = defineComponent({
         height="72"
       />
       <h1>Stargaze</h1>
-      <p>
-        A faster way of browsing and searching your starred repositories on
-        GitHub.
-      </p>
+      <p>A faster way of browsing and searching your starred repositories on GitHub.</p>
     </hgroup>
 
     <form class="username-form" @submit.prevent="browseStars()">
-      <label for="ghUsername" class="visually-hidden"
-        >Your GitHub username</label
-      >
+      <label for="ghUsername" class="visually-hidden">Your GitHub username</label>
       <input
         autofocus
         id="ghUsername"
@@ -50,17 +37,14 @@ export const Home = defineComponent({
         type="text"
         v-model="usernameModel"
       />
-      <button class="username-submit" variant="secondary" type="submit">
-        🐱 Browse stars
-      </button>
+      <button class="username-submit" variant="secondary" type="submit">🐱 Browse stars</button>
     </form>
 
     <div class="callout">
       <div class="calloutIcon">💡</div>
       <p class="callout-text">
-        This uses GitHub&rsquo;s public API and doesn&rsquo;t require you to
-        sign in. Because we rely on public information, Stargaze won&rsquo;t
-        work with private profiles.
+        This uses GitHub&rsquo;s public API and doesn&rsquo;t require you to sign in. Because we
+        rely on public information, Stargaze won&rsquo;t work with private profiles.
       </p>
     </div>
   </main>`,
@@ -72,11 +56,7 @@ export const List = defineComponent({
   setup() {
     // API data -----------------------------------------------
 
-    const {
-      avatarUrl,
-      fetchStarredRepositories: load,
-      signOut,
-    } = useStargazeStorage();
+    const { avatarUrl, fetchStarredRepositories: load, signOut } = useStargazeStorage();
 
     const { run: runLoad, isLoading, hasError } = useAsyncTask(load);
 
@@ -112,9 +92,7 @@ export const List = defineComponent({
 
     const starredRepositories = useFilteredStars(searchTerm);
 
-    const firstResultLink = computed(
-      () => starredRepositories.value[0]?.html_url,
-    );
+    const firstResultLink = computed(() => starredRepositories.value[0]?.html_url);
 
     function jumpToFirstResult(targetBlank) {
       if (!firstResultLink.value) return;
@@ -123,9 +101,7 @@ export const List = defineComponent({
 
     // Website links ------------------------------------------
 
-    const preferWebsite = ref(
-      localStorage.getItem("prefer-website") === "true",
-    );
+    const preferWebsite = ref(localStorage.getItem("prefer-website") === "true");
 
     watch(preferWebsite, (is) => {
       localStorage.setItem("prefer-website", is.toString());
@@ -169,12 +145,7 @@ export const List = defineComponent({
           v-model="searchTerm"
         />
 
-        <button
-          @click="signOut()"
-          class="sign-out-btn"
-          variant="muted"
-          type="button"
-        >
+        <button @click="signOut()" class="sign-out-btn" variant="muted" type="button">
           <img :src="avatarUrl" alt="" class="avatar" />
           Leave
         </button>
@@ -186,10 +157,7 @@ export const List = defineComponent({
       <div>
         <template v-if="starredRepositories?.length">
           <div class="stars-header">
-            <small
-              class="color-primary font-weight-medium"
-              :aria-busy="isLoading"
-            >
+            <small class="color-primary font-weight-medium" :aria-busy="isLoading">
               {{ starredRepositories.length }} items
             </small>
             <label>
@@ -210,9 +178,7 @@ export const List = defineComponent({
                   <img :src="s.owner.avatar_url" alt="" loading="lazy" />
                 </header>
                 <p class="clamp">@{{ s.full_name }}</p>
-                <p v-if="s.description" class="clamp" style="--clamp: 2;">
-                  {{ s.description }}
-                </p>
+                <p v-if="s.description" class="clamp" style="--clamp: 2;">{{ s.description }}</p>
               </a>
             </li>
           </ul>

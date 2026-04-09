@@ -5,8 +5,8 @@
     "checkJs": true,
     "erasableSyntaxOnly": true,
     "lib": ["esnext", "DOM"],
-    "module": "nodenext",
-    "moduleResolution": "nodenext",
+    "module": "esnext",
+    "moduleResolution": "bundler",
     "noEmit": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
@@ -19,5 +19,7 @@
     "skipLibCheck": true,
     "strict": true,
     "target": "esnext"
-  }
+  },
+  "exclude": ["**/*.config.js", "./dist/**/*"],
+  "include": ["**/*.js", "**/*.ts"]
 }

@@ -21,12 +21,8 @@ Stargaze is a [Vue 3](https://vuejs.org) app based on the [Unbuild](https://gith
 
 ```sh
 # --browse launches a browser, --reload reloads when files change
-npx servor --browse --reload
+pnpx servor --browse --reload
 ```
-
-## Deployment
-
-Deployment should work out of the box on GitHub Pages.
 
 ## Credits
 

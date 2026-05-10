@@ -177,9 +177,11 @@ export const List = defineComponent({
         <input
           @keydown.enter.stop="jumpToFirstResult($event.metaKey)"
           aria-label="Search"
+          autocorrect="off"
           class="search-input"
           placeholder="Search..."
           ref="inputEl"
+          spellcheck="false"
           type="search"
           v-model="searchTerm"
         />

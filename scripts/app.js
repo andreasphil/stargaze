@@ -1,6 +1,6 @@
-import { useAsyncTask } from "@common/vue-use-async-task.js";
 import { computed, createApp, defineComponent, onMounted, onUnmounted, ref, watch } from "vue";
-import { html, useFilteredStars, useStargazeStorage } from "@/lib.js";
+import { useAsyncTask } from "../common/vue-use-async-task.js";
+import { html, useFilteredStars, useStargazeStorage } from "./lib.js";
 
 // Home ---------------------------------------------------
 
@@ -20,7 +20,7 @@ export const Home = defineComponent({
     <hgroup class="text-center margin-y-body">
       <img
         class="rounded-squircle shadow-high"
-        src="./assets/icon-192.png"
+        src="./public/icon-192.png"
         width="72"
         height="72"
       />
@@ -166,7 +166,7 @@ export const List = defineComponent({
       <nav fixed class="header">
         <strong>
           <img
-            src="./assets/icon-192.png"
+            src="./public/icon-192.png"
             class="rounded-squircle shadow-high"
             width="36"
             height="36"

@@ -1,90 +1,92 @@
-@layer base, utils;
+@layer base, components, utils;
 
-@import url("../common/design-system.css") layer(base);
-@import url("../common/design-system-utils.css") layer(utils);
+@import "../common/design-system.css" layer(base);
+@import "../common/design-system-utils.css" layer(utils);
 
-:root {
-  --tint: 280;
-}
-
-/* Home page ------------------------------------------- */
-
-.username-form {
-  display: flex;
-  gap: 0.75rem;
-  margin: 1.5rem auto;
-  max-width: 26rem;
-}
-
-.username-submit {
-  flex: 0 0 auto;
-}
-
-.callout {
-  background: var(--c-surface-bg);
-  border-radius: var(--border-radius-large);
-  box-shadow: var(--shadow-elevation-low);
-  display: flex;
-  gap: 0.75rem;
-  margin: 1.5rem auto 0;
-  max-width: 26rem;
-  padding: 1rem 1.25rem;
-  text-align: left;
-}
-
-/* Header ---------------------------------------------- */
-
-.avatar {
-  background: var(--c-surface-variant-bg);
-  border-radius: 100%;
-  flex: none;
-  height: 1.5rem;
-  width: 1.5rem;
-}
-
-.search-input {
-  width: initial;
-  min-width: 6rem;
-}
-
-/* List of starred repositories ------------------------ */
-
-.stars-header {
-  display: flex;
-  gap: 1rem;
-  margin-bottom: 2rem;
-
-  label {
-    margin-left: auto;
-  }
-}
-
-.stars {
-  display: grid;
-  gap: 1.5rem;
-  grid-auto-rows: 1fr;
-  grid-template-columns: repeat(auto-fill, minmax(14rem, 1fr));
-  list-style-type: none;
-  margin: 0;
-  padding: 0;
-}
-
-:root:has(.stars) {
-  --body-width: 92rem;
-}
-
-.star {
-  height: 100%;
-  margin: 0;
-
-  .card {
-    height: 100%;
+@layer components {
+  :root {
+    --tint: 280;
   }
 
-  img {
+  /* Home page ------------------------------------------- */
+
+  .username-form {
+    display: flex;
+    gap: 0.75rem;
+    margin: 1.5rem auto;
+    max-width: 26rem;
+  }
+
+  .username-submit {
+    flex: 0 0 auto;
+  }
+
+  .callout {
+    background: var(--c-surface-bg);
+    border-radius: var(--border-radius-large);
+    box-shadow: var(--shadow-elevation-low);
+    display: flex;
+    gap: 0.75rem;
+    margin: 1.5rem auto 0;
+    max-width: 26rem;
+    padding: 1rem 1.25rem;
+    text-align: left;
+  }
+
+  /* Header ---------------------------------------------- */
+
+  .avatar {
     background: var(--c-surface-variant-bg);
     border-radius: 100%;
-    height: 3rem;
-    width: 3rem;
+    flex: none;
+    height: 1.5rem;
+    width: 1.5rem;
+  }
+
+  .search-input {
+    width: initial;
+    min-width: 6rem;
+  }
+
+  /* List of starred repositories ------------------------ */
+
+  .stars-header {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 2rem;
+
+    label {
+      margin-left: auto;
+    }
+  }
+
+  .stars {
+    display: grid;
+    gap: 1.5rem;
+    grid-auto-rows: 1fr;
+    grid-template-columns: repeat(auto-fill, minmax(14rem, 1fr));
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  :root:has(.stars) {
+    --body-width: 92rem;
+  }
+
+  .star {
+    height: 100%;
+    margin: 0;
+
+    .card {
+      height: 100%;
+    }
+
+    img {
+      background: var(--c-surface-variant-bg);
+      border-radius: 100%;
+      height: 3rem;
+      width: 3rem;
+    }
   }
 }

@@ -131,7 +131,11 @@ export const List = defineComponent({
 
     const starredRepositories = useFilteredStars(searchTerm);
 
-    const firstResultLink = computed(() => starredRepositories.value[0]?.html_url);
+    const firstResultLink = computed(() =>
+      preferWebsite.value && starredRepositories.value[0]?.homepage
+        ? starredRepositories.value[0].homepage
+        : starredRepositories.value[0].html_url,
+    );
 
     function jumpToFirstResult(targetBlank) {
       if (!firstResultLink.value) return;

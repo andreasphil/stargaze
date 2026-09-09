@@ -4,9 +4,6 @@
     "allowJs": true,
     "checkJs": true,
     "erasableSyntaxOnly": true,
-    "lib": ["esnext", "DOM"],
-    "module": "esnext",
-    "moduleResolution": "bundler",
     "noEmit": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
@@ -14,8 +11,8 @@
       "vue": ["./common/vue.esm-browser.prod.js"]
     },
     "skipLibCheck": true,
-    "strict": true,
-    "target": "esnext"
+    "target": "esnext",
+    "verbatimModuleSyntax": true
   },
   "exclude": ["**/*.config.js", "./dist/**/*"],
   "include": ["**/*.js", "**/*.ts"]

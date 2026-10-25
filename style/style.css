@@ -44,8 +44,15 @@
   }
 
   .search-input {
-    width: initial;
+    background-color: var(--c-glass-bg);
+    border-radius: 999px;
+    box-shadow: var(--shadow-glass-specular);
     min-width: 6rem;
+    width: initial;
+
+    &:not(:hover) {
+      border-color: var(--c-border-glass);
+    }
   }
 
   /* List of starred repositories ------------------------ */

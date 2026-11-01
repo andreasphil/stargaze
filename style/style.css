@@ -44,7 +44,7 @@
   }
 
   .search-input {
-    background-color: var(--c-glass-bg);
+    background-color: transparent;
     border-radius: 999px;
     box-shadow: var(--shadow-glass-specular);
     min-width: 6rem;
